@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS exerciseinstances;
 -- Users table (representing Django's auth_user)
 CREATE TABLE IF NOT EXISTS users (
     userid SERIAL PRIMARY KEY,
-    password VARCHAR(128) NOT NULL,
+    hashed_password VARCHAR(300) NOT NULL,
     username VARCHAR(150) UNIQUE NOT NULL,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
@@ -42,11 +42,12 @@ CREATE TABLE IF NOT EXISTS exerciseinstances (
 );
 
 -- Add some users
-INSERT INTO users (username, password, first_name, last_name, email, height, weight)
+INSERT INTO users (username, hashed_password, first_name, last_name, email, height, weight)
 VALUES
-  ('john123', 'password123', 'John', 'Doe', 'john@example.com', 180, 80),
-  ('jane456', 'password456', 'Jane', 'Doe', 'jane@example.com', 165, 60),
-  ('bob789', 'password789', 'Bob', 'Smith', 'bob@example.com', 175, 75);
+  ('john123', 'new_password123', 'John', 'Doe', 'john@example.com', 180, 80),
+  ('jane456', 'new_password456', 'Jane', 'Doe', 'jane@example.com', 165, 60),
+  ('bob789', 'new_password789', 'Bob', 'Smith', 'bob@example.com', 175, 75);
+
 
 -- Add some workouts
 INSERT INTO workouts (userid, name)
