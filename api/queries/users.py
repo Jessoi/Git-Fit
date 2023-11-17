@@ -19,19 +19,16 @@ class UserOutWithPassword(UserOut):
     hashed_password: str
 
 class UserQueries:
-    def get(
-          self, user_email: str
-    ) -> UserOutWithPassword:
-        print("here in get): " +user_email)
+    def get_user(self, user_id: int) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                      SELECT *
                      FROM users
-                     WHERE email = %s;
+                     WHERE userid = %s;
                     """,
-                    [user_email],
+                    [user_id],
                 )
                 try:
                     record = None
@@ -43,7 +40,7 @@ class UserQueries:
                 except Exception:
                     print("exception")
                     return {
-                        "message": "Could not get user record for this user email"
+                        "message": "Could not get user record for this user_id"
                     }
 
     # Insert: INSERT INTO users (password, username, first_name, last_name, email, date_joined) VALUES (:password, :username, :email, NOW()) RETURNING id;
