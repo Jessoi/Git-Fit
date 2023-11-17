@@ -20,18 +20,18 @@ class UserOutWithPassword(UserOut):
 
 class UserQueries:
     def get(
-          self, user_email: str
+          self, username: str
     ) -> UserOutWithPassword:
-        print("here in get): " +user_email)
+        print("here in get): " +username)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                      SELECT *
                      FROM users
-                     WHERE email = %s;
+                     WHERE username = %s;
                     """,
-                    [user_email],
+                    [username],
                 )
                 try:
                     record = None
