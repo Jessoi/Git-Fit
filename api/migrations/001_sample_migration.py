@@ -2,7 +2,7 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE dummy(
+        CREATE TABLE dummy (
             id SERIAL PRIMARY KEY NOT NULL,
             required_limited_text VARCHAR(1000) NOT NULL,
             required_unlimited_text TEXT NOT NULL,
@@ -34,5 +34,5 @@ steps = [
         """
         DROP TABLE big_dummy;
         """
-    ],
+    ]
 ]
