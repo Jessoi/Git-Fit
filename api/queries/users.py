@@ -5,18 +5,27 @@ from queries.pool import pool
 class DuplicateUserError(ValueError):
     pass
 
+
 class UserIn(BaseModel):
     email: str
     username: str
     password: str
+
 
 class UserOut(BaseModel):
     userid: int
     username: str
     email: str
 
+
 class UserOutWithPassword(UserOut):
     hashed_password: str
+
+
+class ChangePassword(BaseModel):
+    current_password: str
+    new_password: str
+    confirm_password: str
 
 class UserQueries:
     def get(
@@ -72,7 +81,7 @@ class UserQueries:
                     }
 
     # Insert: INSERT INTO users (password, username, first_name, last_name, email, date_joined) VALUES (:password, :username, :email, NOW()) RETURNING id;
-    def create_user(self, data, hashed_password) ->UserOutWithPassword:
+    def create_user(self, data, hashed_password) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
@@ -99,3 +108,21 @@ class UserQueries:
                         record[column.name] = row[i]
                 print(record)
                 return UserOutWithPassword(**record)
+
+    # def change_password(
+    #     hashed_password,
+    #     current_user: UserIn
+    # ):
+    #     with conn.cursor() as cur:
+    #             params = [
+    #                 hashed_password,
+    #                 UserIn.username,
+    #             ]
+    #             cur.execute(
+    #                 """
+    #                 UPDATE users
+    #                 SET hashed_password = %s
+    #                 WHERE username = %s;
+    #                 """,
+    #                 params,
+    #             )
