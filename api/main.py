@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import workouts
 import os
+from routers import exercises
 
 app = FastAPI()
 app.include_router(workouts.router)
@@ -26,3 +27,5 @@ def launch_details():
             "min": "00",
         }
     }
+
+app.include_router(exercises.router, tags=["Exercises"])
