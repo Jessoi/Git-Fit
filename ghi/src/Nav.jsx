@@ -28,6 +28,9 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/trainee/createworkout">Create Workout</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" aria-current="page" to="/trainee/userworkouts">User Workouts</NavLink>
+            </li>
           </ul>
         </div>
       </div>

@@ -6,6 +6,7 @@ import TraineeForm from './Profiles/TraineeForm'
 import LoginForm from './Profiles/LoginForm'
 import ProfileView from './Profiles/TraineeProfile'
 import CreateWorkout from './Workouts/CreateWorkout'
+import UserWorkouts from './Workouts/WorkoutList'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="signup" element={<TraineeForm/>} />
               <Route path="login" element={<LoginForm/>} />
               <Route path="createworkout" element={<CreateWorkout/>} />
+              <Route path="userworkouts" element={<UserWorkouts/>} />
             </Route>
           </Routes>
         </div>
