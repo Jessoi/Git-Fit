@@ -62,7 +62,6 @@ class WorkoutRepository:
                     "userid": workout_response[1],
                     "name": workout_response[2],
                 }
-                print("workout data", workout_data)
                 return WorkoutOut(**workout_data)
 
     def update_workout(self, workoutid: int, workout: WorkoutIn):
@@ -75,8 +74,8 @@ class WorkoutRepository:
                     WHERE workoutid = %s
                     """,
                     [workout.name, workoutid],
-                    #!!! requires userid in request body
-                    #!!! meaning can change userid in request body: bad
+                    #!!! userid in request body, doesn't change upon put request
+                    # investigate if SERIAL is reason.
                 )
                 old_data = workout.dict()
                 return WorkoutOut(workoutid=workoutid, **old_data)

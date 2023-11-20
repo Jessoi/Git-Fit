@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
-    -- FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE,
     name VARCHAR(50)
 );
 

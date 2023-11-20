@@ -41,7 +41,7 @@ def delete_workout(
     return repo.delete_workout(workoutid)
 
 
-@router.get("/{userid}/workouts/{workoutid}")
+@router.get("/{userid}/workouts/{workoutid}", response_model=WorkoutOut)
 async def get_one_workout(
     workoutid: int,
     repo: WorkoutRepository = Depends(),
