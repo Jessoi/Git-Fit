@@ -1,31 +1,13 @@
 from pydantic import BaseModel
 from queries.pool import pool
-
-
-class DuplicateUserError(ValueError):
-    pass
-
-
-class UserIn(BaseModel):
-    email: str
-    username: str
-    password: str
-
-
-class UserOut(BaseModel):
-    userid: int
-    username: str
-    email: str
-
-
-class UserOutWithPassword(UserOut):
-    hashed_password: str
-
-
-class ChangePassword(BaseModel):
-    current_password: str
-    new_password: str
-    confirm_password: str
+from queries.schema import (
+    DuplicateUserError,
+    UserIn,
+    UserOut,
+    UserOutWithPassword,
+    ChangePassword,
+    EditProfile,
+)
 
 class UserQueries:
     def get(
@@ -127,3 +109,28 @@ class UserQueries:
                     """,
                     params,
                 )
+
+    def edit_profile(
+        self, username: str, edit_profile
+    ):
+        print("here in get): " +username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    edit_profile.first_name,
+                    edit_profile.last_name,
+                    edit_profile.height,
+                    edit_profile.weight,
+                    username,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET first_name = %s,
+                        last_name = %s,
+                        height = %s,
+                        weight = %s
+                    WHERE username = %s;
+                    """,
+                params,
+            )
