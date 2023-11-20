@@ -30,6 +30,16 @@ class ExerciseQueries:
                 except Exception as e:
                     return {"message": f"Could not find exercises: {str(e)}"}
 
+    def search_exercises(self) -> list[ExerciseOut]:
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                try:
+                    cur.execute("SELECT * FROM exercises;")
+                    records = cur.fetchall()
+                    return [{column.name: row[i] for i, column in enumerate(cur.description)} for row in records]
+                except Exception as e:
+                    return {"message": f"Could not find exercises: {str(e)}"}
+
 
     def create_exercise(self, exercise_in: ExerciseIn) -> ExerciseOut:
             with pool.connection() as conn:
