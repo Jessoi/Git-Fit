@@ -109,20 +109,21 @@ class UserQueries:
                 print(record)
                 return UserOutWithPassword(**record)
 
-    # def change_password(
-    #     hashed_password,
-    #     current_user: UserIn
-    # ):
-    #     with conn.cursor() as cur:
-    #             params = [
-    #                 hashed_password,
-    #                 UserIn.username,
-    #             ]
-    #             cur.execute(
-    #                 """
-    #                 UPDATE users
-    #                 SET hashed_password = %s
-    #                 WHERE username = %s;
-    #                 """,
-    #                 params,
-    #             )
+    def change_password(
+          self, new_hashed_password, username: str
+    ):
+        print("here in get): " +username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    new_hashed_password,
+                    username,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET hashed_password = %s
+                    WHERE username = %s;
+                    """,
+                    params,
+                )
