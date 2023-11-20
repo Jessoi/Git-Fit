@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS exercises;
-DROP TABLE IF EXISTS exerciseinstances;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS workouts CASCADE;
+DROP TABLE IF EXISTS exercises CASCADE;
+DROP TABLE IF EXISTS exerciseinstances CASCADE;
 
 -- Users table (representing Django's auth_user)
 CREATE TABLE IF NOT EXISTS users (
