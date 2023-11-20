@@ -20,17 +20,11 @@ async def get_exercises(queries: ExerciseQueries = Depends()):
 async def fetch_third_party_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
     try:
         queries.fetch_third_party_data(muscle, difficulty)
-
-        #if queries.search_exercises(muscle, difficulty)
-            #call 3rd-party api call
-
         return queries.fetch_third_party_data(muscle, difficulty)
     except HTTPException as e:
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
-
-
 
 @router.post("/api/exercises", response_model=ExerciseOut, status_code=status.HTTP_201_CREATED)
 async def create_exercise(exercise_in: ExerciseIn, queries: ExerciseQueries = Depends()):

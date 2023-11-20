@@ -11,7 +11,6 @@ class ExerciseIn(BaseModel):
     difficulty: str
     instructions: str
 
-
 class ExerciseOut(BaseModel):
     exerciseid: int
     name: str
@@ -102,7 +101,7 @@ class ExerciseQueries:
 
     def fetch_third_party_data(self, muscle, difficulty):
         querystring = {"muscle": muscle, "difficulty": difficulty}
-        url = "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises"
+        url = f'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises'
         headers = {
             "X-RapidAPI-Key": "d55b820e74mshf74439b3486d11fp134afejsnd779a8292bcb",
             "X-RapidAPI-Host": "exercises-by-api-ninjas.p.rapidapi.com"
