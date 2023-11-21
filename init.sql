@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS exercises;
-DROP TABLE IF EXISTS exerciseinstances;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS workouts CASCADE;
+DROP TABLE IF EXISTS exercises CASCADE;
+DROP TABLE IF EXISTS exerciseinstances CASCADE;
 
 -- Users table (representing Django's auth_user)
 CREATE TABLE IF NOT EXISTS users (
@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
-    userid INT,
-    FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE,
+    userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
     name VARCHAR(50)
 );
 
@@ -63,7 +62,8 @@ VALUES
   ('Squats', 'Legs', 'Beginner', 'Stand with feet shoulder-width apart. Send hips back and bend knees to lower into a squat. Return to starting position.'),
   ('Bicep Curls', 'Arms', 'Beginner', 'Hold dumbbells with palms facing forward. Bend elbows and curl weights up towards shoulders. Lower back down.'),
   ('Downward Dog', 'Full body', 'Beginner', 'From tabletop position, tuck toes under and lift knees off floor. Push hips up and back, straightening legs to inverted V position.'),
-  ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
+  ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.'),
+  ('test', 'test', 'test', 'From test, test down and test hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
 
 -- Add some exercise instances
 INSERT INTO exerciseinstances (workoutid, exerciseid, weight, sets, reps)

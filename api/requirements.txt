@@ -4,3 +4,4 @@ psycopg[binary,pool]==3.0.14
 pytest==7.1.2
 jwtdown-fastapi==0.3.0
 pydantic==1.10.2
+requests
