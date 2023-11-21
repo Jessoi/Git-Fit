@@ -8,8 +8,10 @@ volumes:
 services:
   fastapi:
     environment:
+      WAIT_HOSTS: postgres:5432
       CORS_HOST: http://localhost:5173
       DATABASE_URL: postgresql://gitfit:secret@postgres/gitfitdb
+      SIGNING_KEY: ${SIGNING_KEY}
     build:
       context: api
       dockerfile: Dockerfile.dev
