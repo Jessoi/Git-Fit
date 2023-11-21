@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import workouts
 import os
 from authenticator import authenticator
-from routers import account
+
 from routers import users
 from routers import exercises
 
@@ -18,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(account.router, tags=["Accounts"])
+
 app.include_router(users.router, tags=["AUTH"])
 app.include_router(authenticator.router, tags=["AUTH"])
 
