@@ -21,6 +21,8 @@ function App() {
               <Route path="" element={<ProfileView/>} />
               <Route path="signup" element={<TraineeForm/>} />
               <Route path="login" element={<LoginForm/>} />
+              </Route>
+            <Route path="users">
               <Route path="createworkout" element={<CreateWorkout/>} />
               <Route path="userworkouts" element={<UserWorkouts/>} />
             </Route>
