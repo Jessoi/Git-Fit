@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 function CreateWorkout() {
+    const [userid, setUserid] = useState(4)
+    const [workouts, setWorkouts] = useState([])
     const [formData, setFormData] = useState({
         name: '',
         userid: userid
@@ -8,7 +10,7 @@ function CreateWorkout() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const url = `http://localhost:8000/${userid}/workouts`;
+        const url = `http://localhost:8000/workouts`;
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(formData),
@@ -25,8 +27,21 @@ function CreateWorkout() {
                 userid: userid,
             });
             event.target.reset()
+            getlistworkout()
         }
     }
+    const getlistworkout = async () => {
+        const response = await fetch(`http://localhost:8000/workouts/${userid}`)
+        if (response.ok){
+            const data= await response.json()
+            setWorkouts(data.workouts)
+        console.log(data)
+        }
+    }
+
+        useEffect(() => {
+            getlistworkout();
+        }, []);
 
         const handleFormChange = (e) => {
             const value = e.target.value;
@@ -45,6 +60,24 @@ function CreateWorkout() {
                 <input onChange={handleFormChange} value={formData.name} placeholder='Workout name' required type="text" id='name' name='name' />
             <button>Create workout</button>
             </form>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workouts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {workouts ? (workouts.map(workout =>{
+                        return(
+                            <tr key={workout.name}>
+                                <td>{workout.name}</td>
+                            </tr>
+                        )
+                    }))
+                :
+                (<tr><td>No Workouts</td></tr>)}
+                </tbody>
+            </table>
         </div>
     );
 }

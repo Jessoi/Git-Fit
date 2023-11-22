@@ -10,7 +10,7 @@ from queries.workouts import (
 router = APIRouter()
 
 
-@router.get("/{userid}/workouts", response_model=ListWorkoutOut)
+@router.get("/workouts/{userid}", response_model=ListWorkoutOut)
 async def get_all_workouts(
     userid: int,
     repo: WorkoutRepository = Depends(),
@@ -18,13 +18,13 @@ async def get_all_workouts(
     return repo.list_user_workouts(userid)
 
 
-@router.post("/{userid}/workouts", response_model=WorkoutOut)
+@router.post("/workouts", response_model=WorkoutOut)
 def create_workout(workout: WorkoutIn, repo: WorkoutRepository = Depends()):
     result = repo.create_workout(workout)
     return result
 
 
-@router.put("/{userid}/workouts/{workoutid}", response_model=WorkoutOut)
+@router.put("/workouts/{workoutid}", response_model=WorkoutOut)
 async def update_workout(
     workoutid: int,
     workout: WorkoutIn,
@@ -33,7 +33,7 @@ async def update_workout(
     return repo.update_workout(workoutid, workout)
 
 
-@router.delete("/{userid}/workouts/{workoutid}", response_model=bool)
+@router.delete("/workouts/{workoutid}", response_model=bool)
 def delete_workout(
     workoutid: int,
     repo: WorkoutRepository = Depends(),
@@ -41,7 +41,7 @@ def delete_workout(
     return repo.delete_workout(workoutid)
 
 
-@router.get("/{userid}/workouts/{workoutid}", response_model=WorkoutOut)
+@router.get("/workouts/{workoutid}", response_model=WorkoutOut)
 async def get_one_workout(
     workoutid: int,
     repo: WorkoutRepository = Depends(),

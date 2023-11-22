@@ -26,10 +26,10 @@ function Nav() {
               <NavLink className="nav-link" aria-current="page" to="/trainee">Profile</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/{userid}/workouts">Create Workout</NavLink>
+              <NavLink className="nav-link" aria-current="page" to="/users/createworkout">Create Workout</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/userworkouts">User Workouts</NavLink>
+              <NavLink className="nav-link" aria-current="page" to="/users/workouts">User Workouts</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/trainee/editworkout">Edit Workouts</NavLink>
