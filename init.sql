@@ -1,12 +1,12 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS exercises;
-DROP TABLE IF EXISTS exerciseinstances;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS workouts CASCADE;
+DROP TABLE IF EXISTS exercises CASCADE;
+DROP TABLE IF EXISTS exerciseinstances CASCADE;
 
 -- Users table (representing Django's auth_user)
 CREATE TABLE IF NOT EXISTS users (
     userid SERIAL PRIMARY KEY,
-    password VARCHAR(128) NOT NULL,
+    hashed_password VARCHAR(300) NOT NULL,
     username VARCHAR(150) UNIQUE NOT NULL,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
-    userid INT,
-    FOREIGN KEY (userid) REFERENCES Users(userid) ON DELETE CASCADE,
+    userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
     name VARCHAR(50)
 );
 
@@ -42,11 +41,12 @@ CREATE TABLE IF NOT EXISTS exerciseinstances (
 );
 
 -- Add some users
-INSERT INTO users (username, password, first_name, last_name, email, height, weight)
+INSERT INTO users (username, hashed_password, first_name, last_name, email, height, weight)
 VALUES
-  ('john123', 'password123', 'John', 'Doe', 'john@example.com', 180, 80),
-  ('jane456', 'password456', 'Jane', 'Doe', 'jane@example.com', 165, 60),
-  ('bob789', 'password789', 'Bob', 'Smith', 'bob@example.com', 175, 75);
+  ('john123', 'new_password123', 'John', 'Doe', 'john@example.com', 180, 80),
+  ('jane456', 'new_password456', 'Jane', 'Doe', 'jane@example.com', 165, 60),
+  ('bob789', 'new_password789', 'Bob', 'Smith', 'bob@example.com', 175, 75);
+
 
 -- Add some workouts
 INSERT INTO workouts (userid, name)
@@ -62,7 +62,8 @@ VALUES
   ('Squats', 'Legs', 'Beginner', 'Stand with feet shoulder-width apart. Send hips back and bend knees to lower into a squat. Return to starting position.'),
   ('Bicep Curls', 'Arms', 'Beginner', 'Hold dumbbells with palms facing forward. Bend elbows and curl weights up towards shoulders. Lower back down.'),
   ('Downward Dog', 'Full body', 'Beginner', 'From tabletop position, tuck toes under and lift knees off floor. Push hips up and back, straightening legs to inverted V position.'),
-  ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
+  ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.'),
+  ('test', 'test', 'test', 'From test, test down and test hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
 
 -- Add some exercise instances
 INSERT INTO exerciseinstances (workoutid, exerciseid, weight, sets, reps)
