@@ -18,7 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(users.router, tags=["AUTH"])
 app.include_router(authenticator.router, tags=["AUTH"])
 

@@ -1,22 +1,13 @@
 from pydantic import BaseModel
 from queries.pool import pool
-
-
-class DuplicateUserError(ValueError):
-    pass
-
-class UserIn(BaseModel):
-    email: str
-    username: str
-    password: str
-
-class UserOut(BaseModel):
-    userid: int
-    username: str
-    email: str
-
-class UserOutWithPassword(UserOut):
-    hashed_password: str
+from queries.schema import (
+    DuplicateUserError,
+    UserIn,
+    UserOut,
+    UserOutWithPassword,
+    ChangePassword,
+    EditProfile,
+)
 
 class UserQueries:
     def get(
@@ -72,7 +63,7 @@ class UserQueries:
                     }
 
     # Insert: INSERT INTO users (password, username, first_name, last_name, email, date_joined) VALUES (:password, :username, :email, NOW()) RETURNING id;
-    def create_user(self, data, hashed_password) ->UserOutWithPassword:
+    def create_user(self, data, hashed_password) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
@@ -99,3 +90,47 @@ class UserQueries:
                         record[column.name] = row[i]
                 print(record)
                 return UserOutWithPassword(**record)
+
+    def change_password(
+          self, new_hashed_password, username: str
+    ):
+        print("here in get): " +username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    new_hashed_password,
+                    username,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET hashed_password = %s
+                    WHERE username = %s;
+                    """,
+                    params,
+                )
+
+    def edit_profile(
+        self, username: str, edit_profile
+    ):
+        print("here in get): " +username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    edit_profile.first_name,
+                    edit_profile.last_name,
+                    edit_profile.height,
+                    edit_profile.weight,
+                    username,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET first_name = %s,
+                        last_name = %s,
+                        height = %s,
+                        weight = %s
+                    WHERE username = %s;
+                    """,
+                params,
+            )
