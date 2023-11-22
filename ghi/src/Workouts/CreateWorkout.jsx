@@ -3,12 +3,12 @@ import React, {useState, useEffect} from 'react';
 function CreateWorkout() {
     const [formData, setFormData] = useState({
         name: '',
-        userid: {userid}
+        userid: userid
     })
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const url = `http://localhost:5173/${userid}/workouts`;
+        const url = `http://localhost:8000/${userid}/workouts`;
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(formData),
@@ -22,7 +22,7 @@ function CreateWorkout() {
         if (response.ok) {
             setFormData({
                 name: '',
-                userid:{userid},
+                userid: userid,
             });
             event.target.reset()
         }
