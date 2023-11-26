@@ -1,38 +1,76 @@
 import { NavLink } from 'react-router-dom';
 
+// function Nav() {
+//   return (
+//     <nav className="navbar navbar-expand-lg bg-body-tertiary">
+//       <div className="container-fluid">
+//         <a className="navbar-brand" href="#">
+//           <img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/000/841/041/datas/gallery.jpg" width="30" height="24" />
+//         </a>
+//         <NavLink className="navbar-brand" to="/">Git Fit</NavLink>
+//         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+//           <span className="navbar-toggler-icon"></span>
+//         </button>
+//         <div className="collapse navbar-collapse" id="navbarNav">
+//           <ul className="navbar-nav" style={{ flexWrap: "wrap" }}>
+//             <li className="nav-item">
+//               <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee/signup">Sign Up</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee/login">Log In</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee">Profile</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee/createworkout">Create Workout</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee/userworkouts">User Workouts</NavLink>
+//             </li>
+//             <li className="nav-item">
+//               <NavLink className="nav-link" aria-current="page" to="/trainee/editworkout">Edit Workouts</NavLink>
+//             </li>
+//           </ul>
+//         </div>
+//       </div>
+//     </nav>
+//   )
+// }
+
+// export default Nav;
+
+
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">
-          <img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/000/841/041/datas/gallery.jpg" width="30" height="24" />
-        </a>
-        <NavLink className="navbar-brand" to="/">Git Fit</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav" style={{ flexWrap: "wrap" }}>
-            <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
+    <nav>
+      <div className="nav">
+        <NavLink className="site-title" to="/">Git Fit</NavLink>
+        <div className="nav">
+          <ul className="navul" style={{ flexWrap: "wrap" }}>
+            <li className="nava">
+              <NavLink className="nava" to="/">Home</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/signup">Sign Up</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/signup">Sign Up</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/login">Log In</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/login">Log In</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee">Profile</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee">Profile</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/createworkout">Create Workout</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/createworkout">Create Workout</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/userworkouts">User Workouts</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/userworkouts">User Workouts</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/editworkout">Edit Workouts</NavLink>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/editworkout">Edit Workouts</NavLink>
             </li>
           </ul>
         </div>

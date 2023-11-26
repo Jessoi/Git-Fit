@@ -17,18 +17,22 @@ body {
 }
 
 .site-title {
+    color: #E21818;
     font-size: 2rem;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.nav ul {
+.navul {
     padding: 0;
     margin: 0;
     display: flex;
     gap: 1rem;
+    text-decoration: none;
 }
 
-.nav a {
-    color: inherit;
+.nava {
+    color: #E21818;
     text-decoration: none;
     height: 100%;
     display: flex;
@@ -36,10 +40,11 @@ body {
     padding: .25rem;
 }
 
-.nav li.active {
-    background-color: #e718;
+.navul .nava:hover {
+    text-decoration: none;
+    color: #FFDD83;
 }
 
-.nav li.hover {
-    background-color: #e218;
+.navul .nava {
+    transition: color 0.3s ease;
 }
