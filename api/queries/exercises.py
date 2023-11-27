@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
 import requests
+import os
 
 class Error(BaseModel):
     message: str
@@ -103,7 +104,7 @@ class ExerciseQueries:
         querystring = {"muscle": muscle, "difficulty": difficulty}
         url = f'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises'
         headers = {
-            "X-RapidAPI-Key": "d55b820e74mshf74439b3486d11fp134afejsnd779a8292bcb",
+            "X-RapidAPI-Key": os.getenv('NINJA_API_KEY'),
             "X-RapidAPI-Host": "exercises-by-api-ninjas.p.rapidapi.com"
         }
         try:
