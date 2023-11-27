@@ -10,16 +10,17 @@ body {
     background-color: #00234B;
     color: #E21818;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     gap: 2rem;
-    padding: 0 1rem;
+    padding: 0;
+    margin-left: 0;
 }
 
 .site-title {
     color: #E21818;
     font-size: 2rem;
     font-weight: bold;
+    padding: 1rem;
     text-decoration: none;
 }
 
@@ -37,7 +38,7 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    padding: .25rem;
+    padding: .50rem;
 }
 
 .navul .nava:hover {
