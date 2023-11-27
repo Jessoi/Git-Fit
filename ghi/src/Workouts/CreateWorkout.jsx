@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 function CreateWorkout() {
-    const [userid, setUserid] = useState(4)
+    const [userid, setUserid] = useState(1)
     const [workouts, setWorkouts] = useState([])
     const [formData, setFormData] = useState({
         name: '',
@@ -35,7 +35,6 @@ function CreateWorkout() {
         if (response.ok){
             const data= await response.json()
             setWorkouts(data.workouts)
-        console.log(data)
         }
     }
 

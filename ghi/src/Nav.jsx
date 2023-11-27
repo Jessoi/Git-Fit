@@ -32,7 +32,7 @@ function Nav() {
               <NavLink className="nav-link" aria-current="page" to="/users/workouts">User Workouts</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/trainee/editworkout">Edit Workouts</NavLink>
+              <NavLink className="nav-link" aria-current="page" to="/users/editworkout">Edit Workouts</NavLink>
             </li>
           </ul>
         </div>

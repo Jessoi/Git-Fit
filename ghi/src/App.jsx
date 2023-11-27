@@ -25,7 +25,7 @@ function App() {
               </Route>
             <Route path="users">
               <Route path="createworkout" element={<CreateWorkout/>} />
-              <Route path="userworkouts" element={<UserWorkouts/>} />
+              <Route path="workouts" element={<UserWorkouts/>} />
               <Route path="editworkout" element={<EditWorkout/>} />
             </Route>
           </Routes>
