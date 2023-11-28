@@ -10,11 +10,6 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const clearState = () => {
-    setUsername("");
-    setPassword("");
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 

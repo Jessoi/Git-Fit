@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './HomePage'
 import Nav from './Nav'
-import TraineeForm from './Profiles/TraineeForm'
+import SignupForm from './Profiles/SignupForm'
 import LoginForm from './Profiles/LoginForm'
 import ProfileView from './Profiles/TraineeProfile'
 import CreateWorkout from './Workouts/CreateWorkout'
@@ -20,7 +20,7 @@ function App() {
 
             <Route path="trainee">
               <Route path="" element={<ProfileView/>} />
-              <Route path="signup" element={<TraineeForm/>} />
+              <Route path="signup" element={<SignupForm/>} />
               <Route path="login" element={<LoginForm/>} />
               <Route path="trainee" element={<ProfileView/>} />
               <Route path="createworkout" element={<CreateWorkout/>} />
