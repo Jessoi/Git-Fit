@@ -22,7 +22,6 @@ function UserWorkouts() {
                 'Content-Type': 'application/json',
             },
         };
-        console.log("fetchconfig", fetchConfig)
 
                 const response = await fetch(url, fetchConfig);
         if (response.ok) {
