@@ -1,18 +1,21 @@
 import React, {useState, useEffect} from 'react';
 
-function CreateWorkout() {
+function EditWorkout() {
     const [userid, setUserid] = useState(1)
     const [workouts, setWorkouts] = useState([])
     const [formData, setFormData] = useState({
+        userid: userid,
         name: '',
-        userid: userid
+        intensity: '',
+        favorite: false
     })
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const url = `http://localhost:8000/workouts`;
+        const url = `http://localhost:8000/workouts/${workoutid}`;
         const fetchConfig = {
-            method: "post",
+            method: "put",
             body: JSON.stringify(formData),
             headers: {
                 'Content-Type': 'application/json',
@@ -23,23 +26,17 @@ function CreateWorkout() {
 
         if (response.ok) {
             setFormData({
-                name: '',
-                userid: userid,
+            userid: userid,
+            name: '',
+            intensity: '',
+            favorite: ''
             });
             event.target.reset()
-            getlistworkout()
-        }
-    }
-    const getlistworkout = async () => {
-        const response = await fetch(`http://localhost:8000/workouts/${userid}`)
-        if (response.ok){
-            const data= await response.json()
-            setWorkouts(data.workouts)
         }
     }
 
         useEffect(() => {
-            getlistworkout();
+            handleSubmit();
         }, []);
 
         const handleFormChange = (e) => {
@@ -54,31 +51,15 @@ function CreateWorkout() {
 
     return (
         <div>
-            <h1>Create Workout</h1>
+            <h1>Update Workout</h1>
+            <h3>Update Name & Intensity</h3>
             <form onSubmit={handleSubmit} id="create-workout-form">
                 <input onChange={handleFormChange} value={formData.name} placeholder='Workout name' required type="text" id='name' name='name' />
-            <button>Create workout</button>
+                <input onChange={handleFormChange} value={formData.intensity} placeholder='Intensity' required type="text" id='intensity' name='intensity' />
+            <button>Update fields</button>
+            <p>down here you will need to put a list of workouts that can be selected to edit the exercises</p>
             </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Workouts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {workouts ? (workouts.map(workout =>{
-                        return(
-                            <tr key={workout.name}>
-                                <td>{workout.name}</td>
-                            </tr>
-                        )
-                    }))
-                :
-                (<tr><td>No Workouts</td></tr>)}
-                </tbody>
-            </table>
         </div>
     );
 }
-
-export default CreateWorkout;
+export default EditWorkout;

@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
-    name VARCHAR(50)
+    name VARCHAR(50),
+    intensity VARCHAR(50),
+    favorite BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS exercises (
@@ -49,12 +51,12 @@ VALUES
 
 
 -- Add some workouts
-INSERT INTO workouts (userid, name)
+INSERT INTO workouts (userid, name, intensity, favorite)
 VALUES
-  (1, 'Leg Day'),
-  (1, 'Arm Day'),
-  (2, 'Yoga Flow'),
-  (3, 'Full Body');
+  (1, 'Leg Day', 'easy', FALSE),
+  (1, 'Arm Day', 'medium', FALSE),
+  (2, 'Yoga Flow', 'easy', FALSE),
+  (3, 'Full Body', 'hard', FALSE);
 
 -- Add some exercises
 INSERT INTO exercises (name, muscle, difficulty, instructions)

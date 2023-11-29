@@ -5,9 +5,9 @@ import Nav from './Nav'
 import TraineeForm from './Profiles/TraineeForm'
 import LoginForm from './Profiles/LoginForm'
 import ProfileView from './Profiles/TraineeProfile'
-import CreateWorkout from './Workouts/CreateWorkout'
-import UserWorkouts from './Workouts/WorkoutList'
-import EditWorkout from './Workouts/EditWorkout'
+import CreateWorkout from './Workouts/create/CreateWorkout'
+import UserWorkouts from './Workouts/list/WorkoutList'
+import EditWorkout from './Workouts/edit/EditWorkout'
 
 function App() {
   return (

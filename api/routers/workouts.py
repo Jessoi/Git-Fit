@@ -5,6 +5,7 @@ from queries.workouts import (
     WorkoutOut,
     WorkoutRepository,
     ListWorkoutOut,
+    FavoriteIn,
 )
 
 router = APIRouter()
@@ -47,3 +48,12 @@ async def get_one_workout(
     repo: WorkoutRepository = Depends(),
 ) -> WorkoutOut:
     return repo.get_one_workout(workoutid)
+
+
+@router.put("/workouts/{workoutid}/updatefavorite", response_model=WorkoutOut)
+async def update_favorite(
+    workoutid: int,
+    favorite: FavoriteIn,
+    repo: WorkoutRepository = Depends(),
+):
+    return repo.update_favorite(workoutid, favorite)
