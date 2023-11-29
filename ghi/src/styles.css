@@ -10,36 +10,42 @@ body {
     background-color: #00234B;
     color: #E21818;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     gap: 2rem;
-    padding: 0 1rem;
+    padding: 0;
+    margin-left: 0;
 }
 
 .site-title {
+    color: #E21818;
     font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    text-decoration: none;
 }
 
-.nav ul {
+.navul {
     padding: 0;
     margin: 0;
     display: flex;
     gap: 1rem;
+    text-decoration: none;
 }
 
-.nav a {
-    color: inherit;
+.nava {
+    color: #E21818;
     text-decoration: none;
     height: 100%;
     display: flex;
     align-items: center;
-    padding: .25rem;
+    padding: .50rem;
 }
 
-.nav li.active {
-    background-color: #e718;
+.navul .nava:hover {
+    text-decoration: none;
+    color: #FFDD83;
 }
 
-.nav li.hover {
-    background-color: #e218;
+.navul .nava {
+    transition: color 0.3s ease;
 }
