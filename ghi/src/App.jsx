@@ -16,7 +16,6 @@ if (!tokenUrl) {
   throw new Error("VITE_REACT_APP_API_HOST was undefined.");
 }
 
-console.log(tokenUrl);
 
 function App() {
   return (

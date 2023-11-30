@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
-import Alert from '@mui/material/Alert'; // Import Alert from MUI
+import Alert from '@mui/material/Alert';
 
 const getToken = async (baseUrl, username, password) => {
   const formData = new URLSearchParams();

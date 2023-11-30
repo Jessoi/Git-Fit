@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
+
 
 const SignupForm = () => {
     const [email, setEmail] = useState("");
@@ -10,10 +12,11 @@ const SignupForm = () => {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
 
+    const { setToken, baseUrl } = useAuthContext();
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         // Check if the password and confirmPassword match
         if (password !== confirmPassword) {
@@ -23,13 +26,14 @@ const SignupForm = () => {
 
         const data = { email, username, password };
 
-        const signupUrl = "http://localhost:8000/api/users";
+        const signupUrl = `${baseUrl}/api/users`;
         const fetchConfig = {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
         };
 
         try {
@@ -38,6 +42,13 @@ const SignupForm = () => {
             if (response.status === 200) {
                 // User created successfully
                 setSubmitted(true);
+                const responseData = await response.json();
+                if (responseData?.access_token) {
+                    setToken(responseData.access_token);
+                    navigate('/trainee');
+                } else {
+                    throw new Error('Failed to get token after signing up.');
+                }
                 navigate('/trainee');
             } else if (response.status === 409) {
                 // User already exists
