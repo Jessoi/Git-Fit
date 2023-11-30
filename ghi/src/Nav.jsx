@@ -29,7 +29,7 @@ function Nav() {
               <NavLink className="nava" to="/users/editworkout">Edit Workouts</NavLink>
             </li>
             <li className="nava">
-              <NavLink className="nava" to="/trainee/workouts">Workouts</NavLink>
+              <NavLink className="nava" to="/users/workoutdetails">Workouts</NavLink>
             </li>
           </ul>
         </div>
