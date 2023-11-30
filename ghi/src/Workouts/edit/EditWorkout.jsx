@@ -10,6 +10,13 @@ function EditWorkout() {
         favorite: false
     })
 
+    const getListWorkout = async () => {
+        const response = await fetch(`http://localhost:8000/workouts/${userid}`)
+        if (response.ok){
+            const data= await response.json()
+            setWorkouts(data.workouts)
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -37,6 +44,7 @@ function EditWorkout() {
 
         useEffect(() => {
             handleSubmit();
+            getListWorkout();
         }, []);
 
         const handleFormChange = (e) => {
@@ -53,12 +61,30 @@ function EditWorkout() {
         <div>
             <h1>Update Workout</h1>
             <h3>Update Name & Intensity</h3>
-            <form onSubmit={handleSubmit} id="create-workout-form">
+            <form onSubmit={handleSubmit} id="update-workout-form">
                 <input onChange={handleFormChange} value={formData.name} placeholder='Workout name' required type="text" id='name' name='name' />
                 <input onChange={handleFormChange} value={formData.intensity} placeholder='Intensity' required type="text" id='intensity' name='intensity' />
-            <button>Update fields</button>
-            <p>down here you will need to put a list of workouts that can be selected to edit the exercises</p>
+                <button>Update fields</button>
+                <p></p>
             </form>
+            <table>
+                <thead className='workoutListTHead'>
+                    <tr>
+                        <th>Workouts</th>
+                        <th>Intensity</th>
+                        <th>Favorite</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {workouts.map(workout =>(
+                            <tr key={workout.workoutid}>
+                                <td>{workout.name}</td>
+                                <td>{workout.intensity}</td>
+                            </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
