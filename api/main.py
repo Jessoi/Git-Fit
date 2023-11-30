@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from routers import workouts
+from routers import workouts, exercise_instance
 import os
 from authenticator import authenticator
 
@@ -35,3 +35,4 @@ def launch_details():
     }
 
 app.include_router(exercises.router, tags=["Exercises"])
+app.include_router(exercise_instance.router, tags=["Exercise_instance"])

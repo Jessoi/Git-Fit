@@ -5,9 +5,9 @@ import Nav from './Nav'
 import TraineeForm from './Profiles/TraineeForm'
 import LoginForm from './Profiles/LoginForm'
 import ProfileView from './Profiles/TraineeProfile'
-import CreateWorkout from './Workouts/CreateWorkout'
-import UserWorkouts from './Workouts/WorkoutList'
-import EditWorkout from './Workouts/EditWorkout'
+import CreateWorkout from './Workouts/create/CreateWorkout'
+import UserWorkouts from './Workouts/list/WorkoutList'
+import EditWorkout from './Workouts/edit/EditWorkout'
 import WorkoutDetail from './Workouts/WorkoutDetail'
 
 function App() {
@@ -23,8 +23,10 @@ function App() {
               <Route path="" element={<ProfileView/>} />
               <Route path="signup" element={<TraineeForm/>} />
               <Route path="login" element={<LoginForm/>} />
+              </Route>
+            <Route path="users">
               <Route path="createworkout" element={<CreateWorkout/>} />
-              <Route path="userworkouts" element={<UserWorkouts/>} />
+              <Route path="workouts" element={<UserWorkouts/>} />
               <Route path="editworkout" element={<EditWorkout/>} />
               <Route path="workouts" element={<WorkoutDetail/>} />
             </Route>

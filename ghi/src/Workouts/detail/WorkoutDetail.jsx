@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
-function UserWorkouts() {
+function WorkoutDetail() {
     return (
         <div>
-            <h1>User Workouts</h1>
+            <h1>Workout Detail</h1>
         </div>
     );
 }
 
-export default UserWorkouts;
+export default WorkoutDetail;

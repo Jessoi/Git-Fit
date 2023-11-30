@@ -6,16 +6,24 @@ from typing import List, Optional
 class WorkoutIn(BaseModel):
     userid: int
     name: str
+    intensity: str
+    favorite: bool
 
 
 class WorkoutOut(BaseModel):
     workoutid: int
     userid: int
     name: str
+    intensity: str
+    favorite: bool
 
 
 class ListWorkoutOut(BaseModel):
     workouts: list[WorkoutOut]
+
+
+class FavoriteIn(BaseModel):
+    favorite: bool
 
 
 class WorkoutRepository:
@@ -48,12 +56,17 @@ class WorkoutRepository:
                 cur.execute(
                     """
                     INSERT INTO workouts
-                        (userid, name)
+                        (userid, name, intensity, favorite)
                     VALUES
-                        (%s, %s)
-                    RETURNING workoutid, userid, name
+                        (%s, %s, %s, %s)
+                    RETURNING workoutid, userid, name, intensity, favorite
                     """,
-                    [workout.userid, workout.name],
+                    [
+                        workout.userid,
+                        workout.name,
+                        workout.intensity,
+                        workout.favorite,
+                    ],
                 )
 
                 workout_response = cur.fetchone()
@@ -61,6 +74,8 @@ class WorkoutRepository:
                     "workoutid": workout_response[0],
                     "userid": workout_response[1],
                     "name": workout_response[2],
+                    "intensity": workout_response[3],
+                    "favorite": workout_response[4],
                 }
                 return WorkoutOut(**workout_data)
 
@@ -70,12 +85,15 @@ class WorkoutRepository:
                 cur.execute(
                     """
                     UPDATE workouts
-                    SET name = %s
+                    SET name = %s, intensity = %s, favorite = %s
                     WHERE workoutid = %s
                     """,
-                    [workout.name, workoutid],
-                    #!!! userid in request body, doesn't change upon put request
-                    # investigate if SERIAL is reason.
+                    [
+                        workout.name,
+                        workout.intensity,
+                        workout.favorite,
+                        workoutid,
+                    ],
                 )
                 old_data = workout.dict()
                 return WorkoutOut(workoutid=workoutid, **old_data)
@@ -110,5 +128,32 @@ class WorkoutRepository:
                     "workoutid": response[0],
                     "userid": response[1],
                     "name": response[2],
+                    "intensity": response[3],
+                    "favorite": response[4],
+                }
+                return WorkoutOut(**data)
+
+    def update_favorite(self, workoutid: int, favorite_data: FavoriteIn):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    UPDATE workouts
+                    SET favorite = %s
+                    WHERE workoutid = %s
+                    RETURNING *
+                    """,
+                    [favorite_data.favorite, workoutid],
+                )
+                response = cur.fetchone()
+                if not response:
+                    raise Exception("Couldn't update favorite")
+
+                data = {
+                    "workoutid": response[0],
+                    "userid": response[1],
+                    "name": response[2],
+                    "intensity": response[3],
+                    "favorite": response[4],
                 }
                 return WorkoutOut(**data)

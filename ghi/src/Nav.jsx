@@ -20,13 +20,13 @@ function Nav() {
               <NavLink className="nava" to="/trainee">Profile</NavLink>
             </li>
             <li className="nava">
-              <NavLink className="nava" to="/trainee/createworkout">Create Workout</NavLink>
+              <NavLink className="nava" to="/users/createworkout">Create Workout</NavLink>
             </li>
             <li className="nava">
-              <NavLink className="nava" to="/trainee/userworkouts">User Workouts</NavLink>
+              <NavLink className="nava" to="/users/workouts">User Workouts</NavLink>
             </li>
             <li className="nava">
-              <NavLink className="nava" to="/trainee/editworkout">Edit Workouts</NavLink>
+              <NavLink className="nava" to="/users/editworkout">Edit Workouts</NavLink>
             </li>
             <li className="nava">
               <NavLink className="nava" to="/trainee/workouts">Workouts</NavLink>
