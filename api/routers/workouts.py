@@ -11,7 +11,7 @@ from queries.workouts import (
 router = APIRouter()
 
 
-@router.get("/workouts/{userid}", response_model=ListWorkoutOut)
+@router.get("/{userid}/workouts", response_model=ListWorkoutOut)
 async def get_all_workouts(
     userid: int,
     repo: WorkoutRepository = Depends(),
