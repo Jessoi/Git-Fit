@@ -6,7 +6,7 @@ function Nav() {
       <div className="nav">
         <NavLink className="site-title" to="/">Git Fit</NavLink>
         <div className="nav">
-          <ul className="navul" style={{ flexWrap: "wrap" }}>
+          <ul className="navul">
             <li className="nava">
               <NavLink className="nava" to="/">Home</NavLink>
             </li>
@@ -27,6 +27,9 @@ function Nav() {
             </li>
             <li className="nava">
               <NavLink className="nava" to="/trainee/editworkout">Edit Workouts</NavLink>
+            </li>
+            <li className="nava">
+              <NavLink className="nava" to="/trainee/workouts">Workouts</NavLink>
             </li>
           </ul>
         </div>

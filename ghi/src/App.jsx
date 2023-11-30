@@ -8,6 +8,7 @@ import ProfileView from './Profiles/TraineeProfile'
 import CreateWorkout from './Workouts/CreateWorkout'
 import UserWorkouts from './Workouts/WorkoutList'
 import EditWorkout from './Workouts/EditWorkout'
+import WorkoutDetail from './Workouts/WorkoutDetail'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="createworkout" element={<CreateWorkout/>} />
               <Route path="userworkouts" element={<UserWorkouts/>} />
               <Route path="editworkout" element={<EditWorkout/>} />
+              <Route path="workouts" element={<WorkoutDetail/>} />
             </Route>
           </Routes>
         </div>
