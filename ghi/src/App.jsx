@@ -10,9 +10,9 @@ import UserWorkouts from './Workouts/list/WorkoutList'
 import EditWorkout from './Workouts/edit/EditWorkout'
 import WorkoutDetail from './Workouts/detail/WorkoutDetail'
 import LogoutButton from './Profiles/LogoutButton'
-import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import ChangePasswordForm from './Profiles/ChangePasswordForm'
 import EditProfileForm from './Profiles/EditProfileForm'
+import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 
 const tokenUrl = import.meta.env.VITE_REACT_APP_API_HOST;
 if (!tokenUrl) {
