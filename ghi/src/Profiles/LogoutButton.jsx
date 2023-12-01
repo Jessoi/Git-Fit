@@ -2,7 +2,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
-    const { token, logout } = useToken();
+    const { logout } = useToken();
     const navigate = useNavigate();
 
     const handleLogout = () => {

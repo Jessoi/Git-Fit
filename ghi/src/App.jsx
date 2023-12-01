@@ -10,6 +10,7 @@ import UserWorkouts from './Workouts/WorkoutList'
 import EditWorkout from './Workouts/EditWorkout'
 import LogoutButton from './Profiles/LogoutButton'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
+import ChangePasswordForm from './Profiles/ChangePasswordForm'
 
 const tokenUrl = import.meta.env.VITE_REACT_APP_API_HOST;
 if (!tokenUrl) {
@@ -31,7 +32,7 @@ function App() {
                 <Route path="signup" element={<SignupForm />} />
                 <Route path="login" element={<LoginForm />} />
                 <Route path="logout" element={<LogoutButton />} />
-                <Route path="trainee" element={<ProfileView />} />
+                <Route path="change-password" element={<ChangePasswordForm />} />
                 <Route path="createworkout" element={<CreateWorkout />} />
                 <Route path="userworkouts" element={<UserWorkouts />} />
                 <Route path="editworkout" element={<EditWorkout />} />
