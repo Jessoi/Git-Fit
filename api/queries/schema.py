@@ -25,6 +25,7 @@ class ChangePassword(BaseModel):
     new_password: str
     confirm_password: str
 
+
 class EditProfile(BaseModel):
     first_name: str
     last_name: str
