@@ -1,14 +1,51 @@
 import React, { useState, useEffect } from "react";
-
+import "./EditWorkout.css";
 function EditWorkout() {
   const [userid, setUserid] = useState(1);
-  const [workouts, setWorkouts] = useState([]);
+  const [workout, setWorkout] = useState({
+    userid: userid,
+    name: "",
+    intensity: "",
+    favorite: false,
+  });
+  const [exercises, setExercises] = useState([]);
   const [formData, setFormData] = useState({
     userid: userid,
     name: "",
     intensity: "",
     favorite: false,
   });
+  const [exerciseForm, setExerciseForm] = useState({
+    workoutid: workout.workoutid,
+    exerciseid: 0,
+    weight: 0,
+    reps: 0,
+    sets: 0,
+  });
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const workoutid = params.workoutid;
+
+  async function loadWorkout() {
+    const response = await fetch(`http://localhost:8000/workouts/${workoutid}`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setWorkout(data);
+      setFormData(data);
+    }
+  }
+
+  async function loadExercises() {
+    const response = await fetch(
+      `http://localhost:8000/api/${workoutid}/exerciseinstances/`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setExercises(data.instances);
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,6 +82,15 @@ function EditWorkout() {
 
     setFormData({
       ...formData,
+      [inputName]: value,
+    });
+  };
+  const handleExerciseFormChange = (e) => {
+    const value = e.target.value;
+    const inputName = e.target.name;
+
+    setExerciseFormData({
+      ...exerciseForm,
       [inputName]: value,
     });
   };
