@@ -2,11 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from queries.exercises import (
   ExerciseOut,
   ExerciseIn,
+  SearchIn,
   ExerciseQueries
 )
 
 router = APIRouter()
-
+MUSCLES = ['abdominals','abductors','adductors','biceps','calves','chest','forearms','glutes','hamstrings','lats','lower_back','middle_back','neck','quadriceps','traps','triceps']
 @router.get("/api/exercises", response_model=list[ExerciseOut])
 async def get_exercises(queries: ExerciseQueries = Depends()):
     try:
@@ -17,6 +18,19 @@ async def get_exercises(queries: ExerciseQueries = Depends()):
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 @router.get("/api/exercises/search/")
+async def fetch_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
+    try:
+        if not queries.search_exercises(muscle, difficulty):
+            return queries.fetch_third_party_data(muscle, difficulty)
+        return queries.search_exercises(muscle, difficulty)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+
+
+
+@router.get("/api/exercises/search3rd/")
 async def fetch_third_party_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
     try:
         queries.fetch_third_party_data(muscle, difficulty)

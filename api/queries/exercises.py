@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from fastapi import Query
 from queries.pool import pool
 import requests
 
@@ -18,6 +19,10 @@ class ExerciseOut(BaseModel):
     difficulty: str
     instructions: str
 
+class SearchIn(BaseModel):
+    muscle: str
+    difficulty: str
+
 
 class ExerciseQueries:
     def get_all_exercises(self) -> list[ExerciseOut]:
@@ -31,11 +36,16 @@ class ExerciseQueries:
                 except Exception as e:
                     return {"message": f"Could not find exercises: {str(e)}"}
 
-    def search_exercises(self, muscle, difficulty) -> list[ExerciseOut]:
+    def search_exercises(self, muscle: str = Query(...), difficulty: str = Query(...)) -> list[ExerciseOut]:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
-                    cur.execute("SELECT * FROM exercises;")
+                    cur.execute(
+                        """
+                        SELECT * FROM exercises
+                        WHERE muscle = %s AND difficulty = %s;
+                        """, [muscle, difficulty]
+                    )
                     records = cur.fetchall()
                     return [{column.name: row[i] for i, column in enumerate(cur.description)} for row in records]
                 except Exception as e:

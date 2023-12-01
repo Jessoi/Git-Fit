@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import './EditWorkout.css'
 function EditWorkout () {
   const [userid, setUserid] = useState(1)
   const [workout, setWorkout] = useState({
@@ -16,8 +16,12 @@ function EditWorkout () {
     favorite: false
   })
   const [exerciseForm, setExerciseForm] = useState({
+    workoutid: workout.workoutid,
+    exerciseid : 0,
+    weight : 0,
+    reps : 0,
+    sets : 0
   })
-
   const urlSearchParams = new URLSearchParams(window.location.search)
   const params = Object.fromEntries(urlSearchParams.entries())
   const workoutid = params.workoutid
@@ -81,93 +85,109 @@ function EditWorkout () {
       [inputName]: value
     })
   }
+  const handleExerciseFormChange = e => {
+    const value = e.target.value
+    const inputName = e.target.name
+
+    setExerciseFormData({
+      ...exerciseForm,
+      [inputName]: value
+    })
+  }
 
   return (
     <div className='EditWorkoutMainDiv'>
-      <h1>Update Workout</h1>
-      <h3>Update Name & Intensity</h3>
-      <form onSubmit={handleSubmit} id='edit-workout-form'>
-        <input
-          onChange={handleFormChange}
-          value={formData.name}
-          placeholder='Workout name'
-          required
-          type='text'
-          id='name'
-          name='name'
-        ></input>
-        <input
-          onChange={handleFormChange}
-          value={formData.intensity}
-          placeholder='Intensity'
-          required
-          type='text'
-          id='intensity'
-          name='intensity'
-        />
-        <button>Update fields</button>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Muscle</th>
-                <th>Difficulty</th>
-                <th>Weight</th>
-                <th>Reps</th>
-                <th>Sets</th>
-              </tr>
-            </thead>
-            <tbody>
-              {exercises.map(exercise => {
-                return (
-                  <tr key={exercise.exerciseinstanceid}>
-                    <td>{exercise.name}</td>
-                    <td>{exercise.muscle}</td>
-                    <td>{exercise.difficulty}</td>
-                    <td>{exercise.weight}</td>
-                    <td>{exercise.reps}</td>
-                    <td>{exercise.sets}</td>
-                    {/* <td>
-                      <input
-                        onChange={handleFormChange}
-                        value={exercise.weight}
-                        placeholder='weight'
-                        type='int'
-                        id='weight'
-                        name='weight'
-                      />
-                    </td>
-                    <td>
-                      <input
-                        onChange={handleFormChange}
-                        value={exercise.sets}
-                        placeholder='sets'
-                        type='int'
-                        id='sets'
-                        name='sets'
-                      />
-                    </td>
-                    <td>
-                      <input
-                        onChange={handleFormChange}
-                        value={exercise.reps}
-                        placeholder='reps'
-                        type='int'
-                        id='reps'
-                        name='reps'
-                      />
-                    </td> */}
-                    <td>
-                      <button>Edit</button>
-                    </td>
+      <h1>Edit Workout</h1>
+      <div className="container">
+        <div className="column">
+          <h3>Update Name & Intensity</h3>
+          <form onSubmit={handleSubmit} id='edit-workout-form'>
+            <input
+              onChange={handleFormChange}
+              value={formData.name}
+              placeholder='Workout name'
+              required
+              type='text'
+              id='name'
+              name='name'
+            ></input>
+            <input
+              onChange={handleFormChange}
+              value={formData.intensity}
+              placeholder='Intensity'
+              required
+              type='text'
+              id='intensity'
+              name='intensity'
+            />
+            <button>Update fields</button>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Muscle</th>
+                    <th>Difficulty</th>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
                   </tr>
-                )
-              })}
-            </tbody>
-          </table>
+                </thead>
+                <tbody>
+                  {exercises.map(exercise => {
+                    return (
+                      <tr key={exercise.exerciseinstanceid}>
+                        <td>{exercise.name}</td>
+                        <td>{exercise.muscle}</td>
+                        <td>{exercise.difficulty}</td>
+                        <td>{exercise.weight}</td>
+                        <td>{exercise.reps}</td>
+                        <td>{exercise.sets}</td>
+                        {/* <td>
+                          <input
+                            onChange={handleFormChange}
+                            value={exercise.weight}
+                            placeholder='weight'
+                            type='int'
+                            id='weight'
+                            name='weight'
+                          />
+                        </td>
+                        <td>
+                          <input
+                            onChange={handleFormChange}
+                            value={exercise.sets}
+                            placeholder='sets'
+                            type='int'
+                            id='sets'
+                            name='sets'
+                          />
+                        </td>
+                        <td>
+                          <input
+                            onChange={handleFormChange}
+                            value={exercise.reps}
+                            placeholder='reps'
+                            type='int'
+                            id='reps'
+                            name='reps'
+                          />
+                        </td> */}
+                        <td>
+                          <button>Edit</button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </form>
         </div>
-      </form>
+        <div className="column">
+          <h3>Add Exercise</h3>
+        </div>
+      </div>
     </div>
   )
 }
