@@ -35,12 +35,13 @@ def fake_get_userworkouts():
         favorite=False,
     )
 
+
 def test_get_userworkouts():
-    #Arrange
+    # Arrange
+    pass
 
+    # act
 
-    #act
+    # cleanup
 
-    #cleanup
-
-    #assert
+    # assert
