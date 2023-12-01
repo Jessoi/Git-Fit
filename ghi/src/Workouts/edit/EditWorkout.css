@@ -1,0 +1,15 @@
+.EditWorkoutMainDiv{
+    background-color: rgb(143, 142, 142);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.column {
+  width: 48%;
+  border: 1px solid #ccc;
+  padding: 20px;
+}

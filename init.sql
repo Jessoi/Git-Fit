@@ -23,6 +23,12 @@ CREATE TABLE IF NOT EXISTS workouts (
     favorite BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE IF NOT EXISTS workoutdates (
+    workoutdateid SERIAL PRIMARY KEY,
+    workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
+    workoutdate DATE
+);
+
 CREATE TABLE IF NOT EXISTS exercises (
     exerciseid SERIAL PRIMARY KEY,
     name VARCHAR(100),
