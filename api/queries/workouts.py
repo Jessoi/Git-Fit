@@ -118,6 +118,8 @@ class WorkoutRepository:
                     SELECT workoutid
                         , userid
                         , name
+                        , intensity
+                        , favorite
                     FROM workouts
                     WHERE workoutid = %s
                     """,

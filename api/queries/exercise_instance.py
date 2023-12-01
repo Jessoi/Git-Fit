@@ -30,8 +30,21 @@ class ExerciseInstanceOut(BaseModel):
     sets: int
     reps: int
 
+class ExerciseOutCombined(BaseModel):
+    exerciseinstanceid: int
+    workoutid: int
+    exerciseid: int
+    name: str
+    muscle: str
+    difficulty: str
+    instructions: str
+    weight: int
+    sets: int
+    reps: int
+
 class ListExerciseInstance(BaseModel):
-    instances: list[ExerciseInstanceOut]
+    instances: list[ExerciseOutCombined]
+
 
 class ExerciseInstanceQueries:
     def get_exercise_instance_list(self, workoutid: int):
@@ -39,9 +52,23 @@ class ExerciseInstanceQueries:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT *
-                    FROM exerciseinstances
-                    WHERE workoutid = %s;
+                    SELECT
+                        ei.exerciseinstanceid,
+                        ei.workoutid,
+                        ei.exerciseid,
+                        e.name AS name,
+                        e.muscle AS muscle,
+                        e.difficulty AS difficulty,
+                        e.instructions AS instructions,
+                        ei.weight,
+                        ei.sets,
+                        ei.reps
+                    FROM
+                        exerciseinstances AS ei
+                    JOIN
+                        exercises AS e ON ei.exerciseid = e.exerciseid
+                    WHERE
+                        ei.workoutid = %s;
                     """,
                     [workoutid],
                 )
@@ -95,7 +122,7 @@ class ExerciseInstanceQueries:
                     RETURNING exerciseinstanceid, workoutid, exerciseid,
                     weight, sets, reps
                     """,
-                    (data.exerciseid, data.workoutid, data.weight, data.sets, data.reps),
+                    (data.workoutid, data.exerciseid, data.weight, data.sets, data.reps),
                 )
                 exercise_instance = cur.fetchone()
                 exercise_instance_data = {

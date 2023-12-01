@@ -49,3 +49,25 @@ body {
 .navul .nava {
     transition: color 0.3s ease;
 }
+
+.background {
+    background-image: url("https://us.123rf.com/450wm/andreyzaretsky/andreyzaretsky1712/andreyzaretsky171200042/91679883-huge-man-is-preparing-to-perform-an-exercise-called-deadlift-mixed-media.jpg?ver=6");
+    color: #FFDD83;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: auto;
+}
+
+.page-header {
+    color: #00234B;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.regtext {
+    color: #FFDD83;
+    font-size: 1.4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}

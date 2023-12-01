@@ -1,91 +1,141 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
 function EditWorkout() {
-    const [userid, setUserid] = useState(1)
-    const [workouts, setWorkouts] = useState([])
-    const [formData, setFormData] = useState({
+  const [userid, setUserid] = useState(1);
+  const [workouts, setWorkouts] = useState([]);
+  const [formData, setFormData] = useState({
+    userid: userid,
+    name: "",
+    intensity: "",
+    favorite: false,
+  });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const url = `http://localhost:8000/workouts/${workoutid}`;
+    const fetchConfig = {
+      method: "put",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(url, fetchConfig);
+
+    if (response.ok) {
+      setFormData({
         userid: userid,
-        name: '',
-        intensity: '',
-        favorite: false
-    })
-
-    const getListWorkout = async () => {
-        const response = await fetch(`http://localhost:8000/workouts/${userid}`)
-        if (response.ok){
-            const data= await response.json()
-            setWorkouts(data.workouts)
-        }
+        name: "",
+        intensity: "",
+        favorite: "",
+      });
+      event.target.reset();
     }
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const url = `http://localhost:8000/workouts/${workoutid}`;
-        const fetchConfig = {
-            method: "put",
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
+  useEffect(() => {
+    loadWorkout();
+    loadExercises();
+  }, []);
 
-        const response = await fetch(url, fetchConfig);
+  const handleFormChange = (e) => {
+    const value = e.target.value;
+    const inputName = e.target.name;
 
-        if (response.ok) {
-            setFormData({
-            userid: userid,
-            name: '',
-            intensity: '',
-            favorite: ''
-            });
-            event.target.reset()
-        }
-    }
+    setFormData({
+      ...formData,
+      [inputName]: value,
+    });
+  };
 
-        useEffect(() => {
-            handleSubmit();
-            getListWorkout();
-        }, []);
-
-        const handleFormChange = (e) => {
-            const value = e.target.value;
-            const inputName = e.target.name;
-
-            setFormData({
-                ...formData,
-                [inputName]: value
-            });
-        }
-
-    return (
+  return (
+    <div className="EditWorkoutMainDiv">
+      <h1>Update Workout</h1>
+      <h3>Update Name & Intensity</h3>
+      <form onSubmit={handleSubmit} id="edit-workout-form">
+        <input
+          onChange={handleFormChange}
+          value={formData.name}
+          placeholder="Workout name"
+          required
+          type="text"
+          id="name"
+          name="name"
+        ></input>
+        <input
+          onChange={handleFormChange}
+          value={formData.intensity}
+          placeholder="Intensity"
+          required
+          type="text"
+          id="intensity"
+          name="intensity"
+        />
+        <button>Update fields</button>
         <div>
-            <h1>Update Workout</h1>
-            <h3>Update Name & Intensity</h3>
-            <form onSubmit={handleSubmit} id="update-workout-form">
-                <input onChange={handleFormChange} value={formData.name} placeholder='Workout name' required type="text" id='name' name='name' />
-                <input onChange={handleFormChange} value={formData.intensity} placeholder='Intensity' required type="text" id='intensity' name='intensity' />
-                <button>Update fields</button>
-                <p></p>
-            </form>
-            <table>
-                <thead className='workoutListTHead'>
-                    <tr>
-                        <th>Workouts</th>
-                        <th>Intensity</th>
-                        <th>Favorite</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {workouts.map(workout =>(
-                            <tr key={workout.workoutid}>
-                                <td>{workout.name}</td>
-                                <td>{workout.intensity}</td>
-                            </tr>
-                    ))}
-                </tbody>
-            </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Muscle</th>
+                <th>Difficulty</th>
+                <th>Weight</th>
+                <th>Reps</th>
+                <th>Sets</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exercises.map((exercise) => {
+                return (
+                  <tr key={exercise.exerciseinstanceid}>
+                    <td>{exercise.name}</td>
+                    <td>{exercise.muscle}</td>
+                    <td>{exercise.difficulty}</td>
+                    <td>{exercise.weight}</td>
+                    <td>{exercise.reps}</td>
+                    <td>{exercise.sets}</td>
+                    {/* <td>
+                      <input
+                        onChange={handleFormChange}
+                        value={exercise.weight}
+                        placeholder='weight'
+                        type='int'
+                        id='weight'
+                        name='weight'
+                      />
+                    </td>
+                    <td>
+                      <input
+                        onChange={handleFormChange}
+                        value={exercise.sets}
+                        placeholder='sets'
+                        type='int'
+                        id='sets'
+                        name='sets'
+                      />
+                    </td>
+                    <td>
+                      <input
+                        onChange={handleFormChange}
+                        value={exercise.reps}
+                        placeholder='reps'
+                        type='int'
+                        id='reps'
+                        name='reps'
+                      />
+                    </td> */}
+                    <td>
+                      <button>Edit</button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-    );
+      </form>
+    </div>
+  );
 }
 export default EditWorkout;

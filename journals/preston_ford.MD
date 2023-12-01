@@ -20,3 +20,6 @@ I am going to try to clean up the edit workout page a bit more before calling it
 
 11/30/23:
 The plan for today is to get the edit workoutlist fully functioning with Jesse. hopefully we can get started on add exercise to workout as well.
+
+12/1/23:
+Jesse and I worked for hours on the edit workoutlist page and it quickly became evident that it will be one of our most imposing and fully fleshed out pages. We stopped at a point where the we could render the information on the fields but not change it or fill out the fields but not render the information. the union of all the backend information was difficult to wrangle. I am going to finish up at least 2 unit tests today and hopefully get back on track with Jesse at some point.
