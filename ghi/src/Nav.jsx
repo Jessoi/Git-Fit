@@ -33,6 +33,9 @@ function Nav() {
             <li className='nav-item'>
               <NavLink className="nav-link" aria-current="page" to="/trainee/change-password">Change Password</NavLink>
             </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" aria-current="page" to="/trainee/edit-profile">Edit Profile</NavLink>
+            </li>
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/trainee">Profile</NavLink>
             </li>

@@ -11,6 +11,7 @@ import EditWorkout from './Workouts/EditWorkout'
 import LogoutButton from './Profiles/LogoutButton'
 import { AuthProvider } from '@galvanize-inc/jwtdown-for-react'
 import ChangePasswordForm from './Profiles/ChangePasswordForm'
+import EditProfileForm from './Profiles/EditProfileForm'
 
 const tokenUrl = import.meta.env.VITE_REACT_APP_API_HOST;
 if (!tokenUrl) {
@@ -33,6 +34,7 @@ function App() {
                 <Route path="login" element={<LoginForm />} />
                 <Route path="logout" element={<LogoutButton />} />
                 <Route path="change-password" element={<ChangePasswordForm />} />
+                <Route path="edit-profile" element={<EditProfileForm />} />
                 <Route path="createworkout" element={<CreateWorkout />} />
                 <Route path="userworkouts" element={<UserWorkouts />} />
                 <Route path="editworkout" element={<EditWorkout />} />
