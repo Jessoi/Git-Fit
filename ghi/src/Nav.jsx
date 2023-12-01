@@ -1,11 +1,16 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import LogoutButton from './Profiles/LogoutButton';
+
 function Nav() {
+
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          <img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/000/841/041/datas/gallery.jpg" width="30" height="24" />
+          <img src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/000/841/041/datas/gallery.jpg" width="30" height="24" alt="Logo" />
         </a>
         <NavLink className="navbar-brand" to="/">Git Fit</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +28,9 @@ function Nav() {
               <NavLink className="nav-link" aria-current="page" to="/trainee/login">Log In</NavLink>
             </li>
             <li className="nav-item">
+              <LogoutButton />
+            </li>
+            <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/trainee">Profile</NavLink>
             </li>
             <li className="nav-item">
@@ -38,7 +46,7 @@ function Nav() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;
