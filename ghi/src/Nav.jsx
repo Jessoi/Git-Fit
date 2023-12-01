@@ -7,7 +7,7 @@ function Nav() {
         <NavLink className="site-title" to="/">Git Fit</NavLink>
         <div className="nav">
           <ul className="navul">
-            <li className="nava">
+             <li className="nava">
               <NavLink className="nava" to="/">Home</NavLink>
             </li>
             <li className="nava">

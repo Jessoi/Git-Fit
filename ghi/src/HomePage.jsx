@@ -1,8 +1,7 @@
 function HomePage() {
     return (
-    <div>
-      <h1 className="page-header">Git Fit</h1>
-      <div className="background">
+    <div className="background">
+      <div>
         <p className="regtext">
 
 Welcome to GitFit, your comprehensive fitness companion designed to track progress, create customized workouts, and help you maintain a consistent schedule. GitFit goes beyond conventional services, offering a personalized approach to guide you towards a healthier and more resilient version of yourself.
