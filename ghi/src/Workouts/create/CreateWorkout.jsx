@@ -24,6 +24,11 @@ function CreateWorkout() {
     const response = await fetch(url, fetchConfig);
 
     if (response.ok) {
+      const createdWorkout = await response.json();
+      const { workoutid } = createdWorkout;
+
+      window.location.href = `/users/editworkout?workoutid=${workoutid}`;
+
       setFormData({
         userid: userid,
         name: "",
@@ -32,6 +37,7 @@ function CreateWorkout() {
       });
       event.target.reset();
     }
+    console.log(formData);
   };
   const getlistworkout = async () => {
     const response = await fetch(`http://localhost:8000/${userid}/workouts`);
@@ -77,7 +83,7 @@ function CreateWorkout() {
           id="intensity"
           name="intensity"
         />
-        <button>Create workout</button>
+        <button type="submit">Create workout</button>
       </form>
       <table>
         <thead>

@@ -69,15 +69,19 @@ function UserWorkouts() {
           {workouts.map((workout) => {
             return (
               <tr key={workout.workoutid}>
-                <td>
-                  <Link to={`/workouts/${workout.workoutid}`}>
-                    {workout.name}
-                  </Link>
+                <td
+                  onClick={(event) =>
+                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                  }
+                >
+                  {workout.name}
                 </td>
-                <td>
-                  <Link to={`/workouts/${workout.workoutid}`}>
-                    {workout.intensity}
-                  </Link>
+                <td
+                  onClick={(event) =>
+                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                  }
+                >
+                  {workout.intensity}
                 </td>
                 <td>
                   <button
