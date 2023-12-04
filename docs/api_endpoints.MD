@@ -1,13 +1,47 @@
 
 Users
 
-GET  /api/users/
+GET  /api/users/{userid}/
+    response:
+        {
+        "userid": 0,
+        "username": "string",
+        "email": "string"
+        }
 
-POST /api/users/create
+POST /api/users/
+    request:
+        {
+        "email": "string",
+        "username": "string",
+        "password": "string"
+        }
 
-PUT /api/users/{userid}
+PATCH /api/users/change-password/
+    request:
+        {
+        "current_password": "string",
+        "new_password": "string",
+        "confirm_password": "string"
+        }
 
-DELETE /api/users/{userid}
+PATCH /api/users/{userid}
+    request:
+        {
+        "first_name": "string",
+        "last_name": "string",
+        "height": "string",
+        "weight": "string"
+        }
+
+POST /token
+    request:
+        {
+            "login": "string",
+            "password:" "string"
+        }
+
+DELETE /token
 
 Exercises
     GET  /api/exercises/
