@@ -5,6 +5,7 @@ import { NavLink } from'react-router-dom'
 function UserWorkouts () {
   const [userid, setUserid] = useState(1)
   const [workouts, setWorkouts] = useState([])
+
   const getListWorkout = async () => {
     const response = await fetch(`http://localhost:8000/${userid}/workouts`)
     if (response.ok) {

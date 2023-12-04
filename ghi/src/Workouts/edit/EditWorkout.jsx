@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './EditWorkout.css'
+
+
 function EditWorkout () {
   const [userid, setUserid] = useState(1)
   const [workout, setWorkout] = useState({
@@ -22,6 +24,8 @@ function EditWorkout () {
     reps : 0,
     sets : 0
   })
+
+
   const urlSearchParams = new URLSearchParams(window.location.search)
   const params = Object.fromEntries(urlSearchParams.entries())
   const workoutid = params.workoutid
