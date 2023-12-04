@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from queries.pool import pool
-from typing import List, Optional
+from typing import Optional
 
 
 class WorkoutIn(BaseModel):
@@ -74,7 +74,7 @@ class WorkoutRepository:
                     WHERE workoutid = %s
                     """,
                     [workout.name, workoutid],
-                    #!!! userid in request body, doesn't change upon put request
+                    # userid in request body, doesn't change upon put request
                     # investigate if SERIAL is reason.
                 )
                 old_data = workout.dict()
