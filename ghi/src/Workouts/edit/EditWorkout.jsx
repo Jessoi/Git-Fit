@@ -44,10 +44,10 @@ function EditWorkout () {
 
   const [formData, setFormData] = useState({
     userid: userid,
-    name: '',
-    intensity: '',
-    favorite: false
-  })
+    name: "",
+    intensity: "",
+    favorite: false,
+  });
   const [exerciseForm, setExerciseForm] = useState({
     workoutid: workout.workoutid,
     exerciseid: 0,
@@ -60,8 +60,8 @@ function EditWorkout () {
   const params = Object.fromEntries(urlSearchParams.entries())
   const workoutid = params.workoutid
 
-  async function loadWorkout () {
-    const response = await fetch(`http://localhost:8000/workouts/${workoutid}`)
+  async function loadWorkout() {
+    const response = await fetch(`http://localhost:8000/workouts/${workoutid}`);
     if (response.ok) {
       const data = await response.json()
       setWorkout(data)
@@ -69,21 +69,21 @@ function EditWorkout () {
     }
   }
 
-  async function loadExercises () {
+  async function loadExercises() {
     const response = await fetch(
       `http://localhost:8000/api/${workoutid}/exerciseinstances/`
-    )
+    );
     if (response.ok) {
       const data = await response.json()
       setExercises(data.instances)
     }
   }
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const url = `http://localhost:8000/workouts/${workoutid}`
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const url = `http://localhost:8000/workouts/${workoutid}`;
     const fetchConfig = {
-      method: 'put',
+      method: "put",
       body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json'
@@ -100,16 +100,16 @@ function EditWorkout () {
         favorite: ''
       })
     }
-  }
+  };
 
   useEffect(() => {
-    loadWorkout()
-    loadExercises()
-  }, [])
+    loadWorkout();
+    loadExercises();
+  }, []);
 
-  const handleFormChange = e => {
-    const value = e.target.value
-    const inputName = e.target.name
+  const handleFormChange = (e) => {
+    const value = e.target.value;
+    const inputName = e.target.name;
 
     setFormData({
       ...formData,
@@ -123,9 +123,9 @@ function EditWorkout () {
 
     setExerciseForm({
       ...exerciseForm,
-      [inputName]: value
-    })
-  }
+      [inputName]: value,
+    });
+  };
 
   const handleSearch = async () => {
     // Perform your search using selectedDifficulty and selectedMuscle
@@ -360,6 +360,6 @@ function EditWorkout () {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default EditWorkout
+export default EditWorkout;
