@@ -10,14 +10,14 @@ from authenticator import authenticator
 from jwtdown_fastapi.authentication import Token
 from pydantic import BaseModel
 from typing import Optional, Union
-from queries.users import (
+from queries.schema import (
     UserOut,
     UserIn,
-    UserQueries,
     DuplicateUserError,
     ChangePassword,
     EditProfile,
 )
+from queries.users import UserQueries
 from datetime import date
 
 class UserForm(BaseModel):

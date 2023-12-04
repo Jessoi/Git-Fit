@@ -1,7 +1,8 @@
 import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
-from queries.users import UserQueries , UserOut, UserOutWithPassword
+from queries.users import UserQueries
+from queries.schema import UserOut, UserOutWithPassword
 from passlib.context import CryptContext
 
 
@@ -23,9 +24,10 @@ class MyAuthenticator(Authenticator):
         return accounts
 
     def get_hashed_password(self, account: UserOutWithPassword):
-        # Return the encrypted password value from your
-        # account object
-        return account.hashed_password
+        if isinstance(account, UserOutWithPassword) and account.hashed_password is not None:
+            return account.hashed_password
+        return None
+
 
     def get_account_data_for_cookie(self, account):
     # Convert to Pydantic model if account is a dictionary
@@ -38,8 +40,6 @@ class MyAuthenticator(Authenticator):
 
 
     # Password verify
-    # pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
     def verify_password(self, plain_password, hashed_password):
         pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
         return pwd_context.verify(plain_password, hashed_password)

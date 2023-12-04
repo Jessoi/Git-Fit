@@ -1,6 +1,11 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import LogoutButton from './Profiles/LogoutButton';
+
 function Nav() {
+
+
   return (
     <nav>
       <div className="nav">
@@ -19,6 +24,15 @@ function Nav() {
             <li className="nava">
               <NavLink className="nava" to="/trainee">Profile</NavLink>
             </li>
+            <li className="nav-item">
+              <LogoutButton />
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" aria-current="page" to="/trainee/change-password">Change Password</NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink className="nav-link" aria-current="page" to="/trainee/edit-profile">Edit Profile</NavLink>
+            </li>
             <li className="nava">
               <NavLink className="nava" to="/users/createworkout">Create Workout</NavLink>
             </li>
@@ -35,7 +49,7 @@ function Nav() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;

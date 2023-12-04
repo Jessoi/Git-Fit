@@ -21,7 +21,8 @@ async def get_exercises(queries: ExerciseQueries = Depends()):
 async def fetch_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
     try:
         if not queries.search_exercises(muscle, difficulty):
-            return queries.fetch_third_party_data(muscle, difficulty)
+            queries.fetch_third_party_data(muscle, difficulty)
+            return queries.search_exercises(muscle, difficulty)
         return queries.search_exercises(muscle, difficulty)
     except HTTPException as e:
         raise e
