@@ -34,7 +34,7 @@ class UserQueries:
                 except Exception:
                     print("exception")
                     return {
-                        "message": "Could not get user record for this user email"
+                        "message": "Could not get user record for this user username"
                     }
 
 
