@@ -66,6 +66,7 @@ function EditWorkout () {
     const response = await fetch(`http://localhost:8000/workouts/${workoutid}`)
     if (response.ok) {
       const data = await response.json()
+      console.log(data)
       setWorkout(data)
       setFormData(data)
     }
@@ -186,6 +187,8 @@ function EditWorkout () {
     data.weight = 0
     data.sets = 0
     data.reps = 0
+    console.log(data)
+    console.log(url)
     const fetchConfig = {
       method: 'post',
       body: JSON.stringify(data),

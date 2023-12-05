@@ -46,8 +46,10 @@ async def fetch_third_party_data(
     queries: ExerciseQueries = Depends()
 ):
     try:
-        queries.fetch_third_party_data(muscle, difficulty)
-        return queries.fetch_third_party_data(muscle, difficulty)
+        if not (queries.search_exercises(muscle, difficulty)):
+            queries.fetch_third_party_data(muscle, difficulty)
+            return queries.search_exercises(muscle, difficulty)
+        return queries.search_exercises(muscle, difficulty)
     except HTTPException as e:
         raise e
     except Exception as e:

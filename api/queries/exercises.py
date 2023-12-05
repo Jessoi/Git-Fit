@@ -1,7 +1,9 @@
 from pydantic import BaseModel
 from fastapi import Query
 from queries.pool import pool
-import requests
+import requests, os
+
+api_key = os.getenv("API_KEY")
 
 
 class Error(BaseModel):
@@ -163,7 +165,7 @@ class ExerciseQueries:
         querystring = {"muscle": muscle, "difficulty": difficulty}
         url = 'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises'
         headers = {
-            "X-RapidAPI-Key": "your-api-key",
+            "X-RapidAPI-Key": f'{api_key}',
             "X-RapidAPI-Host": "exercises-by-api-ninjas.p.rapidapi.com"
         }
         try:
