@@ -1,4 +1,3 @@
-from unittest import TestCase
 from pydantic import BaseModel
 from queries.workouts import WorkoutOut
 

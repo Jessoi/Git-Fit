@@ -2,12 +2,30 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from queries.exercises import (
   ExerciseOut,
   ExerciseIn,
-  SearchIn,
   ExerciseQueries
 )
 
 router = APIRouter()
-MUSCLES = ['abdominals','abductors','adductors','biceps','calves','chest','forearms','glutes','hamstrings','lats','lower_back','middle_back','neck','quadriceps','traps','triceps']
+MUSCLES = [
+    'abdominals',
+    'abductors',
+    'adductors',
+    'biceps',
+    'calves',
+    'chest',
+    'forearms',
+    'glutes',
+    'hamstrings',
+    'lats',
+    'lower_back',
+    'middle_back',
+    'neck',
+    'quadriceps',
+    'traps',
+    'triceps'
+    ]
+
+
 @router.get("/api/exercises", response_model=list[ExerciseOut])
 async def get_exercises(queries: ExerciseQueries = Depends()):
     try:

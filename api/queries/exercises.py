@@ -22,6 +22,7 @@ class ExerciseOut(BaseModel):
     difficulty: str
     instructions: str
 
+
 class SearchIn(BaseModel):
     muscle: str
     difficulty: str
@@ -44,7 +45,11 @@ class ExerciseQueries:
                 except Exception as e:
                     return {"message": f"Could not find exercises: {str(e)}"}
 
-    def search_exercises(self, muscle: str = Query(...), difficulty: str = Query(...)) -> list[ExerciseOut]:
+    def search_exercises(
+        self,
+        muscle: str = Query(...),
+        difficulty: str = Query(...)
+    ) -> list[ExerciseOut]:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
