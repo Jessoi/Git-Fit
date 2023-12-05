@@ -1,26 +1,19 @@
-from pydantic import BaseModel
 from queries.pool import pool
 from queries.schema import (
-    DuplicateUserError,
-    UserIn,
-    UserOut,
     UserOutWithPassword,
-    ChangePassword,
-    EditProfile,
 )
 
+
 class UserQueries:
-    def get(
-          self, username: str
-    ) -> UserOutWithPassword:
-        print("here in get): " +username)
+    def get(self, username: str) -> UserOutWithPassword:
+        print("here in get): " + username)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                     SELECT *
-                     FROM users
-                     WHERE username = %s;
+                    SELECT *
+                    FROM users
+                    WHERE username = %s;
                     """,
                     [username],
                 )
@@ -34,9 +27,9 @@ class UserQueries:
                 except Exception:
                     print("exception")
                     return {
-                        "message": "Could not get user record for this user username"
+                        "message":
+                            "Could not get user record for this user username"
                     }
-
 
     def get_user(self, user_id: int) -> UserOutWithPassword:
         with pool.connection() as conn:
@@ -62,7 +55,6 @@ class UserQueries:
                         "message": "Could not get user record for this user_id"
                     }
 
-    # Insert: INSERT INTO users (password, username, first_name, last_name, email, date_joined) VALUES (:password, :username, :email, NOW()) RETURNING id;
     def create_user(self, data, hashed_password) -> UserOutWithPassword:
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -94,7 +86,7 @@ class UserQueries:
     def change_password(
           self, new_hashed_password, username: str
     ):
-        print("here in get): " +username)
+        print("here in get): " + username)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
@@ -110,10 +102,8 @@ class UserQueries:
                     params,
                 )
 
-    def edit_profile(
-        self, username: str, edit_profile
-    ):
-        print("here in get): " +username)
+    def edit_profile(self, username: str, edit_profile):
+        print("here in get): " + username)
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 params = [
@@ -132,5 +122,5 @@ class UserQueries:
                         weight = %s
                     WHERE username = %s;
                     """,
-                params,
-            )
+                    params,
+                )

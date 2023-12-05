@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import workouts, exercise_instance
 import os
@@ -33,6 +33,7 @@ def launch_details():
             "min": "00",
         }
     }
+
 
 app.include_router(exercises.router, tags=["Exercises"])
 app.include_router(exercise_instance.router, tags=["Exercise_instance"])

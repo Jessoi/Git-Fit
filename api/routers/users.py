@@ -9,7 +9,6 @@ from fastapi import (
 from authenticator import authenticator
 from jwtdown_fastapi.authentication import Token
 from pydantic import BaseModel
-from typing import Optional, Union
 from queries.schema import (
     UserOut,
     UserIn,
@@ -18,19 +17,23 @@ from queries.schema import (
     EditProfile,
 )
 from queries.users import UserQueries
-from datetime import date
+
 
 class UserForm(BaseModel):
     username: str
     password: str
 
+
 class UserToken(Token):
     user: UserOut
+
 
 class HttpError(BaseModel):
     detail: str
 
+
 router = APIRouter()
+
 
 @router.get("/api/users/{user_id}/", response_model=UserOut)
 async def get_user(
@@ -38,6 +41,7 @@ async def get_user(
     repo: UserQueries = Depends(),
 ):
     return repo.get_user(user_id)
+
 
 @router.post("/api/users/", response_model=UserToken | HttpError)
 async def create_user(
@@ -58,6 +62,7 @@ async def create_user(
     token = await authenticator.login(response, request, form, queries)
     return UserToken(user=user, **token.dict())
 
+
 @router.get("/token/", response_model=UserToken | None)
 async def get_token(
     request: Request,
@@ -71,22 +76,33 @@ async def get_token(
         "user": user,
     }
 
+
 @router.patch("/api/users/change-password/")
 async def change_password(
     change_password: ChangePassword,
-    current_user_data: dict = Depends(authenticator.try_get_current_account_data),
+    current_user_data: dict = Depends(
+        authenticator.try_get_current_account_data
+        ),
     queries: UserQueries = Depends(),
 ):
     # Verify current password
     print(current_user_data)
     current_user_password = current_user_data["hashed_password"]
-    valid = authenticator.verify_password(change_password.current_password, current_user_password)
+    valid = authenticator.verify_password(
+        change_password.current_password, current_user_password
+        )
     if not valid:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Current password is not match.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Current password is not match."
+            )
 
     # Check new password and confirm password
     if change_password.new_password != change_password.confirm_password:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Passwords don't match.")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Passwords don't match."
+            )
 
     # Change password
     hashed_password = authenticator.hash_password(change_password.new_password)
@@ -101,7 +117,9 @@ async def change_password(
 @router.patch("/api/users/edit-profile/")
 async def edit_profile(
     edit_profile: EditProfile,
-    current_user_data: dict = Depends(authenticator.try_get_current_account_data),
+    current_user_data: dict = Depends(
+        authenticator.try_get_current_account_data
+        ),
     queries: UserQueries = Depends(),
 ):
     username = current_user_data["username"]
