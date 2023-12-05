@@ -64,7 +64,7 @@ class ExerciseQueries:
                         name,
                         muscle,
                         difficulty,
-                        instructions,
+                        instructions
                     )
                     VALUES (%s, %s, %s, %s)
                     RETURNING
