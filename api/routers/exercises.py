@@ -2,12 +2,30 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from queries.exercises import (
   ExerciseOut,
   ExerciseIn,
-  SearchIn,
   ExerciseQueries
 )
 
 router = APIRouter()
-MUSCLES = ['abdominals','abductors','adductors','biceps','calves','chest','forearms','glutes','hamstrings','lats','lower_back','middle_back','neck','quadriceps','traps','triceps']
+MUSCLES = [
+    'abdominals',
+    'abductors',
+    'adductors',
+    'biceps',
+    'calves',
+    'chest',
+    'forearms',
+    'glutes',
+    'hamstrings',
+    'lats',
+    'lower_back',
+    'middle_back',
+    'neck',
+    'quadriceps',
+    'traps',
+    'triceps'
+    ]
+
+
 @router.get("/api/exercises", response_model=list[ExerciseOut])
 async def get_exercises(queries: ExerciseQueries = Depends()):
     try:
@@ -15,50 +33,72 @@ async def get_exercises(queries: ExerciseQueries = Depends()):
     except HTTPException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+            )
+
 
 @router.get("/api/exercises/search/")
-async def fetch_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
+async def fetch_third_party_data(
+    muscle: str,
+    difficulty: str,
+    queries: ExerciseQueries = Depends()
+):
     try:
-        if not queries.search_exercises(muscle, difficulty):
+        if not (queries.search_exercises(muscle, difficulty)):
             queries.fetch_third_party_data(muscle, difficulty)
             return queries.search_exercises(muscle, difficulty)
         return queries.search_exercises(muscle, difficulty)
     except HTTPException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+            )
 
 
-
-@router.get("/api/exercises/search3rd/")
-async def fetch_third_party_data(muscle: str, difficulty: str, queries: ExerciseQueries = Depends()):
-    try:
-        queries.fetch_third_party_data(muscle, difficulty)
-        return queries.fetch_third_party_data(muscle, difficulty)
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
-
-@router.post("/api/exercises", response_model=ExerciseOut, status_code=status.HTTP_201_CREATED)
-async def create_exercise(exercise_in: ExerciseIn, queries: ExerciseQueries = Depends()):
+@router.post(
+    "/api/exercises",
+    response_model=ExerciseOut,
+    status_code=status.HTTP_201_CREATED
+    )
+async def create_exercise(
+    exercise_in: ExerciseIn,
+    queries: ExerciseQueries = Depends()
+):
     try:
         return queries.create_exercise(exercise_in)
     except HTTPException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+            )
 
-@router.delete("/exercises/{exerciseid}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_exercise(exerciseid: int, queries: ExerciseQueries = Depends()):
+
+@router.delete(
+    "/exercises/{exerciseid}",
+    status_code=status.HTTP_204_NO_CONTENT
+    )
+async def delete_exercise(
+    exerciseid: int,
+    queries: ExerciseQueries = Depends()
+):
     success = queries.delete_exercise(exerciseid)
     if not success:
         raise HTTPException(status_code=404, detail="Exercise not found")
     return {"ok": True}
 
+
 @router.put("/exercises/{exerciseid}", response_model=ExerciseOut)
-async def update_exercise(exerciseid: int, exercise_update: ExerciseIn, queries: ExerciseQueries = Depends()):
+async def update_exercise(
+    exerciseid: int,
+    exercise_update: ExerciseIn,
+    queries: ExerciseQueries = Depends()
+):
     try:
         updated_exercise = queries.update_exercise(exerciseid, exercise_update)
         if updated_exercise is None:
@@ -67,4 +107,7 @@ async def update_exercise(exerciseid: int, exercise_update: ExerciseIn, queries:
     except HTTPException as e:
         raise e
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+            )
