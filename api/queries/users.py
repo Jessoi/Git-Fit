@@ -102,7 +102,6 @@ class UserQueries:
                     params,
                 )
 
-
     def edit_profile(self, username: str, edit_profile):
         print("here in get): " + username)
         with pool.connection() as conn:
