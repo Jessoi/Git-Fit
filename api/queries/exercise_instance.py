@@ -8,7 +8,6 @@
 
 from pydantic import BaseModel
 from queries.pool import pool
-from datetime import date
 
 
 class Error(BaseModel):
@@ -22,6 +21,7 @@ class ExerciseInstanceIn(BaseModel):
     sets: int
     reps: int
 
+
 class ExerciseInstanceOut(BaseModel):
     exerciseinstanceid: int
     workoutid: int
@@ -29,6 +29,7 @@ class ExerciseInstanceOut(BaseModel):
     weight: int
     sets: int
     reps: int
+
 
 class ExerciseOutCombined(BaseModel):
     exerciseinstanceid: int
@@ -41,6 +42,7 @@ class ExerciseOutCombined(BaseModel):
     weight: int
     sets: int
     reps: int
+
 
 class ListExerciseInstance(BaseModel):
     instances: list[ExerciseOutCombined]
@@ -82,7 +84,10 @@ class ExerciseInstanceQueries:
                     return ListExerciseInstance(instances=results)
                 except Exception as e:
                     print(e)
-                    return {"message": "Could not get list of the exercise instances"}
+                    return {
+                        "message":
+                            "Could not get list of the exercise instances"
+                        }
 
     def get_one_exercise_instance(
         self, exerciseinstanceid: int
@@ -109,9 +114,14 @@ class ExerciseInstanceQueries:
                     }
                     return ExerciseInstanceOut(**data)
                 except Exception as e:
-                    return {"message": f"Could not find exercise instance: {str(e)}"}
+                    return {
+                        "message":
+                            f"Could not find exercise instance: {str(e)}"
+                        }
 
-    def create_exercise_instance(self, data: ExerciseInstanceIn) -> ExerciseInstanceOut:
+    def create_exercise_instance(
+        self, data: ExerciseInstanceIn
+    ) -> ExerciseInstanceOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -122,7 +132,13 @@ class ExerciseInstanceQueries:
                     RETURNING exerciseinstanceid, workoutid, exerciseid,
                     weight, sets, reps
                     """,
-                    (data.workoutid, data.exerciseid, data.weight, data.sets, data.reps),
+                    (
+                        data.workoutid,
+                        data.exerciseid,
+                        data.weight,
+                        data.sets,
+                        data.reps
+                    ),
                 )
                 exercise_instance = cur.fetchone()
                 exercise_instance_data = {
@@ -135,17 +151,38 @@ class ExerciseInstanceQueries:
                 }
                 return ExerciseInstanceOut(**exercise_instance_data)
 
-    def update_exercise_instance(self, exerciseinstanceid: int, exerciseinstance_update: ExerciseInstanceIn) -> ExerciseInstanceOut:
+    def update_exercise_instance(
+        self,
+        exerciseinstanceid: int,
+        exerciseinstance_update: ExerciseInstanceIn
+    ) -> ExerciseInstanceOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                     UPDATE exerciseinstances
-                    SET workoutid = %s, exerciseid = %s, weight = %s, reps = %s, sets = %s
+                    SET workoutid = %s,
+                        exerciseid = %s,
+                        weight = %s,
+                        reps = %s,
+                        sets = %s
                     WHERE exerciseinstanceid = %s
-                    RETURNING exerciseinstanceid, workoutid, exerciseid, weight, reps, sets;
+                    RETURNING
+                        exerciseinstanceid,
+                        workoutid,
+                        exerciseid,
+                        weight,
+                        reps,
+                        sets;
                     """,
-                    (exerciseinstance_update.workoutid, exerciseinstance_update.exerciseid , exerciseinstance_update.weight, exerciseinstance_update.sets, exerciseinstance_update.reps, exerciseinstanceid)
+                    (
+                        exerciseinstance_update.workoutid,
+                        exerciseinstance_update.exerciseid,
+                        exerciseinstance_update.weight,
+                        exerciseinstance_update.sets,
+                        exerciseinstance_update.reps,
+                        exerciseinstanceid
+                    )
                 )
                 exerciseinstance = cur.fetchone()
                 if exerciseinstance:
