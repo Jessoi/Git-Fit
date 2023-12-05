@@ -16,22 +16,22 @@ function Nav() {
               <NavLink className="nava" to="/">Home</NavLink>
             </li>
             <li className="nava">
+              <NavLink className="nava" to="/trainee">Profile</NavLink>
+            </li>
+            <li className="nava">
               <NavLink className="nava" to="/trainee/signup">Sign Up</NavLink>
             </li>
             <li className="nava">
               <NavLink className="nava" to="/trainee/login">Log In</NavLink>
             </li>
             <li className="nava">
-              <NavLink className="nava" to="/trainee">Profile</NavLink>
-            </li>
-            <li className="nav-item">
               <LogoutButton />
             </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" aria-current="page" to="/trainee/change-password">Change Password</NavLink>
+            <li className='nava'>
+              <NavLink className="nava" aria-current="page" to="/trainee/change-password">Change Password</NavLink>
             </li>
-            <li className='nav-item'>
-              <NavLink className="nav-link" aria-current="page" to="/trainee/edit-profile">Edit Profile</NavLink>
+            <li className='nava'>
+              <NavLink className="nava" aria-current="page" to="/trainee/edit-profile">Edit Profile</NavLink>
             </li>
             <li className="nava">
               <NavLink className="nava" to="/users/createworkout">Create Workout</NavLink>

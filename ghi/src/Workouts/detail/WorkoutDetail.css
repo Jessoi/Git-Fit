@@ -1,11 +1,31 @@
 .title {
     /* color: white; */
     align-items: center;
+    color:#FFDD83;
+    text-shadow: #E21818;
+    font-weight: bold;
 }
 
 h3 {
     /* color: white; */
     text-decoration: underline;
+}
+
+.exercisedetail {
+    margin-left: auto;
+    max-width: 20rem;
+    text-align: left;
+    color: #E21818;
+    font-size: medium;
+}
+
+.background {
+  background-color: black;
+}
+
+.accordbg {
+  background-color: #FFDD83;
+  color: #E21818;
 }
 
 /* .accordion {

@@ -50,7 +50,7 @@ function WorkoutDetail() {
     <div>
       <h1 className="title">{workout.name}</h1>
       <h3>Intensity: {workout.intensity}</h3>
-      <div>
+      <div className="regtext">
         <table>
           <thead>
             <tr
@@ -67,8 +67,8 @@ function WorkoutDetail() {
           <tbody>
             {exercises.map((exercise) => {
               return (
-                <Accordion key={exercise.exerciseinstanceid}>
-                  <AccordionSummary>
+                <Accordion className="background" key={exercise.exerciseinstanceid}>
+                  <AccordionSummary  className="accordbg">
                     <Typography>{exercise.name}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -83,13 +83,7 @@ function WorkoutDetail() {
                         <strong>Reps:</strong> {exercise.reps}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        marginLeft: "auto",
-                        maxWidth: "20rem",
-                        textAlign: "right",
-                      }}
-                    >
+                    <div className= "exercisedetail">
                       <strong>Instructions:</strong> {exercise.instructions}
                     </div>
                   </AccordionDetails>
