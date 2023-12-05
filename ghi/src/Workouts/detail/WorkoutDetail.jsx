@@ -6,8 +6,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 
 function WorkoutDetail() {
-  const [userid, setUserid] = useState(1);
-  const [workoutid, setWorkoutid] = useState(1);
+  const [userid, setUserid] = useState(0);
   const [workout, setWorkout] = useState({
     userid: userid,
     name: "",
@@ -17,9 +16,9 @@ function WorkoutDetail() {
 
   const [exercises, setExercises] = useState([]);
 
-  //   const urlSearchParams = new URLSearchParams(window.location.search);
-  //   const params = Object.fromEntries(urlSearchParams.entries());
-  //   const workoutid = params.workoutid;
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const workoutid = params.workoutid;
 
   async function loadWorkout() {
     const response = await fetch(`http://localhost:8000/workouts/${workoutid}`);
@@ -40,9 +39,30 @@ function WorkoutDetail() {
     }
   }
 
+  const getToken = async () => {
+    try {
+      const loginUrl = `http://localhost:8000/token/`;
+      const fetchConfig = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+      };
+
+      const response = await fetch(loginUrl, fetchConfig);
+      const data = await response.json();
+      setUserid(data.user.userid);
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
   console.log("exercises", exercises);
   useEffect(() => {
     loadWorkout();
+    getToken();
     loadExercises();
   }, []);
 

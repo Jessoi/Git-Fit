@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 function UserWorkouts() {
-  const [userid, setUserid] = useState(1);
+  const [userid, setUserid] = useState(0);
   const [workouts, setWorkouts] = useState([]);
+
   const getListWorkout = async () => {
     const response = await fetch(`http://localhost:8000/${userid}/workouts`);
     if (response.ok) {
@@ -34,6 +35,32 @@ function UserWorkouts() {
       setWorkouts(newWorkouts);
     }
   };
+
+  console.log();
+  const getToken = async () => {
+    try {
+      const loginUrl = `http://localhost:8000/token/`;
+      const fetchConfig = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+      };
+
+      const response = await fetch(loginUrl, fetchConfig);
+      const data = await response.json();
+      setUserid(data.user.userid);
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+  useEffect(() => {
+    getListWorkout();
+    getToken();
+  }, [userid]);
+
   const deleteWorkout = async (workoutid) => {
     const request = `http://localhost:8000/workouts/${workoutid}`;
     const fetchConfig = {
@@ -51,7 +78,7 @@ function UserWorkouts() {
   };
 
   useEffect(() => {
-    getListWorkout();
+    getToken();
   }, []);
 
   return (
@@ -71,14 +98,14 @@ function UserWorkouts() {
               <tr key={workout.workoutid}>
                 <td
                   onClick={(event) =>
-                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
                   }
                 >
                   {workout.name}
                 </td>
                 <td
                   onClick={(event) =>
-                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
                   }
                 >
                   {workout.intensity}
