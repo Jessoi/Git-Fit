@@ -103,25 +103,25 @@ class UserQueries:
                 )
 
 
-def edit_profile(self, username: str, edit_profile):
-    print("here in get): " + username)
-    with pool.connection() as conn:
-        with conn.cursor() as cur:
-            params = [
-                edit_profile.first_name,
-                edit_profile.last_name,
-                edit_profile.height,
-                edit_profile.weight,
-                username,
-            ]
-            cur.execute(
-                """
-                UPDATE users
-                SET first_name = %s,
-                    last_name = %s,
-                    height = %s,
-                    weight = %s
-                WHERE username = %s;
-                """,
-                params,
-            )
+    def edit_profile(self, username: str, edit_profile):
+        print("here in get): " + username)
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                params = [
+                    edit_profile.first_name,
+                    edit_profile.last_name,
+                    edit_profile.height,
+                    edit_profile.weight,
+                    username,
+                ]
+                cur.execute(
+                    """
+                    UPDATE users
+                    SET first_name = %s,
+                        last_name = %s,
+                        height = %s,
+                        weight = %s
+                    WHERE username = %s;
+                    """,
+                    params,
+                )
