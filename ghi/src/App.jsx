@@ -20,8 +20,9 @@ if (!tokenUrl) {
 }
 
 function App() {
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, '');
+  const domain = /https:\/\/[^/]+/;
+  const basename = import.meta.env.VITE_PUBLIC_URL.replace(domain, '');
+
   return (
     <>
       <BrowserRouter basename={basename}>

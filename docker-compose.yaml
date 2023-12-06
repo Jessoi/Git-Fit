@@ -36,7 +36,7 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      PUBLIC_URL: http://localhost:5173
+      VITE_PUBLIC_URL: ${VITE_PUBLIC_URL}
       VITE_REACT_APP_API_HOST: ${VITE_REACT_APP_API_HOST}
 
   postgres:
