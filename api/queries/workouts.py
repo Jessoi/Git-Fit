@@ -20,6 +20,7 @@ class WorkoutOut(BaseModel):
     favorite: bool
     workout_datetime: datetime
 
+
 class ListWorkoutOut(BaseModel):
     workouts: list[WorkoutOut]
 
