@@ -12,6 +12,7 @@ function WorkoutDetail() {
     name: "",
     intensity: "",
     favorite: false,
+    workout_datetime: null,
   });
 
   const [exercises, setExercises] = useState([]);

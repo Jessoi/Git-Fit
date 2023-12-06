@@ -9,7 +9,7 @@ class WorkoutIn(BaseModel):
     name: str
     intensity: str
     favorite: bool
-    workout_datetime: datetime
+    workout_datetime: Optional[datetime] = None
 
 
 class WorkoutOut(BaseModel):
@@ -18,7 +18,7 @@ class WorkoutOut(BaseModel):
     name: str
     intensity: str
     favorite: bool
-    workout_datetime: datetime
+    workout_datetime: Optional[datetime] = None
 
 
 class ListWorkoutOut(BaseModel):
@@ -97,7 +97,7 @@ class WorkoutRepository:
                     """
                     UPDATE workouts
                     SET name = %s,
-                         intensity = %s, favorite = %s, workout_datetime = %s
+                    intensity = %s, favorite = %s, workout_datetime = %s
                     WHERE workoutid = %s
                     """,
                     [

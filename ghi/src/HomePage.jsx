@@ -12,8 +12,8 @@ function HomePage() {
           </thead>
           <tbody></tbody>
         </table>
-        <NavLink to="http://localhost:5173/trainee/signup">Sign up</NavLink>
-        <Navlink to="http://localhost:5173/trainee/login">login</Navlink>
+        {/* <NavLink to="http://localhost:5173/trainee/signup">Sign up</NavLink>
+        <Navlink to="http://localhost:5173/trainee/login">login</Navlink> */}
       </div>
       <footer>
         <p className="regtext">

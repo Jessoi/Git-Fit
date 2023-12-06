@@ -7,10 +7,9 @@ function CreateWorkout() {
   const [formData, setFormData] = useState({
     userid: "",
     name: "",
-    workout_datetime: "2023-12-06T17:46:24.214Z",
     intensity: "",
     favorite: false,
-    workout_datetime: "",
+    workout_datetime: null,
   });
 
   const getToken = async () => {
@@ -81,7 +80,6 @@ function CreateWorkout() {
       });
       event.target.reset();
     }
-    console.log(formData);
   };
 
   const changeUserid = async () => {
