@@ -29,6 +29,18 @@ CREATE TABLE IF NOT EXISTS workoutdates (
     workoutdate DATE
 );
 
+-- CREATE TABLE IF NOT EXISTS scheduledworkout (
+--     id SERIAL PRIMARY KEY,
+--     workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
+--     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
+--     workoutdatetime DATETIME
+-- );
+-- StaticDateTimePicker
+-- LocalizationProvider
+
+-- for home page modal and box from material UI
+-- for box position absolute almost makes the position on the top layer of the page
+
 CREATE TABLE IF NOT EXISTS exercises (
     exerciseid SERIAL PRIMARY KEY,
     name VARCHAR(100),

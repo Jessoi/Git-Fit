@@ -97,10 +97,17 @@ function WorkoutDetail() {
                         <strong>Target Muscle:</strong> {exercise.muscle}
                       </div>
                       <div>
+                        <strong>Exercise Difficulty:</strong>{" "}
+                        {exercise.difficulty}
+                      </div>
+                      <div>
                         <strong>Sets:</strong> {exercise.sets}
                       </div>
                       <div>
                         <strong>Reps:</strong> {exercise.reps}
+                      </div>
+                      <div>
+                        <strong>Weight:</strong> {exercise.weight}
                       </div>
                     </div>
                     <div
