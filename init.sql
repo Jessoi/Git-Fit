@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
-    name VARCHAR(50)
+    name VARCHAR(50),
+    workout_datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS exercises (

@@ -1,17 +1,20 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from typing import Optional
+from datetime import datetime
 
 
 class WorkoutIn(BaseModel):
     userid: int
     name: str
+    workout_datetime: datetime
 
 
 class WorkoutOut(BaseModel):
     workoutid: int
     userid: int
     name: str
+    workout_datetime: datetime
 
 
 class ListWorkoutOut(BaseModel):
@@ -48,12 +51,12 @@ class WorkoutRepository:
                 cur.execute(
                     """
                     INSERT INTO workouts
-                        (userid, name)
+                        (userid, name, workout_datetime)
                     VALUES
-                        (%s, %s)
-                    RETURNING workoutid, userid, name
+                        (%s, %s, %s)
+                    RETURNING workoutid, userid, name, workout_datetime
                     """,
-                    [workout.userid, workout.name],
+                    [workout.userid, workout.name, workout.workout_datetime],
                 )
 
                 workout_response = cur.fetchone()
@@ -61,6 +64,7 @@ class WorkoutRepository:
                     "workoutid": workout_response[0],
                     "userid": workout_response[1],
                     "name": workout_response[2],
+                    "workout_datetime": workout_response[3],
                 }
                 return WorkoutOut(**workout_data)
 
@@ -70,10 +74,11 @@ class WorkoutRepository:
                 cur.execute(
                     """
                     UPDATE workouts
-                    SET name = %s
+                    SET name = %s,
+                        workout_datetime = %s
                     WHERE workoutid = %s
                     """,
-                    [workout.name, workoutid],
+                    [workout.name, workout.workout_datetime, workoutid],
                     # userid in request body, doesn't change upon put request
                     # investigate if SERIAL is reason.
                 )
@@ -100,6 +105,7 @@ class WorkoutRepository:
                     SELECT workoutid
                         , userid
                         , name
+                        , workout_datetime
                     FROM workouts
                     WHERE workoutid = %s
                     """,
@@ -110,5 +116,6 @@ class WorkoutRepository:
                     "workoutid": response[0],
                     "userid": response[1],
                     "name": response[2],
+                    "workout_datetime": response[3]
                 }
                 return WorkoutOut(**data)
