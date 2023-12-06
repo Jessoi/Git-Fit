@@ -72,7 +72,8 @@ class WorkoutRepository:
                     """,
                     [
                         workout.userid,
-                        workout.name, workout.workout_datetime,
+                        workout.name,
+                        workout.workout_datetime,
                         workout.intensity,
                         workout.favorite,
                     ],
@@ -100,7 +101,8 @@ class WorkoutRepository:
                     WHERE workoutid = %s
                     """,
                     [
-                        workout.name, workout.workout_datetime,
+                        workout.name,
+                        workout.workout_datetime,
                         workout.intensity,
                         workout.favorite,
                         workoutid,
@@ -129,9 +131,9 @@ class WorkoutRepository:
                     SELECT workoutid
                         , userid
                         , name
-                        , workout_datetime
                         , intensity
                         , favorite
+                        , workout_datetime
                     FROM workouts
                     WHERE workoutid = %s
                     """,

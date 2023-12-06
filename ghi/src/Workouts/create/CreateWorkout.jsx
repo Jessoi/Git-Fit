@@ -9,6 +9,7 @@ function CreateWorkout() {
     name: "",
     intensity: "",
     favorite: false,
+    workout_datetime: "",
   });
 
   const getToken = async () => {
@@ -75,6 +76,7 @@ function CreateWorkout() {
         name: "",
         intensity: "",
         favorite: "",
+        workout_datetime: "",
       });
       event.target.reset();
     }
