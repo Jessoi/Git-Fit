@@ -73,7 +73,7 @@ pages:
   needs:
     - build-front-end-job
   script:
-    - mv ghi/build/ public
+    - mv ghi/dist/ public
   artifacts:
     paths:
       - public
