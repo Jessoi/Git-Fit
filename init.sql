@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS workouts (
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
     name VARCHAR(50),
     intensity VARCHAR(50),
-    favorite BOOLEAN DEFAULT FALSE
+    favorite BOOLEAN DEFAULT FALSE,
+    workout_datetime TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS exercises (
@@ -51,12 +52,12 @@ VALUES
 
 
 -- Add some workouts
-INSERT INTO workouts (userid, name, intensity, favorite)
+INSERT INTO workouts (userid, name, intensity, favorite, workout_datetime)
 VALUES
-  (1, 'Leg Day', 'easy', FALSE),
-  (1, 'Arm Day', 'medium', FALSE),
-  (2, 'Yoga Flow', 'easy', FALSE),
-  (3, 'Full Body', 'hard', FALSE);
+  (1, 'Leg Day', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (1, 'Arm Day', 'medium', FALSE, '2023-12-06 08:00:00'),
+  (2, 'Yoga Flow', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (3, 'Full Body', 'hard', FALSE, '2023-12-06 08:00:00');
 
 -- Add some exercises
 INSERT INTO exercises (name, muscle, difficulty, instructions)

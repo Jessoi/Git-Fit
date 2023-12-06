@@ -7,19 +7,18 @@ from datetime import datetime
 class WorkoutIn(BaseModel):
     userid: int
     name: str
-    workout_datetime: datetime
     intensity: str
     favorite: bool
+    workout_datetime: datetime
 
 
 class WorkoutOut(BaseModel):
     workoutid: int
     userid: int
     name: str
-    workout_datetime: datetime
     intensity: str
     favorite: bool
-
+    workout_datetime: datetime
 
 class ListWorkoutOut(BaseModel):
     workouts: list[WorkoutOut]
@@ -59,22 +58,23 @@ class WorkoutRepository:
                 cur.execute(
                     """
                     INSERT INTO workouts
-                        (userid, name, workout_datetime, intensity, favorite)
+                        (userid, name, intensity, favorite, workout_datetime)
                     VALUES
                         (%s, %s, %s, %s, %s)
                     RETURNING
                         workoutid,
                         userid,
                         name,
-                        workout_datetime,
                         intensity,
-                        favorite
+                        favorite,
+                        workout_datetime
                     """,
                     [
                         workout.userid,
-                        workout.name, workout.workout_datetime,
+                        workout.name,
                         workout.intensity,
                         workout.favorite,
+                        workout.workout_datetime
                     ],
                 )
 
@@ -83,9 +83,9 @@ class WorkoutRepository:
                     "workoutid": workout_response[0],
                     "userid": workout_response[1],
                     "name": workout_response[2],
-                    "workout_datetime": workout_response[3],
                     "intensity": workout_response[3],
                     "favorite": workout_response[4],
+                    "workout_datetime": workout_response[5]
                 }
                 return WorkoutOut(**workout_data)
 
@@ -96,14 +96,16 @@ class WorkoutRepository:
                     """
                     UPDATE workouts
                     SET name = %s,
-                        workout_datetime = %s, intensity = %s, favorite = %s
+                         intensity = %s, favorite = %s, workout_datetime = %s
                     WHERE workoutid = %s
                     """,
                     [
-                        workout.name, workout.workout_datetime,
+                        workout.name,
                         workout.intensity,
                         workout.favorite,
+                        workout.workout_datetime,
                         workoutid,
+
                     ],
                 )
                 old_data = workout.dict()
@@ -129,9 +131,9 @@ class WorkoutRepository:
                     SELECT workoutid
                         , userid
                         , name
-                        , workout_datetime
                         , intensity
                         , favorite
+                        , workout_datetime
                     FROM workouts
                     WHERE workoutid = %s
                     """,
@@ -142,9 +144,9 @@ class WorkoutRepository:
                     "workoutid": response[0],
                     "userid": response[1],
                     "name": response[2],
-                    "workout_datetime": response[3],
                     "intensity": response[3],
                     "favorite": response[4],
+                    "workout_datetime": response[5]
                 }
                 return WorkoutOut(**data)
 
@@ -170,5 +172,6 @@ class WorkoutRepository:
                     "name": response[2],
                     "intensity": response[3],
                     "favorite": response[4],
+                    "workout_datetime": response[5]
                 }
                 return WorkoutOut(**data)
