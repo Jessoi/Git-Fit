@@ -37,3 +37,7 @@ def launch_details():
 
 app.include_router(exercises.router, tags=["Exercises"])
 app.include_router(exercise_instance.router, tags=["Exercise_instance"])
+
+@app.get("/")
+def root():
+    return {"message": "You hit the root path!"}
