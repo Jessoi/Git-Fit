@@ -40,7 +40,13 @@ async def get_user(
     user_id: int,
     repo: UserQueries = Depends(),
 ):
-    return repo.get_user(user_id)
+    user = repo.get_user(user_id)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+            )
+    return user
 
 
 @router.post("/api/users/", response_model=UserToken | HttpError)
