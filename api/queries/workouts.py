@@ -62,7 +62,13 @@ class WorkoutRepository:
                         (userid, name, workout_datetime, intensity, favorite)
                     VALUES
                         (%s, %s, %s, %s, %s)
-                    RETURNING workoutid, userid, name, workout_datetime, intensity, favorite
+                    RETURNING
+                        workoutid,
+                        userid,
+                        name,
+                        workout_datetime,
+                        intensity,
+                        favorite
                     """,
                     [
                         workout.userid,
