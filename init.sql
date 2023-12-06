@@ -24,24 +24,6 @@ CREATE TABLE IF NOT EXISTS workouts (
     workout_datetime TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS workoutdates (
-    workoutdateid SERIAL PRIMARY KEY,
-    workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
-    workoutdate DATE
-);
-
--- CREATE TABLE IF NOT EXISTS scheduledworkout (
---     id SERIAL PRIMARY KEY,
---     workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
---     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
---     workoutdatetime DATETIME
--- );
--- StaticDateTimePicker
--- LocalizationProvider
-
--- for home page modal and box from material UI
--- for box position absolute almost makes the position on the top layer of the page
-
 CREATE TABLE IF NOT EXISTS exercises (
     exerciseid SERIAL PRIMARY KEY,
     name VARCHAR(100),
@@ -70,12 +52,12 @@ VALUES
 
 
 -- Add some workouts
-INSERT INTO workouts (userid, name, intensity, favorite)
+INSERT INTO workouts (userid, name, intensity, favorite, workout_datetime)
 VALUES
-  (1, 'Leg Day', 'easy', FALSE),
-  (1, 'Arm Day', 'medium', FALSE),
-  (2, 'Yoga Flow', 'easy', FALSE),
-  (3, 'Full Body', 'hard', FALSE);
+  (1, 'Leg Day', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (1, 'Arm Day', 'medium', FALSE, '2023-12-06 08:00:00'),
+  (2, 'Yoga Flow', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (3, 'Full Body', 'hard', FALSE, '2023-12-06 08:00:00');
 
 -- Add some exercises
 INSERT INTO exercises (name, muscle, difficulty, instructions)
