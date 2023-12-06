@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
     name VARCHAR(50),
+<<<<<<< HEAD
     intensity VARCHAR(50),
     favorite BOOLEAN DEFAULT FALSE
 );
@@ -27,6 +28,9 @@ CREATE TABLE IF NOT EXISTS workoutdates (
     workoutdateid SERIAL PRIMARY KEY,
     workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
     workoutdate DATE
+=======
+    workout_datetime TIMESTAMP
+>>>>>>> workout-times
 );
 
 -- CREATE TABLE IF NOT EXISTS scheduledworkout (
