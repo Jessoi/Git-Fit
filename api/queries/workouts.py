@@ -75,7 +75,7 @@ class WorkoutRepository:
                         workout.name,
                         workout.intensity,
                         workout.favorite,
-                        workout.workout_datetime
+                        workout.workout_datetime,
                     ],
                 )
 
@@ -86,7 +86,7 @@ class WorkoutRepository:
                     "name": workout_response[2],
                     "intensity": workout_response[3],
                     "favorite": workout_response[4],
-                    "workout_datetime": workout_response[5]
+                    "workout_datetime": workout_response[5],
                 }
                 return WorkoutOut(**workout_data)
 
@@ -106,7 +106,6 @@ class WorkoutRepository:
                         workout.favorite,
                         workout.workout_datetime,
                         workoutid,
-
                     ],
                 )
                 old_data = workout.dict()
@@ -147,7 +146,7 @@ class WorkoutRepository:
                     "name": response[2],
                     "intensity": response[3],
                     "favorite": response[4],
-                    "workout_datetime": response[5]
+                    "workout_datetime": response[5],
                 }
                 return WorkoutOut(**data)
 
@@ -173,6 +172,6 @@ class WorkoutRepository:
                     "name": response[2],
                     "intensity": response[3],
                     "favorite": response[4],
-                    "workout_datetime": response[5]
+                    "workout_datetime": response[5],
                 }
                 return WorkoutOut(**data)
