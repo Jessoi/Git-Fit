@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";/
 
 function CreateWorkout() {
   const [userid, setUserid] = useState(0);
@@ -33,8 +33,23 @@ function CreateWorkout() {
   };
 
   useEffect(() => {
-    getlistworkout();
-    changeUserid();
+    getToken();
+  }, []);
+
+  useEffect(() => {
+    if (userid != 0) {
+      const getlistworkout = async () => {
+        const response = await fetch(
+          `http://localhost:8000/${userid}/workouts`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setWorkouts(data.workouts);
+        }
+      };
+      getlistworkout();
+      changeUserid();
+    }
   }, [userid]);
 
   const handleSubmit = async (event) => {
@@ -72,19 +87,6 @@ function CreateWorkout() {
       return { ...prevFormData, userid: userid };
     });
   };
-
-  const getlistworkout = async () => {
-    const response = await fetch(`http://localhost:8000/${userid}/workouts`);
-    if (response.ok) {
-      const data = await response.json();
-      setWorkouts(data.workouts);
-    }
-  };
-
-  useEffect(() => {
-    getlistworkout();
-    getToken();
-  }, []);
 
   const handleFormChange = (e) => {
     const value = e.target.value;
