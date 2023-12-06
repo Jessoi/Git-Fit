@@ -19,8 +19,6 @@ COPY routers routers
 # Installs all the python packages listed in our requirements.txt file
 RUN python -m pip install -r requirements.txt
 
-COPY ./init.sql /docker-entrypoint-initdb.d/init.sql
-
 # This is the command that runs when the docker container starts
 #CMD uvicorn main:app --host 0.0.0.0 --port 80 --forwarded-allow-ips "*"
 
