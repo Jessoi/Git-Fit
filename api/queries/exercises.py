@@ -1,7 +1,8 @@
 from pydantic import BaseModel
 from fastapi import Query
 from queries.pool import pool
-import requests, os
+import requests
+import os
 
 api_key = os.getenv("API_KEY")
 

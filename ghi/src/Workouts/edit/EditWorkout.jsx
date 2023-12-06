@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import './EditWorkout.css'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Input from '@mui/material/Input';
+
 function EditWorkout () {
   const MUSCLES = [
     'abdominals',
@@ -27,10 +37,8 @@ function EditWorkout () {
   const handleCheckboxChange = event => {
     setSelectedDifficulty(event.target.value)
   }
-
-  const [userid, setUserid] = useState(1)
   const [workout, setWorkout] = useState({
-    userid: userid,
+    userid: '',
     name: '',
     intensity: '',
     favorite: false
@@ -43,7 +51,7 @@ function EditWorkout () {
   }
 
   const [formData, setFormData] = useState({
-    userid: userid,
+    userid: '',
     name: '',
     intensity: '',
     favorite: false
@@ -97,7 +105,7 @@ function EditWorkout () {
       const data = await response.json()
       loadWorkout()
       setFormData({
-        userid: userid,
+        userid: '',
         name: '',
         intensity: '',
         favorite: ''
@@ -215,7 +223,7 @@ function EditWorkout () {
             <form onSubmit={handleSubmit} id='edit-workout-form'>
               <div>
                 Workout Name
-                <input
+                <Input
                   onChange={handleFormChange}
                   value={formData.name}
                   placeholder='Workout name'
@@ -227,7 +235,7 @@ function EditWorkout () {
               </div>
               <div>
                 Intensity
-                <input
+                <Input
                   onChange={handleFormChange}
                   value={formData.intensity}
                   placeholder='Intensity'
@@ -237,29 +245,29 @@ function EditWorkout () {
                   name='intensity'
                 />
               </div>
-              <button onClick={handleSubmit}>Save Changes</button>
-              <div>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Muscle</th>
-                      <th>Difficulty</th>
-                      <th>Weight</th>
-                      <th>Reps</th>
-                      <th>Sets</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <Button onClick={handleSubmit}>Save Changes</Button>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Muscle</TableCell>
+                      <TableCell>Difficulty</TableCell>
+                      <TableCell>Weight</TableCell>
+                      <TableCell>Reps</TableCell>
+                      <TableCell>Sets</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
                     {exercises.map(exercise => (
-                      <tr key={exercise.exerciseinstanceid}>
-                        <td>{exercise.name}</td>
-                        <td>{exercise.muscle}</td>
-                        <td>{exercise.difficulty}</td>
+                      <TableRow key={exercise.exerciseinstanceid}>
+                        <TableCell>{exercise.name}</TableCell>
+                        <TableCell>{exercise.muscle}</TableCell>
+                        <TableCell>{exercise.difficulty}</TableCell>
                         {editModeExerciseId === exercise.exerciseinstanceid ? (
                           <>
-                            <td>
-                              <input
+                            <TableCell>
+                              <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.weight}
                                 placeholder='weight'
@@ -268,9 +276,9 @@ function EditWorkout () {
                                 name='weight'
                                 style={{ width: '50px' }}
                               />
-                            </td>
-                            <td>
-                              <input
+                            </TableCell>
+                            <TableCell>
+                              <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.sets}
                                 placeholder='sets'
@@ -279,9 +287,9 @@ function EditWorkout () {
                                 name='sets'
                                 style={{ width: '50px' }}
                               />
-                            </td>
-                            <td>
-                              <input
+                            </TableCell>
+                            <TableCell>
+                              <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.reps}
                                 placeholder='reps'
@@ -290,20 +298,20 @@ function EditWorkout () {
                                 name='reps'
                                 style={{ width: '50px' }}
                               />
-                            </td>
-                            <td>
-                              <button onClick={handleSaveButtonClick}>
+                            </TableCell>
+                            <TableCell>
+                              <Button onClick={handleSaveButtonClick}>
                                 Save
-                              </button>
-                            </td>
+                              </Button>
+                            </TableCell>
                           </>
                         ) : (
                           <>
-                            <td>{exercise.weight}</td>
-                            <td>{exercise.reps}</td>
-                            <td>{exercise.sets}</td>
-                            <td>
-                              <button
+                            <TableCell>{exercise.weight}</TableCell>
+                            <TableCell>{exercise.reps}</TableCell>
+                            <TableCell>{exercise.sets}</TableCell>
+                            <TableCell>
+                              <Button
                                 onClick={() =>
                                   handleEditButtonClick(
                                     exercise.exerciseinstanceid,
@@ -312,15 +320,15 @@ function EditWorkout () {
                                 }
                               >
                                 Edit
-                              </button>
-                            </td>
+                              </Button>
+                            </TableCell>
                           </>
                         )}
-                      </tr>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </form>
           </div>
         </div>
