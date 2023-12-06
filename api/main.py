@@ -20,6 +20,8 @@ app.add_middleware(
 
 app.include_router(users.router, tags=["AUTH"])
 app.include_router(authenticator.router, tags=["AUTH"])
+app.include_router(exercises.router, tags=["Exercises"])
+app.include_router(exercise_instance.router, tags=["Exercise_instance"])
 
 
 @app.get("/api/launch-details")
@@ -35,9 +37,6 @@ def launch_details():
     }
 
 
-app.include_router(exercises.router, tags=["Exercises"])
-app.include_router(exercise_instance.router, tags=["Exercise_instance"])
-
 @app.get("/")
 def root():
-    return {"message": "You hit the root path!"}
+    return {"message": "You hit the root path! Jesse"}
