@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { formatDate } from "../../utils/dateutils";
 
 function UserWorkouts() {
   const [userid, setUserid] = useState(0);
@@ -139,6 +140,13 @@ function UserWorkouts() {
                   }
                 >
                   {workout.intensity}
+                </td>
+                <td
+                  onClick={(event) =>
+                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                  }
+                >
+                  {formatDate(workout.workout_datetime)}
                 </td>
                 <td>
                   <Button

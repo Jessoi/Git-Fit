@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";/
+import { useState, useEffect } from "react";
+
 
 function CreateWorkout() {
   const [userid, setUserid] = useState(0);
@@ -120,33 +120,16 @@ function CreateWorkout() {
           id="intensity"
           name="intensity"
         />
+        <input
+          onChange={handleFormChange}
+          value={formData.workout_datetime}
+          placeholder="Date"
+          type="datetime-local"
+          id="workout_datetime"
+          name="workout_datetime"
+        />
         <button type="submit">Create workout</button>
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Existing Workouts</th>
-            <th>Intensity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts ? (
-            workouts.map((workout) => {
-              return (
-                <tr key={workout.workoutid}>
-                  <td>{workout.name}</td>
-                  <td>{workout.intensity}</td>
-                  <td>{workout.favorite}</td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td>No Workouts</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
     </div>
   );
 }

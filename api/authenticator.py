@@ -2,7 +2,7 @@ import os
 from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
 from queries.users import UserQueries
-from queries.schema import UserOutWithPassword
+from queries.user_schema import UserOutWithPassword
 from passlib.context import CryptContext
 
 

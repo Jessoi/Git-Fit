@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.users import UserQueries
-from queries.schema import UserOut
+from queries.user_schema import UserOut
 
 
 client = TestClient(app)

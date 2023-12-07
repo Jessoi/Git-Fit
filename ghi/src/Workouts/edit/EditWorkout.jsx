@@ -109,6 +109,7 @@ function EditWorkout() {
         name: "",
         intensity: "",
         favorite: "",
+        workout_datetime: "",
       });
     }
   };
@@ -243,6 +244,18 @@ function EditWorkout() {
                   type="text"
                   id="intensity"
                   name="intensity"
+                />
+              </div>
+              <div>
+                Workout Date
+                <Input
+                  onChange={handleFormChange}
+                  value={formData.workout_datetime}
+                  placeholder="Date"
+                  required
+                  type="datetime-local"
+                  id="workout_datetime"
+                  name="workout_datetime"
                 />
               </div>
               <Button onClick={handleSubmit}>Save Changes</Button>
