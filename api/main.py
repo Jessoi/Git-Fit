@@ -10,7 +10,7 @@ from routers import exercises
 app = FastAPI()
 app.include_router(workouts.router)
 
-url = "https://module3-project-gamma-baby-boys-dad1dc47618ee01452cc68b60125316.gitlab.io" # noqa
+url = "https://baby-boys.gitlab.io" # noqa
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[os.environ.get("CORS_HOST", url), "http://localhost:5173"],
