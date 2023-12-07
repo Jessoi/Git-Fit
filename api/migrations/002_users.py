@@ -12,6 +12,6 @@ steps = [
     weight INT
 );""",
         # "Down" SQL statement
-        """DROP TABLE users;"""
+        """DROP TABLE users;""",
     ]
 ]

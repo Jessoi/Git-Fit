@@ -4,7 +4,7 @@ steps = [
         """CREATE TABLE IF NOT EXISTS exerciseinstances (
     exerciseinstanceid  SERIAL PRIMARY KEY,
     workoutid INT,
-    FOREIGN KEY (workoutid) REFERENCES Workouts(workoutid) ON DELETE CASCADE,
+    FOREIGN KEY (workoutid) REFERENCES workouts(workoutid) ON DELETE CASCADE,
     exerciseid INT,
     FOREIGN KEY (exerciseid)
     REFERENCES Exercises(exerciseid) ON DELETE CASCADE,
@@ -14,6 +14,6 @@ steps = [
 );
 """,
         # "Down" SQL statement
-        """DROP TABLE exerciseinstances;"""
+        """DROP TABLE exerciseinstances;""",
     ]
 ]

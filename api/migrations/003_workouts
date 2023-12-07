@@ -10,6 +10,6 @@ steps = [
     workout_datetime TIMESTAMP
 );""",
         # "Down" SQL statement
-        """DROP TABLE workouts;"""
+        """DROP TABLE workouts;""",
     ]
 ]

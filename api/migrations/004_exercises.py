@@ -9,6 +9,6 @@ steps = [
     instructions TEXT
 );""",
         # "Down" SQL statement
-        """DROP TABLE exercises;"""
+        """DROP TABLE exercises;""",
     ]
 ]
