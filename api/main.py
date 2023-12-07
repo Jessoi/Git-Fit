@@ -12,9 +12,7 @@ app.include_router(workouts.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("CORS_HOST", "http://localhost:5173"),
-    #eslint-disable-next-line react-hooks/exhaustive-deps
-    "https://module3-project-gamma-baby-boys-dad1dc47618ee01452cc68b60125316.gitlab.io"],
+    allow_origins=[os.environ.get("CORS_HOST", "http://localhost:5173")],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
