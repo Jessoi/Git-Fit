@@ -15,10 +15,10 @@ function UserWorkouts() {
   const [workouts, setWorkouts] = useState([]);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [deleted, setDeleted] = useState(false);
-
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
   const getToken = async () => {
     try {
-      const loginUrl = `http://localhost:8000/token/`;
+      const loginUrl = `${viteUrl}/token/`;
       const fetchConfig = {
         method: "GET",
         headers: {
@@ -44,7 +44,7 @@ function UserWorkouts() {
     if (userid != 0 || deleted) {
       const getListWorkout = async () => {
         const response = await fetch(
-          `http://localhost:8000/${userid}/workouts`
+          `${viteUrl}/${userid}/workouts`
         );
         if (response.ok) {
           const data = await response.json();
@@ -57,7 +57,7 @@ function UserWorkouts() {
   }, [userid, deleted]);
 
   const updateFavorite = async (workoutid, favoriteStatus) => {
-    const url = `http://localhost:8000/workouts/${workoutid}/updatefavorite`;
+    const url = `${viteUrl}/workouts/${workoutid}/updatefavorite`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify({ favorite: !favoriteStatus }),
@@ -80,7 +80,7 @@ function UserWorkouts() {
   };
 
   const deleteWorkout = async (workoutid) => {
-    const request = `http://localhost:8000/workouts/${workoutid}`;
+    const request = `${viteUrl}/workouts/${workoutid}`;
     const fetchConfig = {
       method: "delete",
     };

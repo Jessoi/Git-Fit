@@ -11,10 +11,10 @@ function CreateWorkout() {
     favorite: false,
     workout_datetime: null,
   });
-
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
   const getToken = async () => {
     try {
-      const loginUrl = `http://localhost:8000/token/`;
+      const loginUrl = `${viteUrl}/token/`;
       const fetchConfig = {
         method: "GET",
         headers: {
@@ -40,7 +40,7 @@ function CreateWorkout() {
     if (userid != 0) {
       const getlistworkout = async () => {
         const response = await fetch(
-          `http://localhost:8000/${userid}/workouts`
+          `${viteUrl}/${userid}/workouts`
         );
         if (response.ok) {
           const data = await response.json();
@@ -54,7 +54,7 @@ function CreateWorkout() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8000/workouts`;
+    const url = `${viteUrl}/workouts`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(formData),

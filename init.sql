@@ -80,6 +80,8 @@ VALUES
   ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.'),
   ('test', 'test', 'test', 'From test, test down and test hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
 
+-- Leg day, name, muscle, difficulty, weight, sets, reps
+
 -- Add some exercise instances
 INSERT INTO exerciseinstances (workoutid, exerciseid, weight, sets, reps)
 VALUES
