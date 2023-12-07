@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
@@ -15,8 +14,6 @@ const EditProfileForm = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,6 +45,7 @@ const EditProfileForm = () => {
       if (response.status === 200) {
         // Profile changed successfully
         setSubmitted(true);
+
         setError(null); // Clear any previous errors
       } else if (response.status === 422) {
         // Validation error

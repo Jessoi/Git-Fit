@@ -72,8 +72,9 @@ async def create_user(
 @router.get("/token/", response_model=UserToken | None)
 async def get_token(
     request: Request,
-    user: dict = Depends(authenticator.try_get_current_account_data),
+    user: dict = Depends(authenticator.try_get_current__data),
 ) -> UserToken | None:
+
     if not user or authenticator.cookie_name not in request.cookies:
         return None  # User not authenticated or cookie not found
     return {
@@ -87,7 +88,7 @@ async def get_token(
 async def change_password(
     change_password: ChangePassword,
     current_user_data: dict = Depends(
-        authenticator.try_get_current_account_data
+        authenticator.try_get_current__data
         ),
     queries: UserQueries = Depends(),
 ):
@@ -124,7 +125,7 @@ async def change_password(
 async def edit_profile(
     edit_profile: EditProfile,
     current_user_data: dict = Depends(
-        authenticator.try_get_current_account_data
+        authenticator.try_get_current__data
         ),
     queries: UserQueries = Depends(),
 ):
