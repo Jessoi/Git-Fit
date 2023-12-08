@@ -23,3 +23,9 @@ The plan for today is to get the edit workoutlist fully functioning with Jesse. 
 
 12/1/23:
 Jesse and I worked for hours on the edit workoutlist page and it quickly became evident that it will be one of our most imposing and fully fleshed out pages. We stopped at a point where the we could render the information on the fields but not change it or fill out the fields but not render the information. the union of all the backend information was difficult to wrangle. I am going to finish up at least 2 unit tests today and hopefully get back on track with Jesse at some point.
+
+12/5/23:
+I implemented some better styling from Material UI on the workout list page and I fixed a persistent bug on both the workoutlist and createworkout page where the initial render happens before the gettoken implements the userid leaving the list field blank. I started working on the home page but didn't make hardly any progress, hoping to fill that out tomorrow.
+
+12/6/23:
+Today I intend to finally create a unit test, unsure on which endpoint, I intend to get the links to the hardcoded workouts fully pathed on the home page with some decent styling, and lastly, to clean up the hardcoded workouts.

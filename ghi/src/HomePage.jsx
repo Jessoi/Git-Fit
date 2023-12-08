@@ -1,3 +1,6 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 function HomePage() {
     return (
     <div className="background">
@@ -12,8 +15,11 @@ Say goodbye to generic workouts. GitFit empowers you to craft personalized exerc
 
 Consistency is key to success, and GitFit ensures you stay on track. Use our scheduling feature to plan workouts and set achievable milestones, seamlessly integrating your fitness routine into your daily life.        </p>
       </div>
+      <footer>
+    placeholder
+      </footer>
     </div>
-    );
+  );
 }
 
 export default HomePage;

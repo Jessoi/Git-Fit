@@ -9,7 +9,7 @@ from fastapi import (
 from authenticator import authenticator
 from jwtdown_fastapi.authentication import Token
 from pydantic import BaseModel
-from queries.schema import (
+from queries.user_schema import (
     UserOut,
     UserIn,
     DuplicateUserError,

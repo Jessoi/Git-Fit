@@ -19,19 +19,22 @@ CREATE TABLE IF NOT EXISTS workouts (
     workoutid SERIAL PRIMARY KEY,
     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
     name VARCHAR(50),
-<<<<<<< HEAD
     intensity VARCHAR(50),
-    favorite BOOLEAN DEFAULT FALSE
+    favorite BOOLEAN DEFAULT FALSE,
+    workout_datetime TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS workoutdates (
-    workoutdateid SERIAL PRIMARY KEY,
-    workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
-    workoutdate DATE
-=======
-    workout_datetime TIMESTAMP
->>>>>>> workout-times
-);
+-- CREATE TABLE IF NOT EXISTS scheduledworkout (
+--     id SERIAL PRIMARY KEY,
+--     workoutid INTEGER REFERENCES workouts(workoutid) ON DELETE CASCADE,
+--     userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
+--     workoutdatetime DATETIME
+-- );
+-- StaticDateTimePicker
+-- LocalizationProvider
+
+-- for home page modal and box from material UI
+-- for box position absolute almost makes the position on the top layer of the page
 
 CREATE TABLE IF NOT EXISTS exercises (
     exerciseid SERIAL PRIMARY KEY,
@@ -61,12 +64,12 @@ VALUES
 
 
 -- Add some workouts
-INSERT INTO workouts (userid, name, intensity, favorite)
+INSERT INTO workouts (userid, name, intensity, favorite, workout_datetime)
 VALUES
-  (1, 'Leg Day', 'easy', FALSE),
-  (1, 'Arm Day', 'medium', FALSE),
-  (2, 'Yoga Flow', 'easy', FALSE),
-  (3, 'Full Body', 'hard', FALSE);
+  (1, 'Leg Day', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (1, 'Arm Day', 'medium', FALSE, '2023-12-06 08:00:00'),
+  (2, 'Yoga Flow', 'easy', FALSE, '2023-12-06 08:00:00'),
+  (3, 'Full Body', 'hard', FALSE, '2023-12-06 08:00:00');
 
 -- Add some exercises
 INSERT INTO exercises (name, muscle, difficulty, instructions)
@@ -76,6 +79,8 @@ VALUES
   ('Downward Dog', 'Full body', 'Beginner', 'From tabletop position, tuck toes under and lift knees off floor. Push hips up and back, straightening legs to inverted V position.'),
   ('Burpees', 'Full body', 'Advanced', 'From standing, squat down and place hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.'),
   ('test', 'test', 'test', 'From test, test down and test hands on floor. Kick feet back into plank. Do a push-up, jump feet in, and stand up with a jump.');
+
+-- Leg day, name, muscle, difficulty, weight, sets, reps
 
 -- Add some exercise instances
 INSERT INTO exerciseinstances (workoutid, exerciseid, weight, sets, reps)

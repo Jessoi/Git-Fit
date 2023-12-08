@@ -1,0 +1,15 @@
+steps = [
+    [
+        # "Up" SQL statement
+        """CREATE TABLE IF NOT EXISTS workouts (
+    workoutid SERIAL PRIMARY KEY,
+    userid INTEGER REFERENCES users(userid) ON DELETE CASCADE,
+    name VARCHAR(50),
+    intensity VARCHAR(50),
+    favorite BOOLEAN DEFAULT FALSE,
+    workout_datetime TIMESTAMP
+);""",
+        # "Down" SQL statement
+        """DROP TABLE workouts;""",
+    ]
+]

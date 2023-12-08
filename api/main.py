@@ -10,9 +10,10 @@ from routers import exercises
 app = FastAPI()
 app.include_router(workouts.router)
 
+url = "https://module3-project-gamma-baby-boys-dad1dc47618ee01452cc68b60125316.gitlab.io/" # noqa
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("CORS_HOST", "http://localhost:5173")],
+    allow_origins=[os.environ.get("CORS_HOST", url), "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,6 +21,8 @@ app.add_middleware(
 
 app.include_router(users.router, tags=["AUTH"])
 app.include_router(authenticator.router, tags=["AUTH"])
+app.include_router(exercises.router, tags=["Exercises"])
+app.include_router(exercise_instance.router, tags=["Exercise_instance"])
 
 
 @app.get("/api/launch-details")
@@ -35,5 +38,6 @@ def launch_details():
     }
 
 
-app.include_router(exercises.router, tags=["Exercises"])
-app.include_router(exercise_instance.router, tags=["Exercise_instance"])
+@app.get("/")
+def root():
+    return {"message": "You hit the root path! Jesse"}

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useState, useEffect } from "react";
+
 
 function CreateWorkout() {
   const [userid, setUserid] = useState(0);
@@ -9,11 +9,12 @@ function CreateWorkout() {
     name: "",
     intensity: "",
     favorite: false,
+    workout_datetime: null,
   });
-
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
   const getToken = async () => {
     try {
-      const loginUrl = `http://localhost:8000/token/`;
+      const loginUrl = `${viteUrl}/token/`;
       const fetchConfig = {
         method: "GET",
         headers: {
@@ -32,13 +33,28 @@ function CreateWorkout() {
   };
 
   useEffect(() => {
-    getlistworkout();
-    changeUserid();
+    getToken();
+  }, []);
+
+  useEffect(() => {
+    if (userid != 0) {
+      const getlistworkout = async () => {
+        const response = await fetch(
+          `${viteUrl}/${userid}/workouts`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setWorkouts(data.workouts);
+        }
+      };
+      getlistworkout();
+      changeUserid();
+    }
   }, [userid]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8000/workouts`;
+    const url = `${viteUrl}/workouts`;
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(formData),
@@ -60,10 +76,10 @@ function CreateWorkout() {
         name: "",
         intensity: "",
         favorite: "",
+        workout_datetime: "",
       });
       event.target.reset();
     }
-    console.log(formData);
   };
 
   const changeUserid = async () => {
@@ -71,19 +87,6 @@ function CreateWorkout() {
       return { ...prevFormData, userid: userid };
     });
   };
-
-  const getlistworkout = async () => {
-    const response = await fetch(`http://localhost:8000/${userid}/workouts`);
-    if (response.ok) {
-      const data = await response.json();
-      setWorkouts(data.workouts);
-    }
-  };
-
-  useEffect(() => {
-    getlistworkout();
-    getToken();
-  }, []);
 
   const handleFormChange = (e) => {
     const value = e.target.value;
@@ -117,33 +120,16 @@ function CreateWorkout() {
           id="intensity"
           name="intensity"
         />
+        <input
+          onChange={handleFormChange}
+          value={formData.workout_datetime}
+          placeholder="Date"
+          type="datetime-local"
+          id="workout_datetime"
+          name="workout_datetime"
+        />
         <button type="submit">Create workout</button>
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Existing Workouts</th>
-            <th>Intensity</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts ? (
-            workouts.map((workout) => {
-              return (
-                <tr key={workout.workoutid}>
-                  <td>{workout.name}</td>
-                  <td>{workout.intensity}</td>
-                  <td>{workout.favorite}</td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td>No Workouts</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
     </div>
   );
 }
