@@ -20,7 +20,8 @@
     "@galvanize-inc/jwtdown-for-react": "0.2.2",
     "@mui/material": "^5.0.0",
     "@emotion/react": "^11.1.3",
-    "@emotion/styled": "^11.1.3"
+    "@emotion/styled": "^11.1.3",
+    "@mui/icons-material": "5.14.19"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

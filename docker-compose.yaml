@@ -1,9 +1,9 @@
 # volumes:
 volumes:
-    postgres-data:
-      external: true
-    pg-admin:
-      external: true
+  postgres-data:
+    external: true
+  pg-admin:
+    external: true
 
 services:
   fastapi:
@@ -37,15 +37,15 @@ services:
       VITE_REACT_APP_API_HOST: ${VITE_REACT_APP_API_HOST}
 
   postgres:
-      image: postgres:14.5-bullseye
-      volumes:
-          - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      environment:
-          POSTGRES_PASSWORD: secret
-          POSTGRES_USER: gitfit
-          POSTGRES_DB: gitfitdb
-      ports:
-          - 15432:5432
+    image: postgres:14.5-bullseye
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: gitfit
+      POSTGRES_DB: gitfitdb
+    ports:
+      - 15432:5432
 
   pg-admin:
     image: dpage/pgadmin4

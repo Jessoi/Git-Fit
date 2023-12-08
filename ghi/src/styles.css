@@ -1,83 +1,61 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
-.nav {
-    background-color: #00234B;
-    color: #E21818;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 0;
-    margin-left: 0;
+.MuiPaper-root ul a,
+:any-link {
+  text-decoration: None;
+  color: black;
 }
 
-.site-title {
-    color: #E21818;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 1rem;
-    text-decoration: none;
-}
-
-.navul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 1rem;
-    text-decoration: none;
-}
-
-.nava {
-    color: #E21818;
-    text-decoration: none;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: .50rem;
-}
-
-.navul .nava:hover {
-    text-decoration: none;
-    color: #FFDD83;
-}
-
-.navul .nava {
-    transition: color 0.3s ease;
+.MuiBox-root .MuiToolbar-root a,
+:any-link {
+  text-decoration: None;
+  color: whitesmoke;
 }
 
 .background {
-    background-image: url("https://us.123rf.com/450wm/andreyzaretsky/andreyzaretsky1712/andreyzaretsky171200042/91679883-huge-man-is-preparing-to-perform-an-exercise-called-deadlift-mixed-media.jpg?ver=6");
-    color: #FFDD83;
-    text-align: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: auto;
+  background-image: url("https://us.123rf.com/450wm/andreyzaretsky/andreyzaretsky1712/andreyzaretsky171200042/91679883-huge-man-is-preparing-to-perform-an-exercise-called-deadlift-mixed-media.jpg?ver=6");
+  color: #ffdd83;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: auto;
 }
 
 .page-header {
-    color: #00234B;
-    font-weight: bold;
-    font-size: 1.8rem;
+  color: #00234b;
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 
 .regtext {
-    color: #FFDD83;
-    font-size: 1.4rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  color: #ffdd83;
+  font-size: 1.4rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .shake {
