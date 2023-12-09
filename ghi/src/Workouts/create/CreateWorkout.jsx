@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-
 function CreateWorkout() {
   const [userid, setUserid] = useState(0);
   const [workouts, setWorkouts] = useState([]);
@@ -10,8 +9,9 @@ function CreateWorkout() {
     intensity: "",
     favorite: false,
     workout_datetime: null,
+    workout_datetime: null,
   });
-  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST;
   const getToken = async () => {
     try {
       const loginUrl = `${viteUrl}/token/`;
@@ -39,9 +39,7 @@ function CreateWorkout() {
   useEffect(() => {
     if (userid != 0) {
       const getlistworkout = async () => {
-        const response = await fetch(
-          `${viteUrl}/${userid}/workouts`
-        );
+        const response = await fetch(`${viteUrl}/${userid}/workouts`);
         if (response.ok) {
           const data = await response.json();
           setWorkouts(data.workouts);
@@ -76,6 +74,7 @@ function CreateWorkout() {
         name: "",
         intensity: "",
         favorite: "",
+        workout_datetime: "",
         workout_datetime: "",
       });
       event.target.reset();

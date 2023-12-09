@@ -10,6 +10,7 @@ class WorkoutIn(BaseModel):
     intensity: str
     favorite: bool
     workout_datetime: Optional[datetime] = None
+    workout_datetime: Optional[datetime] = None
 
 
 class WorkoutOut(BaseModel):
@@ -18,6 +19,8 @@ class WorkoutOut(BaseModel):
     name: str
     intensity: str
     favorite: bool
+    workout_datetime: Optional[datetime] = None
+
     workout_datetime: Optional[datetime] = None
 
 
@@ -76,6 +79,7 @@ class WorkoutRepository:
                         workout.intensity,
                         workout.favorite,
                         workout.workout_datetime,
+                        workout.workout_datetime,
                     ],
                 )
 
@@ -87,6 +91,7 @@ class WorkoutRepository:
                     "intensity": workout_response[3],
                     "favorite": workout_response[4],
                     "workout_datetime": workout_response[5],
+                    "workout_datetime": workout_response[5],
                 }
                 return WorkoutOut(**workout_data)
 
@@ -97,6 +102,7 @@ class WorkoutRepository:
                     """
                     UPDATE workouts
                     SET name = %s,
+                    intensity = %s, favorite = %s, workout_datetime = %s
                     intensity = %s, favorite = %s, workout_datetime = %s
                     WHERE workoutid = %s
                     """,
@@ -179,6 +185,7 @@ class WorkoutRepository:
                     "name": response[2],
                     "intensity": response[3],
                     "favorite": response[4],
+                    "workout_datetime": response[5],
                     "workout_datetime": response[5],
                 }
                 return WorkoutOut(**data)

@@ -92,7 +92,28 @@ function UserWorkouts() {
 
     if (response.ok) {
       setDeleted(true);
+      setDeleted(true);
     } else {
+      alert("unable to delete");
+    }
+  };
+
+  const DeleteDialog = ({ open, onClose, onDelete, workoutName }) => {
+    return (
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Delete Confirmation</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Delete {workoutName}?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onDelete} autoFocus>
+            <DeleteIcon />
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
       alert("unable to delete");
     }
   };
@@ -122,6 +143,7 @@ function UserWorkouts() {
             <th>Workouts</th>
             <th>Intensity</th>
             <th>Favorite</th>
+            <th>Delete</th>
             <th>Delete</th>
             <th></th>
           </tr>
@@ -175,6 +197,18 @@ function UserWorkouts() {
                   </Tooltip>
                 </td>
                 <td>
+                  <Button onClick={() => setDialogOpen(true)}>
+                    <DeleteIcon />
+                  </Button>
+                  <DeleteDialog
+                    open={isDialogOpen}
+                    onClose={() => setDialogOpen(false)}
+                    onDelete={() => {
+                      deleteWorkout(workout.workoutid);
+                      setDialogOpen(false);
+                    }}
+                    workoutName={workout.name}
+                  />
                   <Button onClick={() => setDialogOpen(true)}>
                     <DeleteIcon />
                   </Button>
