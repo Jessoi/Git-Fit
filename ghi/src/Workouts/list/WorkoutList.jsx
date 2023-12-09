@@ -16,7 +16,7 @@ function UserWorkouts() {
   const [workouts, setWorkouts] = useState([]);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST;
   const getToken = async () => {
     try {
       const loginUrl = `${viteUrl}/token/`;
@@ -44,9 +44,7 @@ function UserWorkouts() {
   useEffect(() => {
     if (userid != 0 || deleted) {
       const getListWorkout = async () => {
-        const response = await fetch(
-          `${viteUrl}/${userid}/workouts`
-        );
+        const response = await fetch(`${viteUrl}/${userid}/workouts`);
         if (response.ok) {
           const data = await response.json();
           setWorkouts(data.workouts);
@@ -92,28 +90,7 @@ function UserWorkouts() {
 
     if (response.ok) {
       setDeleted(true);
-      setDeleted(true);
     } else {
-      alert("unable to delete");
-    }
-  };
-
-  const DeleteDialog = ({ open, onClose, onDelete, workoutName }) => {
-    return (
-      <Dialog open={open} onClose={onClose}>
-        <DialogTitle>Delete Confirmation</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Delete {workoutName}?</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onDelete} autoFocus>
-            <DeleteIcon />
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
-  };
       alert("unable to delete");
     }
   };

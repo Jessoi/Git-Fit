@@ -10,36 +10,10 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 
-const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
+const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST;
 
 function EditWorkout() {
-function EditWorkout() {
   const MUSCLES = [
-    "abdominals",
-    "abductors",
-    "adductors",
-    "biceps",
-    "calves",
-    "chest",
-    "forearms",
-    "glutes",
-    "hamstrings",
-    "lats",
-    "lower_back",
-    "middle_back",
-    "neck",
-    "quadriceps",
-    "traps",
-    "triceps",
-  ];
-  const [selectedMuscle, setSelectedMuscle] = useState("abdominals");
-  const handleMuscleChange = (event) => {
-    setSelectedMuscle(event.target.value);
-  };
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
-  const handleCheckboxChange = (event) => {
-    setSelectedDifficulty(event.target.value);
-  };
     "abdominals",
     "abductors",
     "adductors",
@@ -78,18 +52,6 @@ function EditWorkout() {
   const handleRadioChange = (event) => {
     setSelectedExercise(event.target.value);
   };
-    userid: "",
-    name: "",
-    intensity: "",
-    favorite: false,
-    workout_datetime: "",
-  });
-  const [exercises, setExercises] = useState([]);
-  const [newexercises, setNewExercises] = useState([]);
-  const [selectedExercise, setSelectedExercise] = useState();
-  const handleRadioChange = (event) => {
-    setSelectedExercise(event.target.value);
-  };
 
   const [formData, setFormData] = useState({
     userid: "",
@@ -102,17 +64,12 @@ function EditWorkout() {
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const workoutid = params.workoutid;
-  const urlSearchParams = new URLSearchParams(window.location.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  const workoutid = params.workoutid;
 
   const [exerciseForm, setExerciseForm] = useState({
     workoutid: workoutid,
     exerciseid: 0,
     weight: 0,
     reps: 0,
-    sets: 0,
-  });
     sets: 0,
   });
 
@@ -123,21 +80,14 @@ function EditWorkout() {
       console.log(data);
       setWorkout(data);
       setFormData(data);
-      const data = await response.json();
-      console.log(data);
-      setWorkout(data);
-      setFormData(data);
     }
   }
 
-  async function loadExercises() {
   async function loadExercises() {
     const response = await fetch(
       `${viteUrl}/api/${workoutid}/exerciseinstances/`
     );
     if (response.ok) {
-      const data = await response.json();
-      setExercises(data.instances);
       const data = await response.json();
       setExercises(data.instances);
     }
@@ -148,13 +98,8 @@ function EditWorkout() {
     const url = `${viteUrl}/workouts/${workoutid}`;
     const fetchConfig = {
       method: "put",
-      method: "put",
       body: JSON.stringify(formData),
       headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch(url, fetchConfig);
         "Content-Type": "application/json",
       },
     };
@@ -171,19 +116,12 @@ function EditWorkout() {
       });
     }
   };
-  };
 
   useEffect(() => {
     loadWorkout();
     loadExercises();
   }, []);
-    loadWorkout();
-    loadExercises();
-  }, []);
 
-  const handleFormChange = (e) => {
-    const value = e.target.value;
-    const inputName = e.target.name;
   const handleFormChange = (e) => {
     const value = e.target.value;
     const inputName = e.target.name;
@@ -193,22 +131,9 @@ function EditWorkout() {
       [inputName]: value,
     });
   };
-      [inputName]: value,
-    });
-  };
 
   const [editModeExerciseId, setEditModeExerciseId] = useState(null);
-  const [editModeExerciseId, setEditModeExerciseId] = useState(null);
   const handleEditButtonClick = (exerciseInstanceId, exerciseId) => {
-    setEditModeExerciseId(exerciseInstanceId);
-    setExerciseForm((prevExerciseForm) => ({
-      ...prevExerciseForm,
-      exerciseid: exerciseId,
-    }));
-  };
-  const handleExerciseFormChange = (e) => {
-    const value = e.target.value;
-    const inputName = e.target.name;
     setEditModeExerciseId(exerciseInstanceId);
     setExerciseForm((prevExerciseForm) => ({
       ...prevExerciseForm,
@@ -229,14 +154,8 @@ function EditWorkout() {
     const url = `${viteUrl}/api/${workoutid}/exerciseinstance/?exerciseinstanceid=${editModeExerciseId}`;
     const fetchConfig = {
       method: "put",
-      method: "put",
       body: JSON.stringify(exerciseForm),
       headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    console.log(exerciseForm);
-    const response = await fetch(url, fetchConfig);
         "Content-Type": "application/json",
       },
     };
@@ -245,11 +164,7 @@ function EditWorkout() {
     if (response.ok) {
       const data = await response.json();
       loadExercises();
-      const data = await response.json();
-      loadExercises();
     }
-    setEditModeExerciseId(null);
-  };
     setEditModeExerciseId(null);
   };
 
@@ -260,30 +175,19 @@ function EditWorkout() {
       difficulty: selectedDifficulty,
     });
     const urlWithParams = `${apiUrl}?${queryParams.toString()}`;
-      difficulty: selectedDifficulty,
-    });
-    const urlWithParams = `${apiUrl}?${queryParams.toString()}`;
 
     console.log(
       "Searching with difficulty:",
-      "Searching with difficulty:",
       selectedDifficulty,
       "and muscle:",
-      "and muscle:",
       selectedMuscle
-    );
-    const response = await fetch(urlWithParams);
     );
     const response = await fetch(urlWithParams);
     if (response.ok) {
       const data = await response.json();
       console.log(data);
       setNewExercises(data);
-      const data = await response.json();
-      console.log(data);
-      setNewExercises(data);
     }
-  };
   };
 
   const handleAddExercise = async (event) => {
@@ -299,13 +203,8 @@ function EditWorkout() {
     console.log(url);
     const fetchConfig = {
       method: "post",
-      method: "post",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch(url, fetchConfig);
         "Content-Type": "application/json",
       },
     };
@@ -314,25 +213,17 @@ function EditWorkout() {
       const data = await response.json();
       console.log(data);
       loadExercises();
-      const data = await response.json();
-      console.log(data);
-      loadExercises();
     }
-  };
   };
 
   return (
-    <div className="EditWorkoutMainDiv">
     <div className="EditWorkoutMainDiv">
       <h1>Edit Workout</h1>
       <h2>{workout.name}</h2>
       <div className="container">
         <div className="column">
-      <div className="container">
-        <div className="column">
           <h3>Update Name & Intensity</h3>
           <div>
-            <form onSubmit={handleSubmit} id="edit-workout-form">
             <form onSubmit={handleSubmit} id="edit-workout-form">
               <div>
                 Workout Name
@@ -340,11 +231,7 @@ function EditWorkout() {
                   onChange={handleFormChange}
                   value={formData.name}
                   placeholder="Workout name"
-                  placeholder="Workout name"
                   required
-                  type="text"
-                  id="name"
-                  name="name"
                   type="text"
                   id="name"
                   name="name"
@@ -389,7 +276,6 @@ function EditWorkout() {
                   </TableHead>
                   <TableBody>
                     {exercises.map((exercise) => (
-                    {exercises.map((exercise) => (
                       <TableRow key={exercise.exerciseinstanceid}>
                         <TableCell>{exercise.name}</TableCell>
                         <TableCell>{exercise.muscle}</TableCell>
@@ -400,11 +286,6 @@ function EditWorkout() {
                               <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.weight}
-                                placeholder="weight"
-                                type="int"
-                                id="weight"
-                                name="weight"
-                                style={{ width: "50px" }}
                                 placeholder="weight"
                                 type="int"
                                 id="weight"
@@ -421,22 +302,12 @@ function EditWorkout() {
                                 id="sets"
                                 name="sets"
                                 style={{ width: "50px" }}
-                                placeholder="sets"
-                                type="int"
-                                id="sets"
-                                name="sets"
-                                style={{ width: "50px" }}
                               />
                             </TableCell>
                             <TableCell>
                               <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.reps}
-                                placeholder="reps"
-                                type="int"
-                                id="reps"
-                                name="reps"
-                                style={{ width: "50px" }}
                                 placeholder="reps"
                                 type="int"
                                 id="reps"
@@ -478,20 +349,15 @@ function EditWorkout() {
           </div>
         </div>
         <div className="column">
-        <div className="column">
           <h3>Add Exercise</h3>
-          <div className="container">
-            <div className="column">
           <div className="container">
             <div className="column">
               <h4>Choose a muscle</h4>
               <select
                 name="muscle"
-                name="muscle"
                 value={selectedMuscle}
                 onChange={handleMuscleChange}
               >
-                {MUSCLES.map((muscle) => (
                 {MUSCLES.map((muscle) => (
                   <option key={muscle} value={muscle}>
                     {muscle}
@@ -500,16 +366,11 @@ function EditWorkout() {
               </select>
             </div>
             <div className="column">
-            <div className="column">
               <h4>Choose a difficulty</h4>
               <div>
                 <div>
                   <label>
                     <input
-                      type="checkbox"
-                      name="difficulty"
-                      value="beginner"
-                      checked={selectedDifficulty === "beginner"}
                       type="checkbox"
                       name="difficulty"
                       value="beginner"
@@ -526,10 +387,6 @@ function EditWorkout() {
                       name="difficulty"
                       value="intermediate"
                       checked={selectedDifficulty === "intermediate"}
-                      type="checkbox"
-                      name="difficulty"
-                      value="intermediate"
-                      checked={selectedDifficulty === "intermediate"}
                       onChange={handleCheckboxChange}
                     />
                     Intermediate
@@ -538,10 +395,6 @@ function EditWorkout() {
                 <div>
                   <label>
                     <input
-                      type="checkbox"
-                      name="difficulty"
-                      value="advanced"
-                      checked={selectedDifficulty === "advanced"}
                       type="checkbox"
                       name="difficulty"
                       value="advanced"
@@ -559,7 +412,6 @@ function EditWorkout() {
             <h2>List of Exercises</h2>
             <ul>
               {newexercises.map((exercise) => (
-              {newexercises.map((exercise) => (
                 <li
                   key={exercise.name}
                   style={{
@@ -567,17 +419,10 @@ function EditWorkout() {
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: "8px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "8px",
                   }}
                 >
                   <label style={{ textAlign: "left" }}>
-                  <label style={{ textAlign: "left" }}>
                     <input
-                      type="radio"
-                      name="exercise"
                       type="radio"
                       name="exercise"
                       value={exercise.exerciseid}
@@ -594,7 +439,5 @@ function EditWorkout() {
       </div>
     </div>
   );
-  );
 }
-export default EditWorkout;
 export default EditWorkout;
