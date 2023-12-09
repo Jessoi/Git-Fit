@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from main import app
 from queries.workouts import WorkoutRepository, WorkoutOut
