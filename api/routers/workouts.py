@@ -1,4 +1,10 @@
-from fastapi import APIRouter, Depends
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    status,
+)
+
 from queries.workouts import (
     WorkoutIn,
     WorkoutOut,
@@ -6,6 +12,7 @@ from queries.workouts import (
     ListWorkoutOut,
     FavoriteIn,
 )
+from typing import Union
 
 router = APIRouter()
 
@@ -45,8 +52,13 @@ def delete_workout(
 async def get_one_workout(
     workoutid: int,
     repo: WorkoutRepository = Depends(),
-) -> WorkoutOut:
-    return repo.get_one_workout(workoutid)
+) -> Union[WorkoutOut, HTTPException]:
+    workout = repo.get_one_workout(workoutid)
+    if workout is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Workout not found"
+        )
+    return workout
 
 
 @router.put("/workouts/{workoutid}/updatefavorite", response_model=WorkoutOut)
