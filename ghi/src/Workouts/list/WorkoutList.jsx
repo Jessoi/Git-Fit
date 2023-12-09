@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
+import Tooltip from "@mui/material/Tooltip";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -54,6 +55,8 @@ function UserWorkouts() {
       setDeleted(false);
     }
   }, [userid, deleted]);
+
+  console.log(workouts);
 
   const updateFavorite = async (workoutid, favoriteStatus) => {
     const url = `http://localhost:8000/workouts/${workoutid}/updatefavorite`;
@@ -126,32 +129,42 @@ function UserWorkouts() {
           {workouts.map((workout) => {
             return (
               <tr key={workout.workoutid}>
-                <td
-                  onClick={(event) =>
-                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
-                  }
-                >
-                  {workout.name}
-                </td>
-                <td
-                  onClick={(event) =>
-                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
-                  }
-                >
-                  {workout.intensity}
+                <td>
+                  <Tooltip title={`View details of ${workout.name}`}>
+                    <Button
+                      onClick={(event) =>
+                        (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                      }
+                    >
+                      {workout.name}
+                    </Button>
+                  </Tooltip>
                 </td>
                 <td>
-                  <Button
-                    onClick={() =>
-                      updateFavorite(workout.workoutid, workout.favorite)
-                    }
-                  >
-                    {workout.favorite ? (
-                      <StarIcon style={{ color: "gold" }} />
-                    ) : (
-                      <StarBorderIcon style={{ color: "grey" }} />
-                    )}
-                  </Button>
+                  <Tooltip title={`View details of ${workout.name}`}>
+                    <Button
+                      onClick={(event) =>
+                        (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                      }
+                    >
+                      {workout.intensity}
+                    </Button>
+                  </Tooltip>
+                </td>
+                <td>
+                  <Tooltip title={`Toggle favorite status`}>
+                    <Button
+                      onClick={() =>
+                        updateFavorite(workout.workoutid, workout.favorite)
+                      }
+                    >
+                      {workout.favorite ? (
+                        <StarIcon style={{ color: "gold" }} />
+                      ) : (
+                        <StarBorderIcon style={{ color: "grey" }} />
+                      )}
+                    </Button>
+                  </Tooltip>
                 </td>
                 <td>
                   <Button onClick={() => setDialogOpen(true)}>
@@ -168,13 +181,15 @@ function UserWorkouts() {
                   />
                 </td>
                 <td>
-                  <Button
-                    onClick={(event) =>
-                      (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
-                    }
-                  >
-                    Edit
-                  </Button>
+                  <Tooltip title={`Go to edit page`}>
+                    <Button
+                      onClick={(event) =>
+                        (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                      }
+                    >
+                      Edit
+                    </Button>
+                  </Tooltip>
                 </td>
               </tr>
             );

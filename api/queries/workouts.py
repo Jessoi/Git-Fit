@@ -108,8 +108,11 @@ class WorkoutRepository:
                         workoutid,
                     ],
                 )
-                old_data = workout.dict()
-                return WorkoutOut(workoutid=workoutid, **old_data)
+                try:
+                    old_data = workout.dict()
+                    return WorkoutOut(workoutid=workoutid, **old_data)
+                except Exception:
+                    return {"message": "Could not retrieve workout"}
 
     def delete_workout(self, workoutid: int) -> bool:
         with pool.connection() as conn:
@@ -139,16 +142,20 @@ class WorkoutRepository:
                     """,
                     [workoutid],
                 )
-                response = cur.fetchone()
-                data = {
-                    "workoutid": response[0],
-                    "userid": response[1],
-                    "name": response[2],
-                    "intensity": response[3],
-                    "favorite": response[4],
-                    "workout_datetime": response[5],
-                }
-                return WorkoutOut(**data)
+                try:
+                    response = cur.fetchone()
+                    data = {
+                        "workoutid": response[0],
+                        "userid": response[1],
+                        "name": response[2],
+                        "intensity": response[3],
+                        "favorite": response[4],
+                        "workout_datetime": response[5],
+                    }
+                    return WorkoutOut(**data)
+                except Exception:
+                    print("exception")
+                    return {"message": "Could not retrieve workout"}
 
     def update_favorite(self, workoutid: int, favorite_data: FavoriteIn):
         with pool.connection() as conn:
