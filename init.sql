@@ -174,6 +174,8 @@ VALUES
     from using the biceps to help lift the dumbbells. Only the shoulders should be moving up and down. Lower the dumbbells back to the original position. Repeat for the
     recommended amount of repetitions. Variations: You can perform this exercise with bands, barbells or cables. You can also use a single handle and work one side at a time.');
 
+-- Leg day, name, muscle, difficulty, weight, sets, reps
+
 -- Add some exercise instances
 INSERT INTO exerciseinstances (workoutid, exerciseid, weight, sets, reps)
 VALUES

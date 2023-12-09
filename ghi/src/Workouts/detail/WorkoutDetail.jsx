@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./WorkoutDetail.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
+import { formatDate } from "../../utils/dateutils";
 
 function WorkoutDetail() {
   const [userid, setUserid] = useState(0);
@@ -16,22 +17,21 @@ function WorkoutDetail() {
   });
 
   const [exercises, setExercises] = useState([]);
-
+  const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const workoutid = params.workoutid;
 
   async function loadWorkout() {
-    const response = await fetch(`http://localhost:8000/workouts/${workoutid}`);
+    const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
       const data = await response.json();
       setWorkout(data);
-      setFormData(data);
     }
   }
   async function loadExercises() {
     const response = await fetch(
-      `http://localhost:8000/api/${workoutid}/exerciseinstances/`
+      `${viteUrl}/api/${workoutid}/exerciseinstances/`
     );
     if (response.ok) {
       const data = await response.json();
@@ -42,7 +42,7 @@ function WorkoutDetail() {
 
   const getToken = async () => {
     try {
-      const loginUrl = `http://localhost:8000/token/`;
+      const loginUrl = `${viteUrl}/token/`;
       const fetchConfig = {
         method: "GET",
         headers: {
@@ -71,6 +71,7 @@ function WorkoutDetail() {
     <div>
       <h1 className="title">{workout.name}</h1>
       <h3>Intensity: {workout.intensity}</h3>
+      <h3>When: {formatDate(workout.workout_datetime)}</h3>
       <div>
         <table>
           <thead>

@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
 
+const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
+
 function EditWorkout() {
   const MUSCLES = [
     "abdominals",
@@ -56,6 +58,7 @@ function EditWorkout() {
     name: "",
     intensity: "",
     favorite: false,
+    workout_datetime: "",
   });
 
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -71,7 +74,7 @@ function EditWorkout() {
   });
 
   async function loadWorkout() {
-    const response = await fetch(`http://localhost:8000/workouts/${workoutid}`);
+    const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
       const data = await response.json();
       console.log(data);
@@ -82,7 +85,7 @@ function EditWorkout() {
 
   async function loadExercises() {
     const response = await fetch(
-      `http://localhost:8000/api/${workoutid}/exerciseinstances/`
+      `${viteUrl}/api/${workoutid}/exerciseinstances/`
     );
     if (response.ok) {
       const data = await response.json();
@@ -92,7 +95,7 @@ function EditWorkout() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8000/workouts/${workoutid}`;
+    const url = `${viteUrl}/workouts/${workoutid}`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(formData),
@@ -109,6 +112,7 @@ function EditWorkout() {
         name: "",
         intensity: "",
         favorite: "",
+        workout_datetime: "",
       });
     }
   };
@@ -147,7 +151,7 @@ function EditWorkout() {
   };
 
   const handleSaveButtonClick = async () => {
-    const url = `http://localhost:8000/api/${workoutid}/exerciseinstance/?exerciseinstanceid=${editModeExerciseId}`;
+    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/?exerciseinstanceid=${editModeExerciseId}`;
     const fetchConfig = {
       method: "put",
       body: JSON.stringify(exerciseForm),
@@ -165,7 +169,7 @@ function EditWorkout() {
   };
 
   const handleSearch = async () => {
-    const apiUrl = "http://localhost:8000/api/exercises/search";
+    const apiUrl = `${viteUrl}/api/exercises/search`;
     const queryParams = new URLSearchParams({
       muscle: selectedMuscle,
       difficulty: selectedDifficulty,
@@ -188,7 +192,7 @@ function EditWorkout() {
 
   const handleAddExercise = async (event) => {
     event.preventDefault();
-    const url = `http://localhost:8000/api/${workoutid}/exerciseinstance/`;
+    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/`;
     const data = {};
     data.workoutid = workoutid;
     data.exerciseid = selectedExercise;
@@ -243,6 +247,18 @@ function EditWorkout() {
                   type="text"
                   id="intensity"
                   name="intensity"
+                />
+              </div>
+              <div>
+                Workout Date
+                <Input
+                  onChange={handleFormChange}
+                  value={formData.workout_datetime}
+                  placeholder="Date"
+                  required
+                  type="datetime-local"
+                  id="workout_datetime"
+                  name="workout_datetime"
                 />
               </div>
               <Button onClick={handleSubmit}>Save Changes</Button>

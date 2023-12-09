@@ -1,6 +1,6 @@
 from queries.pool import pool
-from queries.schema import (
-    UserOutWithPassword,
+from queries.user_schema import (
+    UserOutWithPassword
 )
 
 
