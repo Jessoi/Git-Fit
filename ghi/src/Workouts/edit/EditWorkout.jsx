@@ -83,7 +83,6 @@ function EditWorkout() {
     const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setWorkout(data);
       setFormData(data);
     }
@@ -165,7 +164,6 @@ function EditWorkout() {
         "Content-Type": "application/json",
       },
     };
-    console.log(exerciseForm);
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
@@ -182,16 +180,9 @@ function EditWorkout() {
     });
     const urlWithParams = `${apiUrl}?${queryParams.toString()}`;
 
-    console.log(
-      "Searching with difficulty:",
-      selectedDifficulty,
-      "and muscle:",
-      selectedMuscle
-    );
     const response = await fetch(urlWithParams);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setNewExercises(data);
     }
   };
@@ -205,8 +196,6 @@ function EditWorkout() {
     data.weight = 0;
     data.sets = 0;
     data.reps = 0;
-    console.log(data);
-    console.log(url);
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -217,7 +206,6 @@ function EditWorkout() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       loadExercises();
     }
   };
