@@ -6,20 +6,51 @@ body {
   margin: 0;
 }
 
-.MuiPaper-root ul a,
-:any-link {
-  text-decoration: None;
-  color: black;
+.nav {
+  background-color: #00234b;
+  color: #e21818;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0;
+  margin-left: 0;
 }
 
-.MuiBox-root .MuiToolbar-root a,
-:any-link {
-  text-decoration: None;
-  color: whitesmoke;
+.site-title {
+  color: #e21818;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.navul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.nava {
+  color: #e21818;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.navul .nava:hover {
+  text-decoration: none;
+  color: #ffdd83;
+}
+
+.navul .nava {
+  transition: color 0.3s ease;
 }
 
 .background {
-  background-image: url("https://us.123rf.com/450wm/andreyzaretsky/andreyzaretsky1712/andreyzaretsky171200042/91679883-huge-man-is-preparing-to-perform-an-exercise-called-deadlift-mixed-media.jpg?ver=6");
   color: #ffdd83;
   text-align: center;
   background-size: cover;
