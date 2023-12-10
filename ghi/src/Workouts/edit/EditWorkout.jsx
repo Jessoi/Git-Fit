@@ -9,6 +9,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Input from "@mui/material/Input";
+import Box from "@mui/material/Box";
+import Radio from "@mui/material/Radio";
+import InputLabel from '@mui/material/InputLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
 
@@ -77,7 +83,6 @@ function EditWorkout() {
     const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setWorkout(data);
       setFormData(data);
     }
@@ -159,7 +164,6 @@ function EditWorkout() {
         "Content-Type": "application/json",
       },
     };
-    console.log(exerciseForm);
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
@@ -176,16 +180,9 @@ function EditWorkout() {
     });
     const urlWithParams = `${apiUrl}?${queryParams.toString()}`;
 
-    console.log(
-      "Searching with difficulty:",
-      selectedDifficulty,
-      "and muscle:",
-      selectedMuscle
-    );
     const response = await fetch(urlWithParams);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setNewExercises(data);
     }
   };
@@ -199,8 +196,6 @@ function EditWorkout() {
     data.weight = 0;
     data.sets = 0;
     data.reps = 0;
-    console.log(data);
-    console.log(url);
     const fetchConfig = {
       method: "post",
       body: JSON.stringify(data),
@@ -211,7 +206,6 @@ function EditWorkout() {
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       loadExercises();
     }
   };
@@ -350,64 +344,61 @@ function EditWorkout() {
         </div>
         <div className="column">
           <h3>Add Exercise</h3>
-          <div className="container">
-            <div className="column">
-              <h4>Choose a muscle</h4>
-              <select
+          <Box className="container">
+            <Box component={Paper} className="column">
+              <InputLabel>Muscle</InputLabel>
+              <Select
                 name="muscle"
                 value={selectedMuscle}
                 onChange={handleMuscleChange}
               >
                 {MUSCLES.map((muscle) => (
-                  <option key={muscle} value={muscle}>
+                  <MenuItem key={muscle} value={muscle}>
                     {muscle}
-                  </option>
+                  </MenuItem>
                 ))}
-              </select>
-            </div>
-            <div className="column">
+              </Select>
+            </Box>
+            <Box component={Paper} className="column">
               <h4>Choose a difficulty</h4>
               <div>
                 <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                  <InputLabel>
+                    <Checkbox
                       name="difficulty"
                       value="beginner"
                       checked={selectedDifficulty === "beginner"}
                       onChange={handleCheckboxChange}
                     />
                     Beginner
-                  </label>
+                  </InputLabel>
                 </div>
                 <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                  <InputLabel>
+                    <Checkbox
                       name="difficulty"
                       value="intermediate"
                       checked={selectedDifficulty === "intermediate"}
                       onChange={handleCheckboxChange}
                     />
                     Intermediate
-                  </label>
+                  </InputLabel>
                 </div>
                 <div>
-                  <label>
-                    <input
-                      type="checkbox"
+                  <InputLabel>
+                    <Checkbox
                       name="difficulty"
                       value="advanced"
                       checked={selectedDifficulty === "advanced"}
                       onChange={handleCheckboxChange}
                     />
                     Advanced
-                  </label>
+                  </InputLabel>
                 </div>
               </div>
-            </div>
-          </div>
-          <button onClick={handleSearch}>Search</button>
+            </Box>
+          </Box>
+          <Button onClick={handleSearch}>Search</Button>
           <div>
             <h2>List of Exercises</h2>
             <ul>
@@ -421,19 +412,19 @@ function EditWorkout() {
                     padding: "8px",
                   }}
                 >
-                  <label style={{ textAlign: "left" }}>
-                    <input
+                  <InputLabel style={{ textAlign: "left" }}>
+                    <Radio
                       type="radio"
                       name="exercise"
                       value={exercise.exerciseid}
                       onChange={handleRadioChange}
                     />
                     {exercise.name}
-                  </label>
+                  </InputLabel>
                 </li>
               ))}
             </ul>
-            <button onClick={handleAddExercise}>Add Exercise</button>
+            <Button onClick={handleAddExercise}>Add Exercise</Button>
           </div>
         </div>
       </div>

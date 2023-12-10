@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { createTheme } from "@mui/material/styles";
 import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
@@ -29,32 +29,28 @@ function HomePage() {
               <Divider />
               <ListItem disablePadding>
                 <ListItemButton
-                  component="a"
-                  href={`${publicUrl}users/workoutdetails?workoutid=1`}
+                  component={Link} to={`users/workoutdetails?workoutid=1`}
                 >
                   <ListItemText primary="Arms" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton
-                  component="a"
-                  href={`${publicUrl}users/workoutdetails?workoutid=2`}
+                  component={Link} to={`users/workoutdetails?workoutid=2`}
                 >
                   <ListItemText primary="Chest" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton
-                  component="a"
-                  href={`${publicUrl}users/workoutdetails?workoutid=3`}
+                  component={Link} to={`users/workoutdetails?workoutid=3`}
                 >
                   <ListItemText primary="Legs & Glutes" />
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton
-                  component="a"
-                  href={`${publicUrl}users/workoutdetails?workoutid=4`}
+                  component={Link} to={`users/workoutdetails?workoutid=4`}
                 >
                   <ListItemText primary="Back & Shoulders" />
                 </ListItemButton>
