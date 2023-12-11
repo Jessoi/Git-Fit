@@ -4,8 +4,6 @@ from fastapi.testclient import TestClient
 from fastapi import HTTPException
 from pydantic import BaseModel
 
-
-
 client = TestClient(app)
 
 
@@ -17,9 +15,10 @@ class ExerciseInstanceOut(BaseModel):
     sets: int
     reps: int
 
+
 class ExerciseInstanceTestQueries():
-    def get_one_exercise_instance(self, exerciseinstanceid:int):
-        if exerciseinstanceid == 1 :
+    def get_one_exercise_instance(self, exerciseinstanceid: int):
+        if exerciseinstanceid == 1:
             return ExerciseInstanceOut(
                 exerciseinstanceid=1,
                 workoutid=2,
@@ -31,14 +30,15 @@ class ExerciseInstanceTestQueries():
         else:
             raise HTTPException(status_code=500)
 
-    def delete_exercise_instance(self, exerciseinstanceid:int):
+    def delete_exercise_instance(self, exerciseinstanceid: int):
         if exerciseinstanceid == 1:
             return True
         else:
             raise HTTPException(status_code=404)
 
+
 def test_get_all_exercise_instances():
-    app.dependency_overrides[ExerciseInstanceQueries] = ExerciseInstanceTestQueries
+    app.dependency_overrides[ExerciseInstanceQueries] = ExerciseInstanceTestQueries # noqa
 
     response = client.get("/api/{workoutid}/exerciseinstances/1/")
 
@@ -59,10 +59,13 @@ def test_get_all_exercise_instances():
 
     app.dependency_overrides[ExerciseInstanceQueries] = None
 
-def test_delete_exercise_instance():
-    app.dependency_overrides[ExerciseInstanceQueries] = ExerciseInstanceTestQueries
 
-    response = client.delete("/api/{workoutid}/exerciseinstance/?exerciseinstanceid=1")
+def test_delete_exercise_instance():
+    app.dependency_overrides[ExerciseInstanceQueries] = ExerciseInstanceTestQueries # noqa
+
+    response = client.delete(
+        "/api/{workoutid}/exerciseinstance/?exerciseinstanceid=1"
+    )
 
     assert response.status_code == 200
     response_data = {"ok": True}
