@@ -1,31 +1,35 @@
-
-Users
+###Users
 
 GET  /api/users/{userid}/
+```json
     response:
         {
         "userid": 0,
         "username": "string",
         "email": "string"
         }
+```
 
 POST /api/users/
-    request:
+```json
+   request:
         {
         "email": "string",
         "username": "string",
         "password": "string"
         }
-
+```
 PATCH /api/users/change-password/
+```json
     request:
         {
         "current_password": "string",
         "new_password": "string",
         "confirm_password": "string"
         }
-
+```
 PATCH /api/users/{userid}
+```json
     request:
         {
         "first_name": "string",
@@ -33,19 +37,21 @@ PATCH /api/users/{userid}
         "height": "string",
         "weight": "string"
         }
-
+```
 POST /token
+```json
     request:
         {
             "login": "string",
             "password:" "string"
         }
-
+```
 DELETE /token
 
-Exercises
-    GET  /api/exercises/
+###Exercises
 
+GET  /api/exercises/
+```json
         response:
         [
             {
@@ -56,7 +62,8 @@ Exercises
                 "instructions": "string"
             }
         ]
-    POST /api/exercises/create
+```
+POST /api/exercises/create
 
         request body:
             {
@@ -73,7 +80,7 @@ Exercises
                 "difficulty": "string",
                 "instructions": "string"
             }
-    PUT /api/exercises/{exerciseid}
+PUT /api/exercises/{exerciseid}
 
             request body:
             {
@@ -91,7 +98,7 @@ Exercises
                 "instructions": "string"
             }
 
-    DELETE /api/exercises/{exerciseid}
+DELETE /api/exercises/{exerciseid}
 
 Workouts
 
