@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button, Alert } from "@mui/material";
 import ShakeBox from "../assets/shakeComponent";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { StyledTextField } from '../styles.jsx'
 
 const EditProfileForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -89,7 +90,7 @@ const EditProfileForm = () => {
         boxShadow: 2,
       }}
     >
-      <TextField
+      <StyledTextField
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
         label="First Name"
@@ -98,7 +99,7 @@ const EditProfileForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
         label="Last Name"
@@ -107,7 +108,7 @@ const EditProfileForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={height}
         onChange={(e) => setHeight(e.target.value)}
         label="Height"
@@ -116,7 +117,7 @@ const EditProfileForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={weight}
         onChange={(e) => setWeight(e.target.value)}
         label="Weight"

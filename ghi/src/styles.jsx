@@ -2,33 +2,28 @@ import styled from '@emotion/styled';
 import TextField from '@mui/material/TextField';
 
 export const StyledTextField = styled(TextField)`
-  background-color: #333; /* Dark background color */
-  color: #fff; /* Text color */
-  border: 1px solid #fff; /* Border color */
-  border-radius: 4px; /* Optional: Add border radius for rounded corners */
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
 
   & label {
-    color: #fff; /* Label text color */
+    color: #fff;
 
-    /* Override focused state styles */
     &.Mui-focused {
-      color: #fff !important; /* Set the label color when focused */
+      color: #fff !important;
     }
   }
 
   & input {
-    color: #fff; /* Input text color */
+    color: #fff;
 
-    /* Override focused state styles */
     &::placeholder {
-      color: #fff; /* Set the placeholder color when focused */
+      color: #fff;
     }
 
     &:focus {
-      /* Additional styles for the input when focused */
-      border-color: #fff; /* Border color when focused */
+      border-color: #fff;
     }
   }
 `;
-
-

@@ -29,37 +29,31 @@ function App() {
       <BrowserRouter basename={basename}>
         <AuthProvider baseUrl={tokenUrl}>
           <Nav />
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<HomePage />} />
-            <Route path="trainee/login" element={<LoginForm />} />
-            <Route path="trainee/signup" element={<SignupForm />} />
+          <div>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
 
-            {/* Private Routes wrapped in ProtectedRoute */}
-            <Route path="/trainee" element={<ProtectedRoute />}>
-              <Route path="" element={<ProfileView />} />
-              <Route
-                path="change-password"
-                element={<ChangePasswordForm />}
-              />
-              <Route
-                path="edit-profile"
-                element={<EditProfileForm />}
-              />
-              <Route path="logout" element={<LogoutButton />} />
-              <Route path="createworkout" element={<CreateWorkout />} />
-              <Route path="workouts" element={<UserWorkouts />} />
-              <Route path="editworkout" element={<EditWorkout />} />
-              <Route
-                path="workoutdetails"
-                element={<WorkoutDetail />}
-              />
+            <Route path="trainee">
+              <Route path="" element={<ProfileView/>} />
+                <Route path="signup" element={<SignupForm />} />
+                <Route path="login" element={<LoginForm />} />
+                <Route path="logout" element={<LogoutButton />} />
+                <Route path="change-password" element={<ChangePasswordForm />} />
+                <Route path="edit-profile" element={<EditProfileForm />} />
+              </Route>
+            <Route path="users">
+              <Route path="createworkout" element={<CreateWorkout/>} />
+              <Route path="workouts" element={<UserWorkouts/>} />
+              <Route path="editworkout" element={<EditWorkout/>} />
+              <Route path="workoutdetails" element={<WorkoutDetail/>} />
             </Route>
           </Routes>
+          </div>
         </AuthProvider>
       </BrowserRouter>
     </>
-  );
+  )
 }
+
 
 export default App;

@@ -4,6 +4,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { TextField, Button, Alert } from "@mui/material";
 import ShakeBox from "../assets/shakeComponent";
+import { StyledTextField } from '../styles.jsx'
 
 const ChangePasswordForm = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -97,7 +98,7 @@ const ChangePasswordForm = () => {
         boxShadow: 2,
       }}
     >
-      <TextField
+      <StyledTextField
         value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)}
         label="Old Password"
@@ -106,7 +107,7 @@ const ChangePasswordForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
         label="New Password"
@@ -115,7 +116,7 @@ const ChangePasswordForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         label="Confirm Password"

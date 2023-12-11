@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { TextField, Button, Alert } from "@mui/material";
 import ShakeBox from "../assets/shakeComponent";
+import { StyledTextField } from '../styles.jsx'
 
 const getToken = async (baseUrl, username, password) => {
   const formData = new URLSearchParams();
@@ -90,7 +91,7 @@ const LoginForm = () => {
         boxShadow: 2,
       }}
     >
-      <TextField
+      <StyledTextField
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         label="Username"
@@ -99,7 +100,7 @@ const LoginForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         label="Password"
