@@ -8,6 +8,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import Typography from "@mui/material/Typography";
 import { formatDate } from "../utils/dateutils";
 
 function ProfileView() {
@@ -120,84 +126,82 @@ function ProfileView() {
 
   return (
     <div className="workoutListMainDiv">
-      <h1>Upcoming Workouts</h1>
-      <table>
-        <thead className="workoutListTHead">
-          <tr>
-            <th>Workouts</th>
-            <th>Intensity</th>
-            <th>Delete</th>
-            <th>Favorite</th>
-            <th>Date</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {workouts.map((workout) => {
-            return (
-              <tr key={workout.workoutid}>
-                <td
-                  onClick={(event) =>
-                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+      <Typography variant="h4">Upcoming Workouts</Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Workouts</TableCell>
+            <TableCell>Intensity</TableCell>
+            <TableCell>Delete</TableCell>
+            <TableCell>Favorite</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Edit</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {workouts.map((workout) => (
+            <TableRow key={workout.workoutid}>
+              <TableCell
+                onClick={() =>
+                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                }
+              >
+                {workout.name}
+              </TableCell>
+              <TableCell
+                onClick={() =>
+                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                }
+              >
+                {workout.intensity}
+              </TableCell>
+              <TableCell>
+                <Button onClick={() => setDialogOpen(true)}>
+                  <DeleteIcon />
+                </Button>
+                <DeleteDialog
+                  open={isDialogOpen}
+                  onClose={() => setDialogOpen(false)}
+                  onDelete={() => {
+                    deleteWorkout(workout.workoutid);
+                    setDialogOpen(false);
+                  }}
+                  workoutName={workout.name}
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() =>
+                    updateFavorite(workout.workoutid, workout.favorite)
                   }
                 >
-                  {workout.name}
-                </td>
-                <td
-                  onClick={(event) =>
-                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                  {workout.favorite ? (
+                    <StarIcon style={{ color: "gold" }} />
+                  ) : (
+                    <StarBorderIcon style={{ color: "grey" }} />
+                  )}
+                </Button>
+              </TableCell>
+              <TableCell
+                onClick={() =>
+                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                }
+              >
+                {formatDate(workout.workout_datetime)}
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() =>
+                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
                   }
                 >
-                  {workout.intensity}
-                </td>
-                <td>
-                  <Button onClick={() => setDialogOpen(true)}>
-                    <DeleteIcon />
-                  </Button>
-                  <DeleteDialog
-                    open={isDialogOpen}
-                    onClose={() => setDialogOpen(false)}
-                    onDelete={() => {
-                      deleteWorkout(workout.workoutid);
-                      setDialogOpen(false);
-                    }}
-                    workoutName={workout.name}
-                  />
-                </td>
-                <td>
-                  <Button
-                    onClick={() =>
-                      updateFavorite(workout.workoutid, workout.favorite)
-                    }
-                  >
-                    {workout.favorite ? (
-                      <StarIcon style={{ color: "gold" }} />
-                    ) : (
-                      <StarBorderIcon style={{ color: "grey" }} />
-                    )}
-                  </Button>
-                </td>
-                <td
-                  onClick={(event) =>
-                    (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
-                  }
-                >
-                  {formatDate(workout.workout_datetime)}
-                </td>
-                <td>
-                  <Button
-                    onClick={(event) =>
-                      (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
-                    }
-                  >
-                    Edit
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                  Edit
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
