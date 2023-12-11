@@ -1,228 +1,219 @@
 import React, { useState, useEffect } from 'react'
 import './EditWorkout.css'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
-import Input from '@mui/material/Input'
-import Box from '@mui/material/Box'
-import Radio from '@mui/material/Radio'
-import InputLabel from '@mui/material/InputLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Input,
+  Box,
+  InputLabel,
+  Checkbox,
+  Select,
+  MenuItem,
+  TextField,
+} from '@mui/material';
 
 
 const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
 
-function EditWorkout () {
+function EditWorkout() {
   const MUSCLES = [
-    'abdominals',
-    'abductors',
-    'adductors',
-    'biceps',
-    'calves',
-    'chest',
-    'forearms',
-    'glutes',
-    'hamstrings',
-    'lats',
-    'lower_back',
-    'middle_back',
-    'neck',
-    'quadriceps',
-    'traps',
-    'triceps'
-  ]
-  const [selectedMuscle, setSelectedMuscle] = useState('abdominals')
-
-  const handleMuscleChange = event => {
-    setSelectedMuscle(event.target.value)
-  }
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null)
-
-  const handleCheckboxChange = event => {
-    setSelectedDifficulty(event.target.value)
-  }
-
+    "abdominals",
+    "abductors",
+    "adductors",
+    "biceps",
+    "calves",
+    "chest",
+    "forearms",
+    "glutes",
+    "hamstrings",
+    "lats",
+    "lower_back",
+    "middle_back",
+    "neck",
+    "quadriceps",
+    "traps",
+    "triceps",
+  ];
+  const [selectedMuscle, setSelectedMuscle] = useState("abdominals");
+  const handleMuscleChange = (event) => {
+    setSelectedMuscle(event.target.value);
+  };
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const handleCheckboxChange = (event) => {
+    setSelectedDifficulty(event.target.value);
+  };
   const [workout, setWorkout] = useState({
-    userid: '',
-    name: '',
-    intensity: '',
+    userid: "",
+    name: "",
+    intensity: "",
     favorite: false,
-    workout_datetime: ''
-  })
-
-  const [exercises, setExercises] = useState([])
-
-  const [newexercises, setNewExercises] = useState([])
-
-  const [selectedExercise, setSelectedExercise] = useState()
-
-  const handleRadioChange = event => {
-    setSelectedExercise(event.target.value)
-  }
+    workout_datetime: "",
+  });
+  const [exercises, setExercises] = useState([]);
+  const [newexercises, setNewExercises] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState();
+  const handleRadioChange = (event) => {
+    setSelectedExercise(event.target.value);
+  };
 
   const [formData, setFormData] = useState({
-    userid: '',
-    name: '',
-    intensity: '',
+    userid: "",
+    name: "",
+    intensity: "",
     favorite: false,
-    workout_datetime: ''
-  })
+    workout_datetime: "",
+  });
 
-  const urlSearchParams = new URLSearchParams(window.location.search)
-
-  const params = Object.fromEntries(urlSearchParams.entries())
-
-  const workoutid = params.workoutid
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const workoutid = params.workoutid;
 
   const [exerciseForm, setExerciseForm] = useState({
     workoutid: workoutid,
     exerciseid: 0,
     weight: 0,
     reps: 0,
-    sets: 0
-  })
+    sets: 0,
+  });
 
-  async function loadWorkout () {
-    const response = await fetch(`${viteUrl}/workouts/${workoutid}`)
+  async function loadWorkout() {
+    const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
-      const data = await response.json()
-      setWorkout(data)
-      setFormData(data)
+      const data = await response.json();
+      setWorkout(data);
+      setFormData(data);
     }
   }
 
-  async function loadExercises () {
+  async function loadExercises() {
     const response = await fetch(
       `${viteUrl}/api/${workoutid}/exerciseinstances/`
-    )
+    );
     if (response.ok) {
-      const data = await response.json()
-      setExercises(data.instances)
+      const data = await response.json();
+      setExercises(data.instances);
     }
   }
 
-  const handleSubmit = async event => {
-    event.preventDefault()
-    const url = `${viteUrl}/workouts/${workoutid}`
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const url = `${viteUrl}/workouts/${workoutid}`;
     const fetchConfig = {
-      method: 'put',
+      method: "put",
       body: JSON.stringify(formData),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-    const response = await fetch(url, fetchConfig)
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json()
-      loadWorkout()
+      const data = await response.json();
+      loadWorkout();
       setFormData({
-        userid: '',
-        name: '',
-        intensity: '',
-        favorite: '',
-        workout_datetime: ''
-      })
+        userid: "",
+        name: "",
+        intensity: "",
+        favorite: "",
+        workout_datetime: "",
+      });
     }
-  }
+  };
 
   useEffect(() => {
-    loadWorkout()
-    loadExercises()
-  }, [])
+    loadWorkout();
+    loadExercises();
+  }, []);
 
-  const handleFormChange = e => {
-    const value = e.target.value
-    const inputName = e.target.name
+  const handleFormChange = (e) => {
+    const value = e.target.value;
+    const inputName = e.target.name;
 
     setFormData({
       ...formData,
-      [inputName]: value
-    })
-  }
+      [inputName]: value,
+    });
+  };
 
-  const [editModeExerciseId, setEditModeExerciseId] = useState(null)
-
+  const [editModeExerciseId, setEditModeExerciseId] = useState(null);
   const handleEditButtonClick = (exerciseInstanceId, exerciseId) => {
-    setEditModeExerciseId(exerciseInstanceId)
-    setExerciseForm(prevExerciseForm => ({
+    setEditModeExerciseId(exerciseInstanceId);
+    setExerciseForm((prevExerciseForm) => ({
       ...prevExerciseForm,
-      exerciseid: exerciseId
-    }))
-  }
-
-  const handleExerciseFormChange = e => {
-    const value = e.target.value
-    const inputName = e.target.name
+      exerciseid: exerciseId,
+    }));
+  };
+  const handleExerciseFormChange = (e) => {
+    const value = e.target.value;
+    const inputName = e.target.name;
 
     setExerciseForm({
       ...exerciseForm,
-      [inputName]: value
-    })
-  }
+      [inputName]: value,
+    });
+  };
 
   const handleSaveButtonClick = async () => {
-    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/?exerciseinstanceid=${editModeExerciseId}`
+    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/?exerciseinstanceid=${editModeExerciseId}`;
     const fetchConfig = {
-      method: 'put',
+      method: "put",
       body: JSON.stringify(exerciseForm),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-    const response = await fetch(url, fetchConfig)
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json()
-      loadExercises()
+      const data = await response.json();
+      loadExercises();
     }
-    setEditModeExerciseId(null)
-  }
+    setEditModeExerciseId(null);
+  };
 
   const handleSearch = async () => {
-    const apiUrl = `${viteUrl}/api/exercises/search`
+    const apiUrl = `${viteUrl}/api/exercises/search`;
     const queryParams = new URLSearchParams({
       muscle: selectedMuscle,
-      difficulty: selectedDifficulty
-    })
-    const urlWithParams = `${apiUrl}?${queryParams.toString()}`
+      difficulty: selectedDifficulty,
+    });
+    const urlWithParams = `${apiUrl}?${queryParams.toString()}`;
 
-    const response = await fetch(urlWithParams)
+    const response = await fetch(urlWithParams);
     if (response.ok) {
-      const data = await response.json()
-      setNewExercises(data)
+      const data = await response.json();
+      setNewExercises(data);
     }
-  }
+  };
 
-  const handleAddExercise = async event => {
-    event.preventDefault()
-    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/`
-    const data = {}
-    data.workoutid = workoutid
-    data.exerciseid = selectedExercise
-    data.weight = 0
-    data.sets = 0
-    data.reps = 0
+  const handleAddExercise = async (event) => {
+    event.preventDefault();
+    const url = `${viteUrl}/api/${workoutid}/exerciseinstance/`;
+    const data = {};
+    data.workoutid = workoutid;
+    data.exerciseid = selectedExercise;
+    data.weight = 0;
+    data.sets = 0;
+    data.reps = 0;
     const fetchConfig = {
-      method: 'post',
+      method: "post",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-    const response = await fetch(url, fetchConfig)
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      const data = await response.json()
-      loadExercises()
+      const data = await response.json();
+      loadExercises();
     }
-  }
+  };
 
-  return (
+return (
     <div className='EditWorkoutMainDiv'>
       <h1>Edit Workout</h1>
       <h2>{workout.name}</h2>
@@ -446,7 +437,7 @@ function EditWorkout () {
           <Button onClick={handleSearch}>Search</Button>
           <div>
             <h2>List of Exercises</h2>
-<ul>
+            <ul>
               {newexercises.map((exercise) => (
                 <li
                   key={exercise.name}
@@ -454,11 +445,11 @@ function EditWorkout () {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    padding: "0px",
+                    padding: "6px",
                   }}
                 >
                   <label style={{ textAlign: "left" }}>
-                    <Radio
+                    <input
                       type="radio"
                       name="exercise"
                       value={exercise.exerciseid}
@@ -469,12 +460,11 @@ function EditWorkout () {
                 </li>
               ))}
             </ul>
-
-            <Button onClick={handleAddExercise}>Add Exercise</Button>
+            <button onClick={handleAddExercise}>Add Exercise</button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default EditWorkout
+export default EditWorkout;

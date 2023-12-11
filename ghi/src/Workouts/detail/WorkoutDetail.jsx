@@ -4,6 +4,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { formatDate } from '../../utils/dateutils'
 import Box from '@mui/material/Box'
 
@@ -69,9 +70,8 @@ function WorkoutDetail () {
     <div>
       <h1 className='title'>{workout.name}</h1>
       <h3>Intensity: {workout.intensity}</h3>
-      <h3>When: {formatDate(workout.workout_datetime)}</h3>
       <div>
-        <table>
+        <table className="center">
           <thead>
             <tr
               style={{
@@ -81,19 +81,18 @@ function WorkoutDetail () {
                 justifyContent: 'space-between'
               }}
             >
-              <th style={{ textAlign: 'start' }}>Exercises</th>
+              <th style={{ textAlign: 'center', fontSize: '30px' }}>Exercises</th>
             </tr>
           </thead>
           <tbody>
             {exercises.map(exercise => (
               <tr key={exercise.exerciseinstanceid}>
-                <td colSpan='2'>
                   <Accordion>
                     <AccordionSummary>
-                      <Typography>{exercise.name}</Typography>
+                      <Typography style={{fontWeight: "bold", textAlign: "center"}}>{exercise.name}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column'}}>
                         <div>
                           <strong>Target Muscle:</strong> {exercise.muscle}
                         </div>
@@ -114,15 +113,15 @@ function WorkoutDetail () {
                       <div
                         style={{
                           marginLeft: 'auto',
-                          maxWidth: '20rem',
-                          textAlign: 'right'
+                          maxWidth: '60rem',
+                          textAlign: 'left'
                         }}
                       >
                         <strong>Instructions:</strong> {exercise.instructions}
                       </div>
                     </AccordionDetails>
                   </Accordion>
-                </td>
+
               </tr>
             ))}
           </tbody>

@@ -1,3 +1,10 @@
 .createWorkoutMainDiv{
     display: flexbox;
 }
+
+.formated{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    size: 10rem
+}

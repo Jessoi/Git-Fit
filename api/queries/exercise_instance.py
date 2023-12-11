@@ -1,11 +1,3 @@
-# Exercise_instance - Curls: 20lbs, 3 sets, 10 reps
-#     exercise_instance_id(primary key)
-#     workout_id(forign key)
-#     exercise_id(forign key)
-#     weight
-#     sets
-#     reps
-
 from pydantic import BaseModel
 from queries.pool import pool
 

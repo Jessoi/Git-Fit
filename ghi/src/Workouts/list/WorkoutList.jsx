@@ -9,7 +9,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { formatDate } from "../../utils/dateutils";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 function UserWorkouts() {
   const [userid, setUserid] = useState(0);
@@ -54,8 +61,6 @@ function UserWorkouts() {
       setDeleted(false);
     }
   }, [userid, deleted]);
-
-  console.log(workouts);
 
   const updateFavorite = async (workoutid, favoriteStatus) => {
     const url = `${viteUrl}/workouts/${workoutid}/updatefavorite`;
@@ -112,23 +117,43 @@ function UserWorkouts() {
     );
   };
 
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
   return (
     <div className="workoutListMainDiv">
-      <table>
-        <thead className="workoutListTHead">
-          <tr>
-            <th>Workouts</th>
-            <th>Intensity</th>
-            <th>Favorite</th>
-            <th>Delete</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Workouts</StyledTableCell>
+            <StyledTableCell align="left">Intensity</StyledTableCell>
+            <StyledTableCell align="center">Favorite</StyledTableCell>
+            <StyledTableCell align="center">Delete</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {workouts.map((workout) => {
             return (
-              <tr key={workout.workoutid}>
-                <td>
+              <StyledTableRow key={workout.workoutid}>
+                <StyledTableCell component="th" scope="row">
                   <Tooltip title={`View details of ${workout.name}`}>
                     <Button
                       onClick={(event) =>
@@ -138,9 +163,9 @@ function UserWorkouts() {
                       {workout.name}
                     </Button>
                   </Tooltip>
-                </td>
-                <td>{workout.intensity}</td>
-                <td>
+                </StyledTableCell>
+                <StyledTableCell align="right" style={{textAlign: "left"}}>{workout.intensity}</StyledTableCell>
+                <StyledTableCell align="center">
                   <Tooltip title={`Toggle favorite status`}>
                     <Button
                       onClick={() =>
@@ -154,8 +179,8 @@ function UserWorkouts() {
                       )}
                     </Button>
                   </Tooltip>
-                </td>
-                <td>
+                </StyledTableCell>
+                <StyledTableCell align="center">
                   <Button onClick={() => setDialogOpen(true)}>
                     <DeleteIcon />
                   </Button>
@@ -168,8 +193,8 @@ function UserWorkouts() {
                     }}
                     workoutName={workout.name}
                   />
-                </td>
-                <td>
+                </StyledTableCell>
+                <StyledTableCell align="center">
                   <Tooltip title={`Go to edit page`}>
                     <Button
                       onClick={(event) =>
@@ -179,12 +204,13 @@ function UserWorkouts() {
                       Edit
                     </Button>
                   </Tooltip>
-                </td>
-              </tr>
+                </StyledTableCell>
+              </StyledTableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
+      </TableContainer>
     </div>
   );
 }
