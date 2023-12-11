@@ -40,6 +40,7 @@ function EditWorkout() {
     "traps",
     "triceps",
   ];
+  const [userid, setUserid] = useState(0)
   const [selectedMuscle, setSelectedMuscle] = useState("abdominals");
   const handleMuscleChange = (event) => {
     setSelectedMuscle(event.target.value);
@@ -81,6 +82,26 @@ function EditWorkout() {
     reps: 0,
     sets: 0,
   });
+
+  const getToken = async () => {
+    try {
+      const loginUrl = `${viteUrl}/token/`
+      const fetchConfig = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        credentials: 'include'
+      }
+
+      const response = await fetch(loginUrl, fetchConfig)
+      const data = await response.json()
+      setUserid(data.user.userid)
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }
 
   async function loadWorkout() {
     const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
@@ -126,6 +147,7 @@ function EditWorkout() {
   };
 
   useEffect(() => {
+    getToken()
     loadWorkout();
     loadExercises();
   }, []);
@@ -172,7 +194,7 @@ function EditWorkout() {
       const data = await response.json();
       loadExercises();
     }
-    setEditModeExerciseId(null);
+    setEditModeExerciseId(undefined);
   };
 
   const handleSearch = async () => {
@@ -276,7 +298,6 @@ return (
                   onChange={handleFormChange}
                   value={formData.workout_datetime}
                   placeholder='Date'
-                  required
                   type='datetime-local'
                   id='workout_datetime'
                   name='workout_datetime'
@@ -305,7 +326,7 @@ return (
                         {editModeExerciseId === exercise.exerciseinstanceid ? (
                           <>
                             <StyledTableCell>
-                              <Input
+                              <DarkInput
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.weight}
                                 placeholder='weight'
@@ -316,7 +337,7 @@ return (
                               />
                             </StyledTableCell>
                             <StyledTableCell>
-                              <Input
+                              <DarkInput
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.sets}
                                 placeholder='sets'
@@ -327,7 +348,7 @@ return (
                               />
                             </StyledTableCell>
                             <StyledTableCell>
-                              <Input
+                              <DarkInput
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.reps}
                                 placeholder='reps'
