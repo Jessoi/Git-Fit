@@ -100,23 +100,118 @@ PUT /api/exercises/{exerciseid}
 
 DELETE /api/exercises/{exerciseid}
 
-Workouts
+###Workouts
 
-GET  /api/{userid}/workouts/
+GET /api/{userid}/workouts/
+
+        response:
+            {
+                "workoutid": 0,
+                "userid": 0,
+                "name": "string",
+                "intensity": "string",
+                "favorite": bool,
+                "workout_datetime": "datetime"
+            }
 
 POST /api/{userid}/workouts/create
 
+        request body:
+            {
+                "userid": 0,
+                "name": "string",
+                "intensity": "string",
+                "favorite": bool,
+                "workout_datetime": "datetime"
+            }
+        response:
+            {
+                "workoutid": 0,
+                "userid": 0,
+                "name": "string",
+                "intensity": "string",
+                "favorite": bool,
+                "workout_datetime": "datetime"
+            }
+
 PUT /api/{userid}/workouts/{workoutid}
 
+        request body:
+            {
+                "userid": 0,
+                "name": "string",
+                "intensity": "string",
+                "favorite": bool,
+                "workout_datetime": "datetime"
+            }
+        response:
+            {
+                "workoutid": 0,
+                "userid": 0,
+                "name": "string",
+                "intensity": "string",
+                "favorite": bool,
+                "workout_d
+                atetime": "datetime"
+            }
 DELETE /api/{userid}/workouts/{workoutid}
 
+###ExerciseInstances
 
-ExerciseInstances
+GET /api/{workoutid}/exerciseInstances/
 
-GET  /api/{workoutid}/exerciseInstances/
+        response:
+            {
+                "exerciseinstanceid": 0,
+                "workoutid": 0,
+                "exerciseid": 0,
+                "name": "string",
+                "muscle": "string",
+                "difficulty": "string",
+                "instructions": "string",
+                "weight": 0,
+                "sets": 0,
+                "reps": 0
+            }
 
 POST /api/{workoutid}/exerciseInstances/create
 
+        request body:
+            {
+                "workoutid": 0,
+                "exerciseid": 0,
+                "weight": 0,
+                "sets": 0,
+                "reps": 0
+            }
+        response:
+            {
+                "exerciseinstanceid": 0,
+                "workoutid": 0,
+                "exerciseid": 0,
+                "weight": 0,
+                "sets": 0,
+                "reps": 0
+            }
+
 PUT /api/{workoutid}/exerciseInstances/{exerciseInstanceId}
 
+        request body:
+            {
+                "workoutid": 0,
+                "exerciseid": 0,
+                "weight": 0,
+                "sets": 0,
+                "reps": 0
+            }
+        respose:
+            {
+                "exerciseinstanceid": 0,
+                "workoutid": 0,
+                "exerciseid": 0,
+                "weight": 0,
+                "sets": 0,
+                "reps": 0
+            }
+            
 DELETE /api/{workoutid}/exerciseInstances/{exerciseInstanceId}

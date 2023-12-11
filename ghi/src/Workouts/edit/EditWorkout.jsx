@@ -147,7 +147,7 @@ function EditWorkout() {
   };
 
   useEffect(() => {
-    getToken()
+    getToken();
     loadWorkout();
     loadExercises();
   }, []);

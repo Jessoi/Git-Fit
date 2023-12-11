@@ -12,7 +12,7 @@ function CreateWorkout () {
     name: '',
     intensity: '',
     favorite: false,
-    workout_datetime: null
+    workout_datetime: undefined
   })
   const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
   const getToken = async () => {

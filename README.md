@@ -13,6 +13,12 @@ Team:
 - [GHI](https://excalidraw.com/#room=b1e6acc6189e988c043c,CLWdsG9Y6lfsYJqUkt0BWQ)
 - [Integrations](docs/integrations.md)
 
+## Tech Stack
+
+- FastAPI: A high-performance, web framework for building APIs with Python 3.7+.
+- PostgreSQL: A powerful, open-source relational database system.
+- React: A JavaScript library for building user interfaces.
+- Vite: A fast frontend development build tool that streamlines the modern frontend development experience.
 
 ## Intended market
 
@@ -26,6 +32,13 @@ This app serves as a platform for individuals needing a platform to create and s
 - If the user is logged in, they will be able to create a workout and schedule it. This will then be viewable under their personal workout list.
 - From ther workout list view, a user will be able to favorite, edit, delete, or view more detailed information about their workout.
 - When a user edits their workout, they will be able to search a list of exercises by muscle name and exercise difficulty. They will then be able to select, and add them to their workout plan. After an exercise is added to the workout plan, they will be able to edit weight, sets, and reps of an exercise.
+
+## Stretch Goals
+- Implementing a trainer user model that can create and schedule workout plans for children/linked trainee accounts.
+- More robust calendar implementation with a single workout instance able to be assigned to multiple days.
+- Graphs to track progress, potential options: weight gain or loss, tracked exercise maxxes, calories burned in a workout.
+- Wikipedia and/or video or gif tutorial api so the user has visual accompanyment to the text instructions.
+- Implement trainee avatar, badges, levels, achievements to gameify experience increasing drive to stay engaged.
 
 # Project Initialization
 
@@ -42,6 +55,13 @@ VITE_PUBLIC_URL=http://localhost:5173
 API_KEY=topsecret
 ```
 
-5. [Get an api key here](https://rapidapi.com/apininjas/api/exercises-by-api-ninjas) and replace the ```topsecret``` with the your personal key
+5. [Get an api key here](https://rapidapi.com/apininjas/api/exercises-by-api-ninjas) and replace the ```topsecret``` with your personal key
 6. Run the containers: docker compose up
 7. Open browser to localhost:5173
+
+## Testing
+- Preston Ford : api/tests/test_workout.py GET
+- Daniel Glasgow : api/tests/test_exercise.py GET
+- Boris Veits : api/tests/test_users.py GET
+- Matt Verbit : api/tests/test_exercise_instance.py GET
+- Jesse Zhang : api/tests/test_exercise_instance.py DELETE

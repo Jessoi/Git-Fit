@@ -35,3 +35,6 @@ Writing in the middle of the day: I just finished my unit test for get workout_l
 
 12/8/23:
 Today I finished my unit test and helped Daniel and Matt troubleshoot theirs, though we still needed quite a bit of help from SEIRs to complete each of our tests. I started implementing some of the error handling in my routers and queries and ran into an "error" with my create_workout query / router where I am not able to test it in the Swagger docs because I am not passing in the user id parameter and since it defaults to 0 it was only returning 500 errors. I could not figure it out in a timely manner and - since the implementation on the front end demonstrably hit the back end - I moved on.
+
+12/11/23:
+I finished the styling on the home page and worked with the group to finalize some of the styling choices like color and font choice. I wrote the TechStack and Stretch Goals sections of the ReadMe. I generally tried to be helpful for bug fixes but Jesse and Boris were the paragons in that arena.

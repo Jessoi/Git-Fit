@@ -16,7 +16,7 @@ function WorkoutDetail () {
     name: '',
     intensity: '',
     favorite: false,
-    workout_datetime: null
+    workout_datetime: undefined
   })
 
   const [exercises, setExercises] = useState([])

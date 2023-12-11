@@ -1,3 +1,6 @@
+12/11/23
+Today I handled putting together each person's stylings, as well as styling the MUI components through our application with the help of the team. I also handled merging Boris's front end auth fix and managed to get that working. Unfortunately the deployed version's edit page was no longer working after auth implementation, but the local version still works. A bug I will need to fix in the near future.
+
 12/10/23
 Today I merged matt's unit tests and navbar changes to the working main branch so others could work off of it. I also wrote the unit test for the deleting an exercise_instance as well as worked on styling for the edit workout page. As far as styling goes, the edit workout page will change based on window size and now utilizes more mui components. I also handled Daniel's merge errors, for some reason upon building his application, not all of his dependencies in package.json would install, so we had to remove his node_modules folder before we could create a new one.
 
