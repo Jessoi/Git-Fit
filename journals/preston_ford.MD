@@ -29,3 +29,9 @@ I implemented some better styling from Material UI on the workout list page and 
 
 12/6/23:
 Today I intend to finally create a unit test, unsure on which endpoint, I intend to get the links to the hardcoded workouts fully pathed on the home page with some decent styling, and lastly, to clean up the hardcoded workouts.
+
+12/7/23:
+Writing in the middle of the day: I just finished my unit test for get workout_list and it took considerably longer to write/understand than I first estimated. I cleaned up a bit of the hardcoded sql table data so Jesse could work around the issue with serializing exerciseinstanceids. I am now going to work on styling, if I feel very ambitious I might try to get the exercises to display in the list view in accordions.
+
+12/8/23:
+Today I finished my unit test and helped Daniel and Matt troubleshoot theirs, though we still needed quite a bit of help from SEIRs to complete each of our tests. I started implementing some of the error handling in my routers and queries and ran into an "error" with my create_workout query / router where I am not able to test it in the Swagger docs because I am not passing in the user id parameter and since it defaults to 0 it was only returning 500 errors. I could not figure it out in a timely manner and - since the implementation on the front end demonstrably hit the back end - I moved on.

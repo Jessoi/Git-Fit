@@ -4,19 +4,12 @@ from fastapi import (
     APIRouter,
 )
 
-from pydantic import BaseModel
 from queries.exercise_instance import (
-  ExerciseInstanceOut,
-  ExerciseInstanceIn,
-  ExerciseInstanceQueries,
-  ListExerciseInstance
+    ExerciseInstanceOut,
+    ExerciseInstanceIn,
+    ExerciseInstanceQueries,
+    ListExerciseInstance
 )
-
-
-class ExerciseInstanceForm(BaseModel):
-    weight: int
-    sets: int
-    reps: int
 
 
 router = APIRouter()
@@ -30,7 +23,13 @@ async def get_exercise_instance(
     workoutid: int,
     queries: ExerciseInstanceQueries = Depends(),
 ):
-    return queries.get_exercise_instance_list(workoutid)
+    try:
+        return queries.get_exercise_instance_list(workoutid)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"An error has occurred: {str(e)}")
 
 
 @router.get(
@@ -41,7 +40,13 @@ async def get_one_exercise_instance(
     exerciseinstanceid: int,
     queries: ExerciseInstanceQueries = Depends(),
 ) -> ExerciseInstanceOut:
-    return queries.get_one_exercise_instance(exerciseinstanceid)
+    try:
+        return queries.get_one_exercise_instance(exerciseinstanceid)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"An error has occurred: {str(e)}")
 
 
 @router.post(
@@ -52,7 +57,13 @@ def create_exercise_instance(
     exerciseinstance: ExerciseInstanceIn,
     queries: ExerciseInstanceQueries = Depends()
 ):
-    return queries.create_exercise_instance(exerciseinstance)
+    try:
+        return queries.create_exercise_instance(exerciseinstance)
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"An error has occurred: {str(e)}")
 
 
 @router.put(
@@ -66,9 +77,7 @@ async def update_exercise_instance(
 ):
     try:
         updated_instance = queries.update_exercise_instance(
-            exerciseinstanceid,
-            exerciseinstance
-        )
+            exerciseinstanceid, exerciseinstance)
         if updated_instance is None:
             raise HTTPException(status_code=404, detail="Instance not found")
         return updated_instance
@@ -76,14 +85,15 @@ async def update_exercise_instance(
         raise e
     except Exception as e:
         raise HTTPException(
-            status_code=500,
-            detail=f"An error has occured: {str(e)}"
-        )
+            status_code=500, detail=f"An error has occured: {str(e)}")
 
 
-@router.delete("/api/{workoutid}/exerciseinstance/", response_model=bool)
+@router.delete("/api/{workoutid}/exerciseinstance/")
 def delete_exercise_instance(
     exerciseinstanceid: int,
     queries: ExerciseInstanceQueries = Depends(),
 ) -> bool:
-    return queries.delete_exercise_instance(exerciseinstanceid)
+    success = queries.delete_exercise_instance(exerciseinstanceid)
+    if not success:
+        raise HTTPException(status_code=404, detail="Instance not found")
+    return {"ok": True}
