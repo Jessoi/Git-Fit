@@ -24,6 +24,18 @@ const ChangePasswordForm = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (submitted) {
+      // If the password was successfully changed, navigate to /trainee after 2 seconds
+      const timer = setTimeout(() => {
+        navigate("/trainee");
+      }, 2000);
+
+      // Cleanup the timer when the component unmounts
+      return () => clearTimeout(timer);
+    }
+  }, [submitted, navigate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 

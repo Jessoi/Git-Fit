@@ -29,6 +29,14 @@ const getToken = async (baseUrl, username, password) => {
   }
 };
 
+ const showSuccessDialog = () => {
+   setShowDialog(true);
+   setTimeout(() => {
+     setShowDialog(false);
+     navigate("/trainee");
+   }, 3000); // 3000 milliseconds = 3 seconds
+ };
+
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
