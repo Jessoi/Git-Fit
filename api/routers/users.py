@@ -69,11 +69,12 @@ async def create_user(
     return UserToken(user=user, **token.dict())
 
 
-@router.get("/token/", response_model=UserToken | None)
+@router.get("/token", response_model=UserToken | None)
 async def get_token(
     request: Request,
     user: dict = Depends(authenticator.try_get_current_account_data),
 ) -> UserToken | None:
+    print(user)
     if not user or authenticator.cookie_name not in request.cookies:
         return None  # User not authenticated or cookie not found
     return {
