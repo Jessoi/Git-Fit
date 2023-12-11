@@ -125,7 +125,7 @@ const ChangePasswordForm = () => {
         margin="normal"
       />
 
-      <Button variant="contained" onClick={handleSubmit} fullWidth>
+      <Button style={{ backgroundColor: 'orange', color: 'white' }} variant="contained" onClick={handleSubmit} fullWidth>
         Change Password
       </Button>
 
