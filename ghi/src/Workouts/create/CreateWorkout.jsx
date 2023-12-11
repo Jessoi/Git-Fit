@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 
 
@@ -104,12 +106,20 @@ function CreateWorkout() {
   return (
     <div>
       <h1>Create Workout</h1>
-      <form onSubmit={handleSubmit}>
+      <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
         <p>
-        <input
+        <TextField
           onChange={handleFormChange}
           value={formData.name}
-          placeholder="Workout name"
+          label="Workout name"
           required
           type="text"
           id="name"
@@ -117,10 +127,10 @@ function CreateWorkout() {
         />
         </p>
         <p>
-        <input
+        <TextField
           onChange={handleFormChange}
           value={formData.intensity}
-          placeholder="Intensity"
+          label="Intensity"
           required
           type="text"
           id="intensity"
@@ -128,7 +138,7 @@ function CreateWorkout() {
         />
         </p>
         <p>
-        <input
+        <TextField
           onChange={handleFormChange}
           value={formData.workout_datetime}
           placeholder="Date"
@@ -138,7 +148,7 @@ function CreateWorkout() {
         />
         </p>
         <button type="submit">Create workout</button>
-      </form>
+      </Box>
     </div>
   );
 }
