@@ -108,7 +108,7 @@ function HomePage() {
                   size="large"
                   style={{ backgroundColor: 'orange', color: 'white' }}
                   component={Link}
-                  to="/api/users/"
+                  to="/trainee/signup/"
                 >
                   Want to make your own? Sign up now!
                 </Button>
