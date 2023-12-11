@@ -92,12 +92,12 @@ function Nav() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <NavLink to="/users/workouts/">
+              <NavLink to="/trainee/workouts/">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Workouts</Typography>
                 </MenuItem>
               </NavLink>
-              <NavLink to="/users/createworkout/">
+              <NavLink to="/trainee/createworkout/">
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Create Workout</Typography>
                 </MenuItem>
@@ -133,7 +133,7 @@ function Nav() {
             Git-Fit
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <NavLink to="/users/workouts/">
+            <NavLink to="/trainee/workouts/">
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -141,7 +141,7 @@ function Nav() {
                 Workout
               </Button>
             </NavLink>
-            <NavLink to="/users/createworkout/">
+            <NavLink to="/trainee/createworkout/">
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
