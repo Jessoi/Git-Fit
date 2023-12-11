@@ -77,7 +77,7 @@ async def get_token(
     print(user)
     if not user or authenticator.cookie_name not in request.cookies:
         return None
-  # User not authenticated or cookie not found
+    # User not authenticated or cookie not found
     return {
         "access_token": request.cookies[authenticator.cookie_name],
         "type": "Bearer",
