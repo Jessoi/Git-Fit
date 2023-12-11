@@ -13,3 +13,7 @@
 .workoutListTHeadTr {
   display: flex;
 }
+
+.textleft {
+  text-align: left;
+}

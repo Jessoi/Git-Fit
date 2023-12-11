@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import * as React from 'react';
+
 
 
 function CreateWorkout() {
@@ -98,10 +100,12 @@ function CreateWorkout() {
     });
   };
 
+
   return (
     <div>
       <h1>Create Workout</h1>
-      <form onSubmit={handleSubmit} id="create-workout-form">
+      <form onSubmit={handleSubmit}>
+        <p>
         <input
           onChange={handleFormChange}
           value={formData.name}
@@ -111,6 +115,8 @@ function CreateWorkout() {
           id="name"
           name="name"
         />
+        </p>
+        <p>
         <input
           onChange={handleFormChange}
           value={formData.intensity}
@@ -120,6 +126,8 @@ function CreateWorkout() {
           id="intensity"
           name="intensity"
         />
+        </p>
+        <p>
         <input
           onChange={handleFormChange}
           value={formData.workout_datetime}
@@ -128,6 +136,7 @@ function CreateWorkout() {
           id="workout_datetime"
           name="workout_datetime"
         />
+        </p>
         <button type="submit">Create workout</button>
       </form>
     </div>

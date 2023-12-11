@@ -4,6 +4,7 @@
     color:#FFDD83;
     text-shadow: #E21818;
     font-weight: bold;
+    font-size: 38px;
 }
 
 h3 {
@@ -26,4 +27,9 @@ h3 {
 .accordbg {
   background-color: #FFDD83;
   color: #E21818;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
