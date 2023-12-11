@@ -10,7 +10,6 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 const ProtectedRoute = () => {
   const { token } = useToken(); // useToken provides the token and authentication status
   const location = useLocation();
-  console.log(token);
   // If there is no token, it means the user is not authenticated
   if (!token) {
     // Redirect to the login page and pass the current location in state
