@@ -14,7 +14,7 @@ const ChangePasswordForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [shouldshake, setShouldShake] = useState(false); // Add this state
+  const [shouldshake, setShouldShake] = useState(false);
 
   useEffect(() => {
     if (error) {

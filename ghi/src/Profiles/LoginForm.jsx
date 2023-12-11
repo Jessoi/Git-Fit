@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
-import Alert from '@mui/material/Alert';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { TextField, Button, Alert } from "@mui/material";
+import ShakeBox from "../assets/shakeComponent";
 
 const getToken = async (baseUrl, username, password) => {
   const formData = new URLSearchParams();
@@ -29,9 +30,12 @@ const getToken = async (baseUrl, username, password) => {
 };
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [shouldShake, setShouldShake] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
   const { token, setToken, baseUrl } = useAuthContext();
   const navigate = useNavigate();
 
@@ -41,65 +45,81 @@ const LoginForm = () => {
       const newToken = await getToken(baseUrl, username, password);
       if (newToken) {
         setToken(newToken);
-        setErrorMessage('');
+        setErrorMessage("");
+        setSuccessMessage("Login successful. Redirecting...");
       } else {
-        throw new Error('Failed to get token after login.');
+        setShouldShake(true);
+        setTimeout(() => setShouldShake(false), 2000);
+        throw new Error("Failed to get token after login.");
       }
     } catch (error) {
-      console.error('An error occurred during login:', error);
-      setErrorMessage('An error occurred during login. Please try again.');
+      console.error("An error occurred during login:", error);
+      setErrorMessage("An error occurred during login. Please try again.");
     }
   };
 
   useEffect(() => {
     if (token) {
-      navigate('/trainee');
-      setErrorMessage('');
+      // Redirect to /trainee after 2 seconds
+      setTimeout(() => {
+        navigate("/trainee");
+      }, 2000);
+      // Clear success message after 2 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 2000);
     }
   }, [token, navigate]);
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className={`shadow p-4 mt-4 ${errorMessage ? 'shake' : ''}`}>
-          <h1 className="text-center">User Login</h1>
-          <form id="login-form" onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-                type="text"
-                name="username"
-                id="username"
-                className="form-control"
-              />
-              <label htmlFor="username"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-              />
-              <label htmlFor="password"></label>
-            </div>
-            <div className="col text-center">
-              <button className="btn btn-primary">Login</button>
-            </div>
-          </form>
-          {errorMessage && (
-            <div className="mt-2">
-              <Alert severity="error">{errorMessage}</Alert>
-            </div>
-          )}
+    <ShakeBox
+      data-shouldshake={shouldShake ? "true" : "false"}
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 4,
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
+      <TextField
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        label="Username"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        label="Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <Button variant="contained" onClick={handleSubmit} fullWidth>
+        Sign In
+      </Button>
+
+      {errorMessage && (
+        <div className="mt-2">
+          <Alert severity="error">{errorMessage}</Alert>
         </div>
+      )}
+
+      {successMessage && (
+        <div className="mt-2">
+          <Alert severity="success">{successMessage}</Alert>
+        </div>
+      )}
+
+      <div className="mt-2">
+        Don't have an account? Please <a href="/trainee/signup">sign up</a>.
       </div>
-    </div>
+    </ShakeBox>
   );
 };
 

@@ -10,6 +10,10 @@ const shakeKeyframes = keyframes`
 
 const ShakeBox = styled(Box)(({ theme, shouldShake }) => ({
   animation: shouldShake ? `${shakeKeyframes} 1s ease infinite` : "none",
+  // Use the data- prefix for custom attributes
+  '&[data-shouldshake="true"]': {
+    animation: `${shakeKeyframes} 1s ease infinite`,
+  },
 }));
 
 export default ShakeBox;
