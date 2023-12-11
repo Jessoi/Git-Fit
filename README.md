@@ -8,7 +8,7 @@ Team:
 
 ## Design
 
-- [API design](api_endpoints.md)
+- [API design](docs/api_endpoints.MD)
 - [Data model](docs/data_model.md)
 - [GHI](https://excalidraw.com/#room=b1e6acc6189e988c043c,CLWdsG9Y6lfsYJqUkt0BWQ)
 - [Integrations](docs/integrations.md)
