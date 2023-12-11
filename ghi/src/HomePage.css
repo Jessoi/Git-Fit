@@ -1,0 +1,61 @@
+.background-container {
+  background: url("https://images.squarespace-cdn.com/content/v1/562fd127e4b0b5692c6eba03/1461940332836-1FJSGMB2NWA8SJLHKR8K/maxresdefault.jpg?format=1500w")
+    no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+.list-item-text {
+  position: relative;
+  color: white;
+}
+
+.page-header {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 2rem;
+  color: orange;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.list-item-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.list-item-overlay:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.list-item-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+.blurb-container {
+  display: inline-flex;
+  max-width: 39%;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.inlineContent {
+  display: inline-block;
+}
+
+.blurb-text {
+  color: black;
+}

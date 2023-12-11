@@ -9,14 +9,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { StyledTableHead, StyledTableCell, StyledTableRow, OrangeTextButton } from '../../styles.jsx'
 
 function UserWorkouts() {
   const [userid, setUserid] = useState(0);
@@ -110,31 +109,12 @@ function UserWorkouts() {
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={onDelete} autoFocus>
-            <DeleteIcon />
+            <DeleteIcon sx={{ color: '#bbbbbb' }} />
           </Button>
         </DialogActions>
       </Dialog>
     );
   };
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 
   return (
     <div className="workoutListMainDiv">
@@ -142,11 +122,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Workouts</StyledTableCell>
-            <StyledTableCell align="left">Intensity</StyledTableCell>
-            <StyledTableCell align="center">Favorite</StyledTableCell>
-            <StyledTableCell align="center">Delete</StyledTableCell>
-            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableHead>Workouts</StyledTableHead>
+            <StyledTableHead align="left">Intensity</StyledTableHead>
+            <StyledTableHead align="center">Favorite</StyledTableHead>
+            <StyledTableHead align="center">Delete</StyledTableHead>
+            <StyledTableHead align="right"></StyledTableHead>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -155,13 +135,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
               <StyledTableRow key={workout.workoutid}>
                 <StyledTableCell component="th" scope="row">
                   <Tooltip title={`View details of ${workout.name}`}>
-                    <Button
+                    <OrangeTextButton
                       onClick={(event) =>
-                        (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                        (window.location.href = `/trainee/workoutdetails?workoutid=${workout.workoutid}`)
                       }
                     >
                       {workout.name}
-                    </Button>
+                    </OrangeTextButton>
                   </Tooltip>
                 </StyledTableCell>
                 <StyledTableCell align="right" style={{textAlign: "left"}}>{workout.intensity}</StyledTableCell>
@@ -173,7 +153,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
                       }
                     >
                       {workout.favorite ? (
-                        <StarIcon style={{ color: "gold" }} />
+                        <StarIcon style={{ color: "orange" }} />
                       ) : (
                         <StarBorderIcon style={{ color: "grey" }} />
                       )}
@@ -182,7 +162,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <Button onClick={() => setDialogOpen(true)}>
-                    <DeleteIcon />
+                    <DeleteIcon sx={{ color: '#bbbbbb' }} />
                   </Button>
                   <DeleteDialog
                     open={isDialogOpen}
@@ -196,13 +176,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <Tooltip title={`Go to edit page`}>
-                    <Button
+                    <OrangeTextButton
                       onClick={(event) =>
-                        (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                        (window.location.href = `/trainee/editworkout?workoutid=${workout.workoutid}`)
                       }
                     >
                       Edit
-                    </Button>
+                    </OrangeTextButton>
                   </Tooltip>
                 </StyledTableCell>
               </StyledTableRow>

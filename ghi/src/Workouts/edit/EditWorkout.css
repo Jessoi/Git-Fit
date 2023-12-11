@@ -1,17 +1,21 @@
 .EditWorkoutMainDiv{
-    background-color: rgb(255, 255, 255);
+    background-color: #333;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   padding: 5px;
+  background-color: #333; /* Dark background color */
+  color: #fff; /* Text color */
 }
 
 .column {
   width: 48%;
   border: 1px solid #ccc;
   padding: 5px;
+  background-color: #333; /* Dark background color */
+  color: #fff; /* Text color */
 }
 
 @media (max-width: 1000px) {

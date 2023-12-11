@@ -17,7 +17,7 @@ import {
   MenuItem,
   TextField,
 } from '@mui/material';
-
+import { DarkBackgroundBox, DarkBackgroundSelect, DarkInput, DarkInputLabel, StyledTableCell, StyledTableRow, OrangeTextButton } from '../../styles.jsx';
 
 const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
 
@@ -229,10 +229,10 @@ return (
                   justifyContent: 'center'
                 }}
               >
-                <InputLabel style={{ marginRight: '10px' }}>
+                <DarkInputLabel style={{ marginRight: '10px' }}>
                   Workout Name
-                </InputLabel>
-                <Input
+                </DarkInputLabel>
+                <DarkInput
                   onChange={handleFormChange}
                   value={formData.name}
                   placeholder='Workout name'
@@ -249,10 +249,10 @@ return (
                   justifyContent: 'center'
                 }}
               >
-                <InputLabel style={{ marginRight: '10px' }}>
+                <DarkInputLabel style={{ marginRight: '10px' }}>
                   Intensity
-                </InputLabel>
-                <Input
+                </DarkInputLabel>
+                <DarkInput
                   onChange={handleFormChange}
                   value={formData.intensity}
                   placeholder='Intensity'
@@ -269,10 +269,10 @@ return (
                   justifyContent: 'center'
                 }}
               >
-                <InputLabel style={{ marginRight: '10px' }}>
+                <DarkInputLabel style={{ marginRight: '10px' }}>
                   Scheduled Date
-                </InputLabel>
-                <Input
+                </DarkInputLabel>
+                <DarkInput
                   onChange={handleFormChange}
                   value={formData.workout_datetime}
                   placeholder='Date'
@@ -282,28 +282,29 @@ return (
                   name='workout_datetime'
                 />
               </div>
-              <Button onClick={handleSubmit}>Save Changes</Button>
+              <OrangeTextButton onClick={handleSubmit}>Save Changes</OrangeTextButton>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Muscle</TableCell>
-                      <TableCell>Difficulty</TableCell>
-                      <TableCell>Weight</TableCell>
-                      <TableCell>Reps</TableCell>
-                      <TableCell>Sets</TableCell>
-                    </TableRow>
+                    <StyledTableRow>
+                      <StyledTableCell>Name</StyledTableCell>
+                      <StyledTableCell>Muscle</StyledTableCell>
+                      <StyledTableCell>Difficulty</StyledTableCell>
+                      <StyledTableCell>Weight</StyledTableCell>
+                      <StyledTableCell>Reps</StyledTableCell>
+                      <StyledTableCell>Sets</StyledTableCell>
+                      <StyledTableCell></StyledTableCell>
+                    </StyledTableRow>
                   </TableHead>
                   <TableBody>
                     {exercises.map(exercise => (
-                      <TableRow key={exercise.exerciseinstanceid}>
-                        <TableCell>{exercise.name}</TableCell>
-                        <TableCell>{exercise.muscle}</TableCell>
-                        <TableCell>{exercise.difficulty}</TableCell>
+                      <StyledTableRow key={exercise.exerciseinstanceid}>
+                        <StyledTableCell>{exercise.name}</StyledTableCell>
+                        <StyledTableCell>{exercise.muscle}</StyledTableCell>
+                        <StyledTableCell>{exercise.difficulty}</StyledTableCell>
                         {editModeExerciseId === exercise.exerciseinstanceid ? (
                           <>
-                            <TableCell>
+                            <StyledTableCell>
                               <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.weight}
@@ -313,8 +314,8 @@ return (
                                 name='weight'
                                 style={{ width: '50px' }}
                               />
-                            </TableCell>
-                            <TableCell>
+                            </StyledTableCell>
+                            <StyledTableCell>
                               <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.sets}
@@ -324,8 +325,8 @@ return (
                                 name='sets'
                                 style={{ width: '50px' }}
                               />
-                            </TableCell>
-                            <TableCell>
+                            </StyledTableCell>
+                            <StyledTableCell>
                               <Input
                                 onChange={handleExerciseFormChange}
                                 value={exerciseForm.reps}
@@ -335,20 +336,20 @@ return (
                                 name='reps'
                                 style={{ width: '50px' }}
                               />
-                            </TableCell>
-                            <TableCell>
-                              <Button onClick={handleSaveButtonClick}>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                              <OrangeTextButton onClick={handleSaveButtonClick}>
                                 Save
-                              </Button>
-                            </TableCell>
+                              </OrangeTextButton>
+                            </StyledTableCell>
                           </>
                         ) : (
                           <>
-                            <TableCell>{exercise.weight}</TableCell>
-                            <TableCell>{exercise.reps}</TableCell>
-                            <TableCell>{exercise.sets}</TableCell>
-                            <TableCell>
-                              <Button
+                            <StyledTableCell>{exercise.weight}</StyledTableCell>
+                            <StyledTableCell>{exercise.reps}</StyledTableCell>
+                            <StyledTableCell>{exercise.sets}</StyledTableCell>
+                            <StyledTableCell>
+                              <OrangeTextButton
                                 onClick={() =>
                                   handleEditButtonClick(
                                     exercise.exerciseinstanceid,
@@ -357,11 +358,11 @@ return (
                                 }
                               >
                                 Edit
-                              </Button>
-                            </TableCell>
+                              </OrangeTextButton>
+                            </StyledTableCell>
                           </>
                         )}
-                      </TableRow>
+                      </StyledTableRow>
                     ))}
                   </TableBody>
                 </Table>
@@ -371,8 +372,8 @@ return (
         </div>
         <div className='column'>
           <h2>Add Exercise</h2>
-          <Box className='container'>
-            <Box
+          <DarkBackgroundBox className='container'>
+            <DarkBackgroundBox
               component={Paper}
               className='column'
               style={{
@@ -382,7 +383,7 @@ return (
               }}
             >
               <h3>Pick a muscle</h3>
-              <Select
+              <DarkBackgroundSelect
                 name='muscle'
                 value={selectedMuscle}
                 onChange={handleMuscleChange}
@@ -393,13 +394,13 @@ return (
                     {muscle}
                   </MenuItem>
                 ))}
-              </Select>
-            </Box>
-            <Box component={Paper} className='column'>
+              </DarkBackgroundSelect>
+            </DarkBackgroundBox>
+            <DarkBackgroundBox component={Paper} className='column'>
               <h3>Choose a difficulty</h3>
               <div>
                 <div>
-                  <InputLabel>
+                  <DarkInputLabel>
                     <Checkbox
                       name='difficulty'
                       value='beginner'
@@ -407,10 +408,10 @@ return (
                       onChange={handleCheckboxChange}
                     />
                     Beginner
-                  </InputLabel>
+                  </DarkInputLabel>
                 </div>
                 <div>
-                  <InputLabel style={{ marginBottom: '0px' }}>
+                  <DarkInputLabel style={{ marginBottom: '0px' }}>
                     <Checkbox
                       name='difficulty'
                       value='intermediate'
@@ -418,10 +419,10 @@ return (
                       onChange={handleCheckboxChange}
                     />
                     Intermediate
-                  </InputLabel>
+                  </DarkInputLabel>
                 </div>
                 <div>
-                  <InputLabel>
+                  <DarkInputLabel>
                     <Checkbox
                       name='difficulty'
                       value='advanced'
@@ -429,12 +430,12 @@ return (
                       onChange={handleCheckboxChange}
                     />
                     Advanced
-                  </InputLabel>
+                  </DarkInputLabel>
                 </div>
               </div>
-            </Box>
-          </Box>
-          <Button onClick={handleSearch}>Search</Button>
+            </DarkBackgroundBox>
+          </DarkBackgroundBox>
+          <OrangeTextButton onClick={handleSearch}>Search</OrangeTextButton>
           <div>
             <h2>List of Exercises</h2>
             <ul>
@@ -460,7 +461,7 @@ return (
                 </li>
               ))}
             </ul>
-            <button onClick={handleAddExercise}>Add Exercise</button>
+            <OrangeTextButton onClick={handleAddExercise}>Add Exercise</OrangeTextButton>
           </div>
         </div>
       </div>

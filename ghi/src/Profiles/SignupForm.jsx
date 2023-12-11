@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button, Alert } from "@mui/material";
 import ShakeBox from "../assets/shakeComponent";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { StyledTextField } from '../styles.jsx'
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -93,7 +94,7 @@ const SignupForm = () => {
         boxShadow: 2,
       }}
     >
-      <TextField
+      <StyledTextField
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         label="Email"
@@ -102,7 +103,7 @@ const SignupForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         label="Username"
@@ -111,7 +112,7 @@ const SignupForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         label="Password"
@@ -120,7 +121,7 @@ const SignupForm = () => {
         margin="normal"
       />
 
-      <TextField
+      <StyledTextField
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         label="Confirm Password"
@@ -129,7 +130,7 @@ const SignupForm = () => {
         margin="normal"
       />
 
-      <Button variant="contained" onClick={handleSubmit} fullWidth>
+      <Button variant="contained" style={{ backgroundColor: 'orange', color: 'white' }} onClick={handleSubmit} fullWidth>
         Sign Up
       </Button>
 

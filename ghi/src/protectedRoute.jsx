@@ -1,22 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Navigate, useLocation, Outlet } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
-/**
- * A component to protect private routes. It checks if the user is authenticated by
- * checking for a valid token. If the user is not authenticated, they will be redirected
- * to the login page.
- */
+
+const viteUrl = import.meta.env.VITE_PUBLIC_URL;
+
 const ProtectedRoute = () => {
-  const { token } = useToken(); // useToken provides the token and authentication status
+  const { token } = useToken();
   const location = useLocation();
-  // If there is no token, it means the user is not authenticated
+  const [isLoading, setIsLoading] = useState(true);
+  const loadingUrl = `${viteUrl}/src//assets/loading.gif`;
+  useEffect(() => {
+    if (token) {
+      setIsLoading(false);
+    }
+  }, [token]);
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <div>
+          <img src={loadingUrl} alt="Loading" />
+        </div>
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
   if (!token) {
-    // Redirect to the login page and pass the current location in state
     return <Navigate to="/trainee/login" state={{ from: location }} replace />;
   }
 
-  // If a token is present, render the children components which are the protected routes
   return <Outlet />;
 };
 

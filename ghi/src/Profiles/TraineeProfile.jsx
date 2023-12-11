@@ -14,7 +14,9 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 import { formatDate } from "../utils/dateutils";
+import { OrangeTextButton, StyledTableHead, StyledTableCell, StyledTableRow } from '../styles.jsx'
 
 const viteUrl = import.meta.env.VITE_REACT_APP_API_HOST
 
@@ -131,35 +133,39 @@ function ProfileView() {
       <Typography variant="h4">Upcoming Workouts</Typography>
       <Table>
         <TableHead>
-          <TableRow>
-            <TableCell>Workouts</TableCell>
-            <TableCell>Intensity</TableCell>
-            <TableCell>Delete</TableCell>
-            <TableCell>Favorite</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Edit</TableCell>
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableHead>Workouts</StyledTableHead>
+            <StyledTableHead>Intensity</StyledTableHead>
+            <StyledTableHead>Delete</StyledTableHead>
+            <StyledTableHead>Favorite</StyledTableHead>
+            <StyledTableHead>Date</StyledTableHead>
+            <StyledTableHead>Edit</StyledTableHead>
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {workouts.map((workout) => (
-            <TableRow key={workout.workoutid}>
-              <TableCell
+            <StyledTableRow key={workout.workoutid}>
+              <StyledTableCell component="th" scope="row">
+                  <Tooltip title={`View details of ${workout.name}`}>
+                    <OrangeTextButton
+                      onClick={(event) =>
+                        (window.location.href = `/trainee/workoutdetails?workoutid=${workout.workoutid}`)
+                      }
+                    >
+                      {workout.name}
+                    </OrangeTextButton>
+                  </Tooltip>
+                </StyledTableCell>
+              <StyledTableCell
                 onClick={() =>
-                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
-                }
-              >
-                {workout.name}
-              </TableCell>
-              <TableCell
-                onClick={() =>
-                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                  (window.location.href = `/trainee/workoutdetails?workoutid=${workout.workoutid}`)
                 }
               >
                 {workout.intensity}
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <Button onClick={() => setDialogOpen(true)}>
-                  <DeleteIcon />
+                  <DeleteIcon sx={{ color: '#bbbbbb' }}/>
                 </Button>
                 <DeleteDialog
                   open={isDialogOpen}
@@ -170,37 +176,37 @@ function ProfileView() {
                   }}
                   workoutName={workout.name}
                 />
-              </TableCell>
-              <TableCell>
+              </StyledTableCell>
+              <StyledTableCell>
                 <Button
                   onClick={() =>
                     updateFavorite(workout.workoutid, workout.favorite)
                   }
                 >
                   {workout.favorite ? (
-                    <StarIcon style={{ color: "gold" }} />
+                    <StarIcon style={{ color: "orange" }} />
                   ) : (
                     <StarBorderIcon style={{ color: "grey" }} />
                   )}
                 </Button>
-              </TableCell>
-              <TableCell
+              </StyledTableCell>
+              <StyledTableCell
                 onClick={() =>
-                  (window.location.href = `/users/workoutdetails?workoutid=${workout.workoutid}`)
+                  (window.location.href = `/trainee/workoutdetails?workoutid=${workout.workoutid}`)
                 }
               >
                 {formatDate(workout.workout_datetime)}
-              </TableCell>
-              <TableCell>
-                <Button
+              </StyledTableCell>
+              <StyledTableCell>
+                <OrangeTextButton
                   onClick={() =>
-                    (window.location.href = `/users/editworkout?workoutid=${workout.workoutid}`)
+                    (window.location.href = `/trainee/editworkout?workoutid=${workout.workoutid}`)
                   }
                 >
                   Edit
-                </Button>
-              </TableCell>
-            </TableRow>
+                </OrangeTextButton>
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>

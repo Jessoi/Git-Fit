@@ -109,7 +109,7 @@ const LoginForm = () => {
         margin="normal"
       />
 
-      <Button variant="contained" onClick={handleSubmit} fullWidth>
+      <Button style={{ backgroundColor: 'orange', color: 'white' }} variant="contained" onClick={handleSubmit} fullWidth>
         Sign In
       </Button>
 

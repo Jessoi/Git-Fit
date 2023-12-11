@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { formatDate } from '../../utils/dateutils'
 import Box from '@mui/material/Box'
+import { StyledAccordion } from '../../styles.jsx'
 
 function WorkoutDetail () {
   const [userid, setUserid] = useState(0)
@@ -41,28 +42,8 @@ function WorkoutDetail () {
     }
   }
 
-  const getToken = async () => {
-    try {
-      const loginUrl = `${viteUrl}/token/`
-      const fetchConfig = {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        credentials: 'include'
-      }
-
-      const response = await fetch(loginUrl, fetchConfig)
-      const data = await response.json()
-      setUserid(data.user.userid)
-    } catch (error) {
-      return null
-    }
-  }
-
   useEffect(() => {
     loadWorkout()
-    getToken()
     loadExercises()
   }, [])
 
@@ -87,7 +68,7 @@ function WorkoutDetail () {
           <tbody>
             {exercises.map(exercise => (
               <tr key={exercise.exerciseinstanceid}>
-                  <Accordion>
+                  <StyledAccordion>
                     <AccordionSummary>
                       <Typography style={{fontWeight: "bold", textAlign: "center"}}>{exercise.name}</Typography>
                     </AccordionSummary>
@@ -120,8 +101,7 @@ function WorkoutDetail () {
                         <strong>Instructions:</strong> {exercise.instructions}
                       </div>
                     </AccordionDetails>
-                  </Accordion>
-
+                  </StyledAccordion>
               </tr>
             ))}
           </tbody>

@@ -70,7 +70,7 @@ function CreateWorkout () {
       const createdWorkout = await response.json()
       const { workoutid } = createdWorkout
 
-      window.location.href = `/users/editworkout?workoutid=${workoutid}`
+      window.location.href = `/trainee/editworkout?workoutid=${workoutid}`
 
       setFormData({
         userid: userid,
@@ -141,7 +141,13 @@ function CreateWorkout () {
           id='workout_datetime'
           name='workout_datetime'
         />
-        <Button variant="contained" type='submit'>Create workout</Button>
+        <Button
+          style={{ backgroundColor: 'orange', color: 'white', width: '28ch' }}
+          variant='contained'
+          type='submit'
+        >
+          Create workout
+        </Button>
       </Box>
     </div>
   )
