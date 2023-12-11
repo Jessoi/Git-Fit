@@ -20,6 +20,7 @@ class WorkoutTestQueries:
         return None
 
 
+
 def test_get_one_workout():
     app.dependency_overrides[WorkoutRepository] = WorkoutTestQueries
 
