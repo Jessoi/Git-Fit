@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
-import useToken from "@galvanize-inc/jwtdown-for-react";
+import { TextField, Button, Alert } from "@mui/material";
+import ShakeBox from "../assets/shakeComponent";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 const EditProfileForm = () => {
@@ -9,14 +9,20 @@ const EditProfileForm = () => {
   const [lastName, setLastName] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
-
-  const { token } = useToken();
-  const { baseUrl } = useAuthContext();
-
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const [isShaking, setIsShaking] = useState(false); // State to control shaking animation
+  const [showDialog, setShowDialog] = useState(false); // State to show success dialog
 
+  const { token, baseUrl } = useAuthContext();
   const navigate = useNavigate();
+
+  const showSuccessDialog = () => {
+    setShowDialog(true);
+    setTimeout(() => {
+      setShowDialog(false);
+      navigate("/trainee");
+    }, 3000); // 3000 milliseconds = 3 seconds
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,94 +47,102 @@ const EditProfileForm = () => {
     try {
       const response = await fetch(editProfileUrl, fetchConfig);
 
-      console.log("Response status:", response.status);
-      const responseData = await response.json();
-      console.log("Response data:", responseData);
-
       if (response.status === 200) {
         // Profile changed successfully
-        setSubmitted(true);
-        setError(null); // Clear any previous errors
+        setFirstName("");
+        setLastName("");
+        setHeight("");
+        setWeight("");
+        setIsShaking(false);
+        setError(null);
+        showSuccessDialog();
       } else if (response.status === 422) {
         // Validation error
+        const responseData = await response.json();
         setError(responseData.detail[0].msg);
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 2000);
       } else {
         // Handle other error responses
         setError("Error editing profile. Please try again.");
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 2000);
       }
     } catch (error) {
       console.error("Fetch error:", error);
-      setError("An error occurred while making the request. Please try again later.");
+      setError(
+        "An error occurred while making the request. Please try again later."
+      );
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 2000);
     }
   };
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className={`shadow p-4 mt-4 ${error ? 'shake' : ''}`}>
-          <h1 className="text-center">User Edit Profile</h1>
-          <form id="edit-profile-form" onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First name"
-                type="text"
-                name="firstName"
-                id="firstName"
-                className="form-control"
-              />
-              <label htmlFor="firstName"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last name"
-                type="text"
-                name="lastName"
-                id="lastName"
-                className="form-control"
-              />
-              <label htmlFor="lastName"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setHeight(e.target.value)}
-                placeholder="Height"
-                type="text"
-                name="height"
-                id="height"
-                className="form-control"
-              />
-              <label htmlFor="height"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setWeight(e.target.value)}
-                placeholder="Weight"
-                type="text"
-                name="weight"
-                id="weight"
-                className="form-control"
-              />
-              <label htmlFor="weight"></label>
-            </div>
-            <div className="col text-center">
-              <button className="btn btn-primary">Save Changes</button>
-            </div>
-          </form>
-          {submitted && (
-            <div className="mt-2">
-              <Alert severity="success">Profile updated successfully!</Alert>
-            </div>
-          )}
-          {error && (
-            <div className="mt-2">
-              <Alert severity="error">{error}</Alert>
-            </div>
-          )}
+    <ShakeBox
+      data-shouldshake={isShaking ? "true" : "false"} // Apply shaking animation
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 4,
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
+      <TextField
+        value={firstName}
+        onChange={(e) => setFirstName(e.target.value)}
+        label="First Name"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={lastName}
+        onChange={(e) => setLastName(e.target.value)}
+        label="Last Name"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={height}
+        onChange={(e) => setHeight(e.target.value)}
+        label="Height"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+        label="Weight"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <Button variant="contained" onClick={handleSubmit} fullWidth>
+        Save Changes
+      </Button>
+
+      {error && (
+        <div className="mt-2">
+          <Alert severity="error">{error}</Alert>
         </div>
-      </div>
-    </div>
+      )}
+
+      {showDialog && (
+        <div className="mt-2">
+          <Alert severity="success">
+            Edited profile successful! Redirecting...
+          </Alert>
+        </div>
+      )}
+    </ShakeBox>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
+import { TextField, Button, Alert } from "@mui/material";
+import ShakeBox from "../assets/shakeComponent";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 const SignupForm = () => {
@@ -8,9 +9,9 @@ const SignupForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [isShaking, setIsShaking] = useState(false); // State to control shaking animation
 
   const { setToken, baseUrl } = useAuthContext();
   const navigate = useNavigate();
@@ -24,12 +25,15 @@ const SignupForm = () => {
     }, 3000); // 3000 milliseconds = 3 seconds
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check if the password and confirmPassword match
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      setIsShaking(true); // Start shaking animation
+      setTimeout(() => setIsShaking(false), 2000); // Stop shaking after 2 seconds
       return;
     }
 
@@ -50,7 +54,6 @@ const SignupForm = () => {
 
       if (response.status === 200) {
         // User created successfully
-        setSubmitted(true);
         const responseData = await response.json();
         if (responseData?.access_token) {
           setToken(responseData.access_token);
@@ -62,90 +65,86 @@ const SignupForm = () => {
         // User already exists
         const data = await response.json();
         setError(data.detail);
+        setIsShaking(true); // Start shaking animation
+        setTimeout(() => setIsShaking(false), 2000); // Stop shaking after 2 seconds
       } else {
         // Handle other error responses
         setError("User with these credentials already exists.");
+        setIsShaking(true); // Start shaking animation
+        setTimeout(() => setIsShaking(false), 2000); // Stop shaking after 2 seconds
       }
     } catch (error) {
       // Handle any other errors
       console.error("Error:", error);
       setError("User with these credentials already exists.");
+      setIsShaking(true); // Start shaking animation
+      setTimeout(() => setIsShaking(false), 2000); // Stop shaking after 2 seconds
     }
   };
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className={`shadow p-4 mt-4 ${error ? "shake" : ""}`}>
-          <h1 className="text-center">User Signup</h1>
-          <form id="signup-form" onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                type="text"
-                name="email"
-                id="email"
-                className="form-control"
-              />
-              <label htmlFor="Email"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
-                type="text"
-                name="username"
-                id="username"
-                className="form-control"
-              />
-              <label htmlFor="username"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                required
-                type="password"
-                name="password"
-                id="password"
-                className="form-control"
-              />
-              <label htmlFor="password"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm Password"
-                required
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                className="form-control"
-              />
-              <label htmlFor="confirmPassword"></label>
-            </div>
-            <div className="col text-center">
-              <button className="btn btn-primary">Sign up</button>
-            </div>
-          </form>
-          {error && (
-            <div className="mt-2">
-              <Alert severity="error">{error}</Alert>
-            </div>
-          )}
-          {showDialog && (
-            <div className="mt-2">
-              <Alert severity="success">
-                Signup successful! Redirecting...
-              </Alert>
-            </div>
-          )}
+    <ShakeBox
+      data-shouldshake={isShaking ? "true" : "false"} // Apply shaking animation
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 4,
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
+      <TextField
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        label="Email"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        label="Username"
+        type="text"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        label="Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        label="Confirm Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <Button variant="contained" onClick={handleSubmit} fullWidth>
+        Sign Up
+      </Button>
+
+      {error && (
+        <div className="mt-2">
+          <Alert severity="error">{error}</Alert>
         </div>
-      </div>
-    </div>
+      )}
+
+      {showDialog && (
+        <div className="mt-2">
+          <Alert severity="success">Signup successful! Redirecting...</Alert>
+        </div>
+      )}
+    </ShakeBox>
   );
 };
 

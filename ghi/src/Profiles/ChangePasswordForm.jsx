@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from "@mui/material/Alert";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { TextField, Button, Alert } from "@mui/material";
+import ShakeBox from "../assets/shakeComponent";
 
 const ChangePasswordForm = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -11,18 +12,29 @@ const ChangePasswordForm = () => {
   const { token } = useToken();
   const { baseUrl } = useAuthContext();
   const [submitted, setSubmitted] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [shouldshake, setShouldShake] = useState(false);
 
-  // Function to show the dialog and automatically close it after 2 seconds
-  const showSuccessDialog = () => {
-    setShowDialog(true);
-    setTimeout(() => {
-      setShowDialog(false);
-      navigate("/trainee");
-    }, 3000);
-  };
+  useEffect(() => {
+    if (error) {
+      // If there's an error, trigger the shake animation for 2 seconds
+      setShouldShake(true);
+      setTimeout(() => setShouldShake(false), 2000);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (submitted) {
+      // If the password was successfully changed, navigate to /trainee after 2 seconds
+      const timer = setTimeout(() => {
+        navigate("/trainee");
+      }, 2000);
+
+      // Cleanup the timer when the component unmounts
+      return () => clearTimeout(timer);
+    }
+  }, [submitted, navigate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,7 +71,6 @@ const ChangePasswordForm = () => {
       if (response.status === 200) {
         // Password changed successfully
         setSubmitted(true);
-        showSuccessDialog(); // Show success dialog
       } else if (response.status === 422) {
         // Validation error
         setError(responseData.detail[0].msg);
@@ -76,64 +87,52 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className={`shadow p-4 mt-4 ${error ? "shake" : ""}`}>
-          <h1 className="text-center">User Change Password</h1>
-          <form id="signup-form" onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setOldPassword(e.target.value)}
-                placeholder="Old Password"
-                required
-                type="password"
-                name="oldPassword"
-                id="oldPassword"
-                className="form-control"
-              />
-              <label htmlFor="oldPassword"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="New Password"
-                required
-                type="password"
-                name="newPassword"
-                id="newPassword"
-                className="form-control"
-              />
-              <label htmlFor="newPassword"></label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm Password"
-                required
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                className="form-control"
-              />
-              <label htmlFor="confirmPassword"></label>
-            </div>
-            <div className="col text-center">
-              <button className="btn btn-primary">Change Password</button>
-            </div>
-          </form>
-          {error && (
-            <div className="mt-2">
-              <Alert severity="error">{error}</Alert>
-            </div>
-          )}
-          {showDialog && (
-            <div className="mt-2">
-              <Alert severity="success">Password changed successfully!</Alert>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <ShakeBox
+      shouldShake={shouldshake}
+      sx={{
+        width: 400,
+        mx: "auto",
+        p: 4,
+        borderRadius: 2,
+        boxShadow: 2,
+      }}
+    >
+      <TextField
+        value={oldPassword}
+        onChange={(e) => setOldPassword(e.target.value)}
+        label="Old Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        label="New Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <TextField
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        label="Confirm Password"
+        type="password"
+        fullWidth
+        margin="normal"
+      />
+
+      <Button variant="contained" onClick={handleSubmit} fullWidth>
+        Change Password
+      </Button>
+
+      {error && <Alert severity="error">{error}</Alert>}
+      {submitted && (
+        <Alert severity="success">Password Changed Successfully!</Alert>
+      )}
+    </ShakeBox>
   );
 };
 
