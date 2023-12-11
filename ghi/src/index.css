@@ -5,7 +5,7 @@
   padding: 0;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(255, 254, 254);
   background-color: #242424;
 
   font-synthesis: none;
@@ -13,6 +13,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+div {
+  color: rgb(255, 254, 254);
 }
 
 a {
@@ -48,6 +52,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }

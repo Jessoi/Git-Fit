@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { StyledTextField } from '../../styles.jsx';
 
 
 
@@ -116,7 +117,7 @@ function CreateWorkout() {
       onSubmit={handleSubmit}
     >
         <p>
-        <TextField
+        <StyledTextField
           onChange={handleFormChange}
           value={formData.name}
           label="Workout name"
@@ -124,10 +125,14 @@ function CreateWorkout() {
           type="text"
           id="name"
           name="name"
+          InputProps={{ style: { color: '#fff' } }} // Set the text color
+          InputLabelProps={{ style: { color: '#fff' } }} // Set the label color
+          style={{ background: '#333', border: '1px solid #fff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }} // Set the background color
         />
         </p>
         <p>
         <TextField
+          className="inputForDark"
           onChange={handleFormChange}
           value={formData.intensity}
           label="Intensity"
@@ -138,7 +143,7 @@ function CreateWorkout() {
         />
         </p>
         <p>
-        <TextField
+        <StyledTextField
           onChange={handleFormChange}
           value={formData.workout_datetime}
           placeholder="Date"
