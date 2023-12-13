@@ -6,6 +6,7 @@ from authenticator import authenticator
 
 from routers import users
 from routers import exercises
+from routers import llm
 
 app = FastAPI()
 app.include_router(workouts.router)
@@ -23,7 +24,7 @@ app.include_router(users.router, tags=["AUTH"])
 app.include_router(authenticator.router, tags=["AUTH"])
 app.include_router(exercises.router, tags=["Exercises"])
 app.include_router(exercise_instance.router, tags=["Exercise_instance"])
-
+app.include_router(llm.router, tags=["Muscles"])
 
 @app.get("/api/launch-details")
 def launch_details():
