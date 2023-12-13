@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS workouts CASCADE;
 DROP TABLE IF EXISTS exercises CASCADE;
 DROP TABLE IF EXISTS exerciseinstances CASCADE;
+DROP TABLE IF EXISTS muscles CASCADE;
 
 -- Users table (representing Django's auth_user)
 CREATE TABLE IF NOT EXISTS users (
@@ -23,6 +24,13 @@ CREATE TABLE IF NOT EXISTS workouts (
     favorite BOOLEAN DEFAULT FALSE,
     workout_datetime TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS muscles (
+    muscleid SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    description VARCHAR(400)
+);
+
 
 -- CREATE TABLE IF NOT EXISTS scheduledworkout (
 --     id SERIAL PRIMARY KEY,

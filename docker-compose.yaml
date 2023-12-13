@@ -13,6 +13,7 @@ services:
       DATABASE_URL: postgresql://gitfit:secret@postgres/gitfitdb
       SIGNING_KEY: ${SIGNING_KEY}
       API_KEY: ${API_KEY}
+      REPLICATE_API_TOKEN: ${REPLICATE_API_TOKEN}
     build:
       context: api
       dockerfile: Dockerfile.dev
