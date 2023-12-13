@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, Depends
 from queries.muscle_schema import MuscleInfo
 from queries.muscles import MuscleQueries
 

@@ -15,7 +15,6 @@ class UserOut(BaseModel):
     userid: int
     username: str
     email: str
-    height: str
 
 
 class UserOutWithPassword(UserOut):

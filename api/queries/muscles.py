@@ -1,21 +1,27 @@
 import replicate
-import requests  # Import the necessary module for requests.exceptions.RequestException
+import requests
 
 from fastapi import Query
 from queries.pool import pool
 from queries.muscle_schema import MuscleInfo
 
+
 def fetch_muscle(muscle):
     generated_summary = ""
     for event in replicate.stream(
-        "meta/llama-2-7b-chat:13c3cdee13ee059ab779f0291d29054dab00a47dad8261375654de5540165fb0",
+        "meta/llama-2-7b-chat:"
+        "13c3cdee13ee059ab779f0291d29054dab00a47dad8261375654de5540165fb0",
         input={
             "debug": False,
             "top_k": -1,
             "top_p": 1,
             "prompt": f"Tell me about {muscle}",
             "temperature": 0.75,
-            "system_prompt": f"Summarize the {muscle} muscle in 300 characters or less. Provide only the summary, without any introductory phrases or extra text.",
+            "system_prompt": (
+                f"Summarize the {muscle} muscle in 300 characters or less. "
+                "Provide only the summary, without any introductory phrases "
+                "or extra text."
+            ),
             "max_new_tokens": 100,
             "min_new_tokens": -1,
             "repetition_penalty": 1
@@ -26,6 +32,8 @@ def fetch_muscle(muscle):
     generated_summary = generated_summary.replace("\n", "")
 
     return generated_summary
+
+
 class MuscleQueries:
     def get_muscles(self) -> list[MuscleInfo]:
         with pool.connection() as conn:

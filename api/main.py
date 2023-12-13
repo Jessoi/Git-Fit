@@ -26,6 +26,7 @@ app.include_router(exercises.router, tags=["Exercises"])
 app.include_router(exercise_instance.router, tags=["Exercise_instance"])
 app.include_router(llm.router, tags=["Muscles"])
 
+
 @app.get("/api/launch-details")
 def launch_details():
     return {

@@ -82,6 +82,10 @@ function EditWorkout() {
     sets: 0,
   });
 
+  async function loadMuscleInfo(MUSCLES) {
+    
+  }
+
   async function loadWorkout() {
     const response = await fetch(`${viteUrl}/workouts/${workoutid}`);
     if (response.ok) {
