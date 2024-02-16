@@ -16,7 +16,7 @@ const EditProfileForm = () => {
 
   const { token, baseUrl } = useAuthContext();
   const navigate = useNavigate();
-
+  
   const showSuccessDialog = () => {
     setShowDialog(true);
     setTimeout(() => {
